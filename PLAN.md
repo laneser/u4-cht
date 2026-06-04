@@ -345,6 +345,12 @@ CJK 字型 + H1 hook PoC,headless Docker 驗證通過:
 
 **A regime**(320/14px/2 列距)保留於 git 歷史 `ddca555`,可復原。
 
+**深度驗證(2026-06-04,xdotool + self-test)**:
+- ✅ **H1 訊息區**(`screenMessageN`/`cjkBlit`)在 640 正確:self-test 渲染「一位迷人的吟遊詩人。」1 行 + 「馬精西亞城/為其驕傲/所毀。」行距乾淨(`docs/screenshots/14_bfull_msgarea_640.png`)。
+- ✅ **2x 美術對 cinematic 場景絕佳**:intro 月之門故事場景全 640×400 細緻渲染(`docs/screenshots/13_bfull_story_2x.png`)。
+- 🟠 **新發現:intro 故事文字 `showText` 未 hook**(英文)—— 另一文字路徑(不同於 textAt/screenMessageN),與標題動畫同屬 intro 子系統,follow-up。
+- 標題動畫 2x 嘗試兩種 approach(2x 元素系統 / 排除 BKGD_INTRO + drawTitle 2x-blit)皆因 **BKGD_INTRO 雙重用途(背景 + 元素源)+ uint8 plot 座標 + SIGNATURE 漸層**糾纏,已還原;屬獨立深度子任務。
+
 ---
 
 ## 11. 風險與待決 (RAID)
