@@ -23,7 +23,7 @@ index 6736af1..ac16f35 100644
          death.cpp \
          debug.cpp \
 diff --git a/src/screen.cpp b/src/screen.cpp
-index 46d51bd..180f4c8 100644
+index 46d51bd..18b67b2 100644
 --- a/src/screen.cpp
 +++ b/src/screen.cpp
 @@ -25,6 +25,7 @@
@@ -43,18 +43,56 @@ index 46d51bd..180f4c8 100644
  #ifdef GPU_RENDER
      {
      ImageInfo* tinfo;
-@@ -446,7 +449,68 @@ void screenMessageCenter(const char* text, int newlines) {
+@@ -350,6 +353,8 @@ bool screenLayerUsed(int layer) {
+     return XU4_SCREEN->layers[layer].func ? true : false;
+ }
+ 
++static void screenDrawCJKAt(const char* s, int cellX, int cellY);   // U4 繁中化前置宣告
++
+ void screenTextAt(int x, int y, const char *fmt, ...) {
+     char* buffer = XU4_SCREEN->msgBuffer;
+     int i, buflen;
+@@ -359,6 +364,10 @@ void screenTextAt(int x, int y, const char *fmt, ...) {
+     buflen = vsnprintf(buffer, MsgBufferSize, fmt, args);
+     va_end(args);
+ 
++    /* U4 繁中化(#4 HUD):查表命中則以 CJK 渲染在 (x,y) */
++    const char* zh = chtLookup(buffer, buflen);
++    if (zh) { screenDrawCJKAt(zh, x, y); return; }
++
+     for (i = 0; i < buflen; i++)
+         screenShowChar(buffer[i], x + i, y);
+ }
+@@ -403,6 +412,13 @@ void screenMessage(const char *fmt, ...) {
+     if (! c)
+         return; // Some cases (like the intro) don't have the context initiated.
+ 
++    /* U4 繁中化(#3 format-aware):先查 format 字串本身,命中則以中文 format
++     * 餵 vsnprintf —— 中文 zh format 與 en 的 %s/%d/%c 同序(已校驗),引數照常代入。
++     * 結果含 CJK,screenMessageN 會偵測 CJK bytes 改走 CJK 渲染。 */
++    const char* zhFmt = chtLookup(fmt, (int) strlen(fmt));
++    if (zhFmt)
++        fmt = zhFmt;
++
+     va_list args;
+     va_start(args, fmt);
+     buflen = vsnprintf(buffer, MsgBufferSize, fmt, args);
+@@ -446,7 +462,102 @@ void screenMessageCenter(const char* text, int newlines) {
      screenMessageN(start, cp - start);
  }
  
-+/* U4 繁中化:把一個 CJK glyph(dim×dim alpha)blit 到文字區 cell(col,line)。
-+ * CJK 為全形,佔 2 欄 × 2 列(16×16 px),白字黑底。 */
-+static void cjkBlit(uint32_t cp, int col, int line) {
++/* U4 繁中化:buffer 是否含 UTF-8 多位元組(CJK)。 */
++static bool chtHasCJK(const char* s, int len) {
++    for (int i = 0; i < len; ++i)
++        if ((unsigned char) s[i] >= 0x80) return true;
++    return false;
++}
++
++/* U4 繁中化:把一個 CJK glyph(16×16 灰階 alpha)blit 到絕對像素 (px,py)。 */
++static void cjkBlitPx(uint32_t cp, int px, int py) {
 +    const uint8_t* g = chtGlyph(cp);
 +    int dim = chtGlyphDim();
 +    Image* screen = xu4.screenImage;
-+    int px = (TEXT_AREA_X + col) * CHAR_WIDTH;
-+    int py = (TEXT_AREA_Y + line) * CHAR_HEIGHT;
 +    if (! g) {
 +        screen->fillRect(px, py, dim, dim, 60, 60, 60);   // 缺字:灰框
 +        return;
@@ -64,6 +102,34 @@ index 46d51bd..180f4c8 100644
 +            int a = g[y * dim + x];   // 灰階 alpha:白字混黑底(二值 atlas 亦相容)
 +            screen->putPixel(px + x, py + y, a, a, a, 255);
 +        }
++}
++
++/* 文字區 cell(col,line)→ 絕對像素 blit。 */
++static void cjkBlit(uint32_t cp, int col, int line) {
++    cjkBlitPx(cp, (TEXT_AREA_X + col) * CHAR_WIDTH, (TEXT_AREA_Y + line) * CHAR_HEIGHT);
++}
++
++/* U4 繁中化:把已翻譯 UTF-8 字串渲染到絕對 cell(cellX,cellY)起(單行,夾雜 ASCII)。
++ * 供 screenTextAt(HUD)使用。 */
++static void screenDrawCJKAt(const char* s, int cellX, int cellY) {
++    const unsigned char* p = (const unsigned char*) s;
++    int col = 0;
++    while (*p) {
++        unsigned char b = *p;
++        uint32_t cp; int n;
++        if (b < 0x80)            { cp = b;        n = 1; }
++        else if ((b >> 5) == 0x6){ cp = b & 0x1F; n = 2; }
++        else if ((b >> 4) == 0xE){ cp = b & 0x0F; n = 3; }
++        else if ((b >> 3) == 0x1E){cp = b & 0x07; n = 4; }
++        else { ++p; continue; }
++        for (int k = 1; k < n; ++k) {
++            if ((p[k] & 0xC0) != 0x80) { n = k; break; }
++            cp = (cp << 6) | (p[k] & 0x3F);
++        }
++        p += n;
++        if (cp < 0x80) { screenShowChar((int) cp, cellX + col, cellY); col += 1; }
++        else { cjkBlitPx(cp, (cellX + col) * CHAR_WIDTH, cellY * CHAR_HEIGHT); col += 2; }
++    }
 +}
 +
 +/* U4 繁中化:把已翻譯的 UTF-8 中文字串渲染到文字區(CJK-aware,行距 2)。 */
@@ -105,14 +171,16 @@ index 46d51bd..180f4c8 100644
 +}
 +
  void screenMessageN(const char* buffer, int buflen) {
-+    /* U4 繁中化:load-time 查表,命中則改走 CJK 渲染 */
++    /* U4 繁中化:load-time 查表命中,或 buffer 已含 CJK(來自 #3 format-aware
++     * 在 screenMessage 端翻好的 format 字串)→ 走 CJK 渲染 */
 +    const char* zh = chtLookup(buffer, buflen);
 +    if (zh) { screenMessageCJK(zh); return; }
++    if (chtHasCJK(buffer, buflen)) { screenMessageCJK(buffer); return; }
 +
      bool colorize = xu4.settings->enhancements &&
                      xu4.settings->enhancementsOptions.textColorization;
      const int colCount = TEXT_AREA_W;
-@@ -850,7 +914,44 @@ static void screenUploadCursor(Screen* sp, uint32_t stex) {
+@@ -850,7 +961,44 @@ static void screenUploadCursor(Screen* sp, uint32_t stex) {
                      &cimg);
  }
  
@@ -157,3 +225,78 @@ index 46d51bd..180f4c8 100644
      Screen* sp = XU4_SCREEN;
      void* gpu = xu4.gpu;
      ScreenState* ss = &sp->state;
+diff --git a/src/textview.cpp b/src/textview.cpp
+index eb6fcc0..7533538 100644
+--- a/src/textview.cpp
++++ b/src/textview.cpp
+@@ -3,6 +3,7 @@
+  */
+ 
+ #include <stdarg.h>
++#include <cstring>
+ 
+ #include "debug.h"
+ #include "imagemgr.h"
+@@ -11,6 +12,8 @@
+ #include "textview.h"
+ #include "u4.h"
+ #include "xu4.h"
++#include "cht.h"      // U4 繁中化
++#include "image.h"
+ 
+ using std::string;
+ 
+@@ -161,6 +164,43 @@ string TextView::highlightKey(const string& input, unsigned int keyIndex) {
+ }
+ 
+ void TextView::textAt(int x, int y, const char *text) {
++    /* U4 繁中化(#4 intro 選單 / 角色創建):查表命中或字串已含 CJK → CJK 渲染 */
++    const char* zh = chtLookup(text, (int) strlen(text));
++    const char* render = zh ? zh : text;
++    bool hasCJK = false;
++    for (const char* q = render; *q; ++q)
++        if ((unsigned char) *q >= 0x80) { hasCJK = true; break; }
++    if (hasCJK) {
++        const unsigned char* p = (const unsigned char*) render;
++        int col = 0, dim = chtGlyphDim();
++        while (*p) {
++            unsigned char b = *p;
++            uint32_t cp; int n;
++            if (b < 0x80)            { cp = b;        n = 1; }
++            else if ((b >> 5) == 0x6){ cp = b & 0x1F; n = 2; }
++            else if ((b >> 4) == 0xE){ cp = b & 0x0F; n = 3; }
++            else if ((b >> 3) == 0x1E){cp = b & 0x07; n = 4; }
++            else { ++p; continue; }
++            for (int k = 1; k < n; ++k) {
++                if ((p[k] & 0xC0) != 0x80) { n = k; break; }
++                cp = (cp << 6) | (p[k] & 0x3F);
++            }
++            p += n;
++            if (cp < 0x80) { drawChar((int) cp, x + col, y); col += 1; }
++            else {
++                const uint8_t* g = chtGlyph(cp);
++                int px = this->x + (x + col) * CHAR_WIDTH;
++                int py = this->y + y * CHAR_HEIGHT;
++                if (g) for (int yy = 0; yy < dim; ++yy) for (int xx = 0; xx < dim; ++xx) {
++                    int a = g[yy * dim + xx];
++                    xu4.screenImage->putPixel(px + xx, py + yy, a, a, a, 255);
++                } else xu4.screenImage->fillRect(px, py, dim, dim, 60, 60, 60);
++                col += 2;
++            }
++        }
++        return;
++    }
++
+     int ch;
+     while ((ch = *text++)) {
+         switch (ch) {
+@@ -203,6 +243,9 @@ void TextView::textAtFmt(int x, int y, const char *fmt, ...) {
+  * Draw text with a single character highlighted.
+  */
+ void TextView::textAtKey(int x, int y, const char *text, int keyIndex) {
++    /* U4 繁中化:命中則直接以中文渲染(略過 key 高亮);未命中走原流程 */
++    const char* zh = chtLookup(text, (int) strlen(text));
++    if (zh) { textAt(x, y, zh); return; }
+     string ctext = highlightKey(text, keyIndex);
+     textAt(x, y, ctext.c_str());
+ }

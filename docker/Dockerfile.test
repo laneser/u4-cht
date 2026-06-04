@@ -2,9 +2,9 @@
 FROM u4cht/xu4-allegro
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends \
-      xvfb x11-utils x11-apps imagemagick xauth \
+      xvfb x11-utils x11-apps imagemagick xauth xdotool \
       libgl1-mesa-dri mesa-utils \
  && rm -rf /var/lib/apt/lists/*
-COPY shot.sh /usr/local/bin/shot.sh
-RUN chmod +x /usr/local/bin/shot.sh
+COPY shot.sh verify.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/shot.sh /usr/local/bin/verify.sh
 ENTRYPOINT ["/usr/local/bin/shot.sh"]

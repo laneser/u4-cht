@@ -1,0 +1,21 @@
+{
+  "_meta": {
+    "source": "xu4 src TextView::textAt/textAtKey 字面(intro 選單 / 角色創建 / prompt)",
+    "note": "玩家面 UI 字串;HUD stat 標籤(STR:%02d 等)排版緊不譯。en = 引擎字面 lookup key。全形標點。",
+    "translation": {"status": "translated", "date": "2026-06-04", "method": "手譯 + docs/glossary-u4.md"}
+  },
+  "strings": [
+    {"en": "Return to the view", "zh": "返回畫面"},
+    {"en": "Journey Onward", "zh": "啟程冒險"},
+    {"en": "Initiate New Game", "zh": "開始新遊戲"},
+    {"en": "Configure", "zh": "設定"},
+    {"en": "About", "zh": "關於"},
+    {"en": "By what name shalt thou be known", "zh": "汝之名諱為何"},
+    {"en": "in this world and time?", "zh": "於此世此刻?"},
+    {"en": "Art thou Male or Female?", "zh": "汝為男子抑或女子?"},
+    {"en": "In another world, in a time to come.", "zh": "於另一世界,於未來之時。"},
+    {"en": "\"Consider this:\"", "zh": "「且思量此事:」"},
+    {"en": "Options:", "zh": "選項:"},
+    {"en": "Mouse Options:", "zh": "滑鼠選項:"}
+  ]
+}

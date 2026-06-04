@@ -295,6 +295,21 @@ CJK 字型 + H1 hook PoC,headless Docker 驗證通過:
 - **驗證**:`U4CHT_SELFTEST=1` 用真實 `chtLookup` 渲染已知 NPC 對白 → 截圖顯示「一位迷人的吟遊詩人。」「馬精西亞城為其驕傲所毀。」(`docs/screenshots/02_cjk_ingame.png`)。log:`loaded 2614 translations / 1978 glyphs`。
 - **限制**:文字區 16×12@8px → CJK 每行 8 字;含 `%s/%d` 硬編字串需 format-aware;vendor Boron 路徑待驗;長對白 CJK 換行/捲動待精修(P7)。
 
+### 10g. P7 多文字面 hook + 實機驗證(2026-06-04,動引擎)
+
+**新增 hook**(`patches/engine/cht-engine.patch` 已含 screen.cpp 148 行 + textview.cpp 43 行):
+- **#3 format-aware**:`screenMessage` 先查 `fmt` 字串,命中以中文 format 餵 vsnprintf(`%s/%d/%c` 同序);`screenMessageN` 偵測 buffer 含 CJK 即走 CJK 渲染(涵蓋已翻 format 字串)。
+- **#4 HUD**:`screenTextAt` 查表命中 → `screenDrawCJKAt`(絕對 cell CJK)。
+- **#4 intro 選單 / 角色創建**:`TextView::textAt` + `textAtKey` 查表/含 CJK → CJK 渲染(view 原點)。新增 `dumps/ui_bilingual.json`(12 條選單/prompt)併入 lookup(2626 條)。
+
+**#1 實機驗證**(`docker/verify.sh`,xdotool 驅動,**真流程非 self-test**):
+- ✅ 主選單中文(啟程冒險/開始新遊戲/設定/關於)、命名提示、**性別提問「汝為男子抑或女子?」完美**。
+- 截圖 `docs/screenshots/06_intro_menu_cht.png`、`07_charcreate_cht.png`。
+
+**🟠 已知問題(P7 待修)— 固定版面列距**:孤立單行 CJK 完美;但**選單列表 / 多行 prompt** 在 caller 硬編 8px 列距下,CJK 16px **垂直重疊**。訊息區(`screenMessageN`/`screenMessageCJK`)已用 `line+=2` 避開,對白 OK;**固定版面螢幕需 caller 端(intro.cpp)CJK-aware 列距**。
+
+**建置 gotcha 修正**:Docker `COPY` 層快取會用舊 source/資產 → `Dockerfile.zh` 加 `ARG CACHEBUST`(改碼後 `--build-arg CACHEBUST=<新值>` 強制重編);`textview.cpp` 補 `<cstring>`。
+
 ---
 
 ## 11. 風險與待決 (RAID)

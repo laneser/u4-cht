@@ -51,6 +51,13 @@ def collect():
     d = json.load(open("dumps/vendor_bilingual.json", encoding="utf-8"))
     for e in d["strings"]:
         add(e["en"], e["zh"])
+    # UI(intro 選單 / 角色創建 / prompt,TextView::textAt)
+    try:
+        d = json.load(open("dumps/ui_bilingual.json", encoding="utf-8"))
+        for e in d["strings"]:
+            add(e["en"], e["zh"])
+    except FileNotFoundError:
+        pass
     return pairs
 
 

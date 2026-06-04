@@ -17,6 +17,8 @@ RUN git clone https://git.code.sf.net/p/urlan/boron/code /tmp/boron \
  && make DESTDIR=/usr install \
  && make DESTDIR=/usr install-dev
 
+# 破 COPY 快取:改原始碼 / 資產後以 --build-arg CACHEBUST=<新值> 強制重編
+ARG CACHEBUST=1
 COPY . /build/xu4
 WORKDIR /build/xu4
 
