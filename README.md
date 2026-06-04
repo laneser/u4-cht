@@ -103,8 +103,11 @@ docker run --rm -v /tmp/u4shot:/out u4cht/xu4-test 22 3   # → /tmp/u4shot/scre
 | P3 | 文字輸出 hook 盤點(H1–H8) | ✅ |
 | P4 資料面 | `.TLK` / stringtable / 硬編 / vendor 四源抽取 | ✅ |
 | P5 翻譯 | 四源全譯(talk 256 + stringtable 114 + 硬編 318 + vendor 278) | ✅ |
-| P6 | CJK 字型 + 接 hook(動引擎) | ⬜ |
-| P7+ | 整合驗證 / 跨平台打包 | ⬜ |
+| P6 | CJK 字型 + 接 H1 hook(垂直切片,headless 驗證) | 🔵 PoC 通過 |
+| P7+ | 完整 in-game 整合 / format-aware / 跨平台打包 | ⬜ |
+
+![cjk](docs/screenshots/02_cjk_ingame.png)
+*Phase B 驗證:xu4 文字區經真實 `chtLookup`(en→zh)+ CJK 16×16 點陣字渲染中文 —— 「一位迷人的吟遊詩人。」(Iolo)、「馬精西亞城為其驕傲所毀。」*
 
 ---
 

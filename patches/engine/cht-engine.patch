@@ -1,0 +1,159 @@
+diff --git a/project.b b/project.b
+index f83a553..b3f2c0c 100644
+--- a/project.b
++++ b/project.b
+@@ -144,6 +144,7 @@ exe %xu4 [
+ 		%combat.cpp
+ 		%controller.cpp
+ 		%context.cpp
++		%cht.cpp
+ 		%creature.cpp
+ 		%death.cpp
+ 		%debug.cpp
+diff --git a/src/Makefile.common b/src/Makefile.common
+index 6736af1..ac16f35 100644
+--- a/src/Makefile.common
++++ b/src/Makefile.common
+@@ -22,6 +22,7 @@ CXXSRCS=\
+         combat.cpp \
+         controller.cpp \
+         context.cpp \
++        cht.cpp \
+         creature.cpp \
+         death.cpp \
+         debug.cpp \
+diff --git a/src/screen.cpp b/src/screen.cpp
+index 46d51bd..7cfed93 100644
+--- a/src/screen.cpp
++++ b/src/screen.cpp
+@@ -25,6 +25,7 @@
+ #include "tileset.h"
+ #include "xu4.h"
+ #include "gpu.h"
++#include "cht.h"      // U4 繁中化 hook
+ 
+ using std::vector;
+ 
+@@ -189,6 +190,8 @@ static void screenInit_data(Screen* scr, Settings& settings) {
+     if (! scr->charsetInfo)
+         errorLoadImage(BKGD_CHARSET);
+ 
++    chtInit();      // 載入 en→zh lookup + CJK 字型
++
+ #ifdef GPU_RENDER
+     {
+     ImageInfo* tinfo;
+@@ -446,7 +449,68 @@ void screenMessageCenter(const char* text, int newlines) {
+     screenMessageN(start, cp - start);
+ }
+ 
++/* U4 繁中化:把一個 CJK glyph(dim×dim alpha)blit 到文字區 cell(col,line)。
++ * CJK 為全形,佔 2 欄 × 2 列(16×16 px),白字黑底。 */
++static void cjkBlit(uint32_t cp, int col, int line) {
++    const uint8_t* g = chtGlyph(cp);
++    int dim = chtGlyphDim();
++    Image* screen = xu4.screenImage;
++    int px = (TEXT_AREA_X + col) * CHAR_WIDTH;
++    int py = (TEXT_AREA_Y + line) * CHAR_HEIGHT;
++    if (! g) {
++        screen->fillRect(px, py, dim, dim, 60, 60, 60);   // 缺字:灰框
++        return;
++    }
++    for (int y = 0; y < dim; ++y)
++        for (int x = 0; x < dim; ++x) {
++            int a = g[y * dim + x] ? 255 : 0;
++            screen->putPixel(px + x, py + y, a, a, a, 255);
++        }
++}
++
++/* U4 繁中化:把已翻譯的 UTF-8 中文字串渲染到文字區(CJK-aware,行距 2)。 */
++static void screenMessageCJK(const char* s) {
++    const int colCount = TEXT_AREA_W;
++    const unsigned char* p = (const unsigned char*) s;
++    if (c->line >= TEXT_AREA_H) { c->line = TEXT_AREA_H - 1; screenScrollMessageArea(); }
++    while (*p) {
++        unsigned char b = *p;
++        if (b == '\n') {
++            c->col = 0; c->line += 2;
++            while (c->line >= TEXT_AREA_H) { c->line--; screenScrollMessageArea(); }
++            ++p; continue;
++        }
++        uint32_t cp; int n;
++        if (b < 0x80)            { cp = b;        n = 1; }
++        else if ((b >> 5) == 0x6){ cp = b & 0x1F; n = 2; }
++        else if ((b >> 4) == 0xE){ cp = b & 0x0F; n = 3; }
++        else if ((b >> 3) == 0x1E){cp = b & 0x07; n = 4; }
++        else { ++p; continue; }
++        for (int k = 1; k < n; ++k) {
++            if ((p[k] & 0xC0) != 0x80) { n = k; break; }
++            cp = (cp << 6) | (p[k] & 0x3F);
++        }
++        p += n;
++        if (cp < 0x80) {                          // 夾雜 ASCII
++            if (c->col >= colCount) { c->col = 0; c->line += 2;
++                while (c->line >= TEXT_AREA_H) { c->line--; screenScrollMessageArea(); } }
++            screenShowChar((int) cp, TEXT_AREA_X + c->col, TEXT_AREA_Y + c->line);
++            c->col++;
++        } else {                                  // CJK 全形,佔 2 欄
++            if (c->col + 2 > colCount) { c->col = 0; c->line += 2;
++                while (c->line >= TEXT_AREA_H) { c->line--; screenScrollMessageArea(); } }
++            cjkBlit(cp, c->col, c->line);
++            c->col += 2;
++        }
++    }
++    screenSetCursorPos(TEXT_AREA_X + c->col, TEXT_AREA_Y + c->line);
++}
++
+ void screenMessageN(const char* buffer, int buflen) {
++    /* U4 繁中化:load-time 查表,命中則改走 CJK 渲染 */
++    const char* zh = chtLookup(buffer, buflen);
++    if (zh) { screenMessageCJK(zh); return; }
++
+     bool colorize = xu4.settings->enhancements &&
+                     xu4.settings->enhancementsOptions.textColorization;
+     const int colCount = TEXT_AREA_W;
+@@ -850,7 +914,44 @@ static void screenUploadCursor(Screen* sp, uint32_t stex) {
+                     &cimg);
+ }
+ 
++/* U4 繁中化 self-test(env U4CHT_SELFTEST):headless 驗證
++ * 資產載入→真實 chtLookup→CJK glyph blit→上傳 全鏈路。每幀覆寫到文字區。 */
++static void chtSelfTest() {
++    if (! getenv("U4CHT_SELFTEST")) return;
++    static const char* keys[] = {
++        "a charming bard.",
++        "Magincia was\ndestroyed by its\npride.",
++    };
++    int line = 0;
++    for (int ki = 0; ki < 2; ++ki) {
++        const char* en = keys[ki];
++        const char* zh = chtLookup(en, (int) strlen(en));
++        if (! zh) { line += 2; continue; }
++        int col = 0;
++        const unsigned char* p = (const unsigned char*) zh;
++        while (*p) {
++            unsigned char b = *p;
++            if (b == '\n') { col = 0; line += 2; ++p; continue; }
++            uint32_t cp; int n;
++            if (b < 0x80)             { cp = b;        n = 1; }
++            else if ((b >> 5) == 0x6) { cp = b & 0x1F; n = 2; }
++            else if ((b >> 4) == 0xE) { cp = b & 0x0F; n = 3; }
++            else if ((b >> 3) == 0x1E){ cp = b & 0x07; n = 4; }
++            else { ++p; continue; }
++            for (int k = 1; k < n; ++k) { if ((p[k] & 0xC0) != 0x80) { n = k; break; }
++                cp = (cp << 6) | (p[k] & 0x3F); }
++            p += n;
++            if (cp < 0x80) { screenShowChar((int) cp, TEXT_AREA_X + col, TEXT_AREA_Y + line); col++; }
++            else { if (col + 2 > TEXT_AREA_W) { col = 0; line += 2; }
++                cjkBlit(cp, col, line); col += 2; }
++        }
++        line += 2;
++    }
++    XU4_SCREEN->uploadScreen = 1;
++}
++
+ void screenRender() {
++    chtSelfTest();
+     Screen* sp = XU4_SCREEN;
+     void* gpu = xu4.gpu;
+     ScreenState* ss = &sp->state;

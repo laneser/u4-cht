@@ -117,3 +117,22 @@ python3 tools/talk_batches.py merge --in dumps/talk_bilingual.json
 | `dumps/*_report.md` | 各抽取的對齊/統計報告 |
 | `docs/` | P3 hook 盤點等工程文件 |
 | `data/`(gitignore) | 原始遊戲資料(zip / `.TLK`),由 `make download` 重建 |
+
+## 6. 字型 + 接 hook(P6,動引擎)
+
+```bash
+# 產生 CJK 字型 atlas(掃四源 zh,1978 漢字)+ en→zh 二進位 lookup
+python3 tools/build_cjk_font.py --font /usr/share/fonts/truetype/arphic/uming.ttc \
+  --size 16 --out assets/cjk_font.bin --preview assets/cjk_preview.png
+python3 tools/build_lookup.py --out assets/u4_cht.tab
+
+# 套引擎 patch 到 xu4 + 安裝資產 → 重建
+bash tools/apply_cht.sh
+docker build -f docker/Dockerfile.zh -t u4cht/xu4-allegro xu4
+docker build -f docker/Dockerfile.test -t u4cht/xu4-test docker
+
+# headless 自測(env 守護,渲染已知 NPC 對白驗證全鏈路)
+docker run --rm -e U4CHT_SELFTEST=1 -v /tmp/u4shot:/out u4cht/xu4-test 6 3
+```
+
+引擎改動見 `patches/engine/`(cht.cpp/h + cht-engine.patch)。
