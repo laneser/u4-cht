@@ -84,11 +84,25 @@ python3 tools/extract_vendor_boron.py --files xu4/module/Ultima-IV/vendors.b \
   --out dumps/vendor_bilingual.json --out-report dumps/vendor_report.md
 ```
 
+## 5. 翻譯 NPC 對話(P5,分批平行 + 共享 glossary)
+
+```bash
+# 切批(8 批,每批 2 城)
+python3 tools/talk_batches.py split --in dumps/talk_bilingual.json --batches 8
+# → 8 個平行翻譯 agent 各翻一批,依 docs/glossary-u4.md 填 zh,寫 batch_NN.zh.json
+# 合併回填 + 覆蓋率
+python3 tools/talk_batches.py merge --in dumps/talk_bilingual.json
+```
+
+譯名/風格權威:`docs/glossary-u4.md`(八德/城市/真言/夥伴固定譯名 + 文白並用)。
+
 ## 檔案
 
 | 路徑 | 說明 |
 |---|---|
 | `PLAN.md` | 評估 + 執行計畫(權威文件) |
+| `docs/glossary-u4.md` | 共享翻譯 glossary(術語權威) |
+| `tools/talk_batches.py` | talk 雙語表分批 / 合併(供平行翻譯) |
 | `docker/Dockerfile.zh` | xu4 Allegro 5 Linux build |
 | `docker/Dockerfile.test` | 在上者之上加 headless 截圖工具 |
 | `docker/shot.sh` | Xvfb + llvmpipe 跑 xu4 並截圖 |

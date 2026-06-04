@@ -211,7 +211,7 @@ U6-cht 的核心經驗可直接套用:
 | **P2 字型 PoC** | headless 截圖 loop + 文字架構盤點 + 字型可行性驗證 | ✅ **loop+驗證完成**(§10a/§9);畫出中文字移至 P4(需先建字型資產) |
 | **P3 文字 hook 盤點** | grep xu4 所有輸出 codepath,產 hook backlog | ✅ **已完成**:`docs/P3-hooks.md`(H1–H8 + 字串來源 + P4 backlog) |
 | **P4 字串抽取 + 對齊** | 抽英文字串,對齊 `talk.json` 底本,建雙語表 | 🔵 **資料面已完成**:`tools/extract_tlk.py` → 256 NPC 雙語表 `dumps/talk_bilingual.json`(§10c);intro/硬編字串待抽 |
-| **P5 翻譯** | 對話 + 系統字串中文化(glossary + 文白並用) | 翻譯資料 JSON |
+| **P5 翻譯** | 對話 + 系統字串中文化(glossary + 文白並用) | 🔵 **NPC 對話完成**:`talk_bilingual.json` 256 NPC zh 100%(§10e);stringtable/硬編/vendor 待譯 |
 | **P6 整合驗證** | lookup 接上、CJK 換行、game tester 背景跑最小遊玩迴圈 | tester 無 regression |
 | **P7 收尾** | 跨平台(Win)打包、README/CREDITS、授權聲明 | 可散布(自用)版本 |
 
@@ -265,6 +265,15 @@ U6-cht 的核心經驗可直接套用:
 - 翻譯注意:`%c…%c` 顏色碼保留;含 `%s/%d` 需 format-aware hook;vendor 佔位 `@ % $ # = $gp` 保留;原版拼寫不一致需 glossary 正規化。
 - **資料面收尾**:`.TLK` 256 NPC + stringtable 114 + 硬編 318 + vendor 278 = **資料面四源齊備**;僅剩 `maps.b`/`config.b` 零星告示牌(低優先)。
 - 詳見 `docs/P3-hooks.md` §7。
+
+### 10e. P5 翻譯:NPC 對話(2026-06-04)
+
+`talk_bilingual.json` 256 NPC 翻譯,**分批平行 + 共享 glossary**(純資料,不改引擎):
+
+- **共享 glossary**:`docs/glossary-u4.md`(八德/城市/真言/職業/夥伴固定譯名 + 文白並用規則 + 欄位規則),所有 agent 必須遵守 → 避免術語漂移(U6 坑 #7)。
+- **流程**:`tools/talk_batches.py split`(8 批,每批 2 城 32 NPC)→ 8 個平行 agent 翻譯 → `merge` 回填 → 正規化(空槽 `"A"` 還原、keyword 強制空)。
+- **結果**:非 keyword 欄位 **2560/2560 = 100%** 已譯;`keyword_1/2` 不譯(玩家輸入英文指令);真言代碼(AHM/MU…)6/6 保留;`Avatar→聖者`、`Lord British→不列顛王` 跨批 **0 不一致**。
+- 中間批次檔(`dumps/batches/`)已 gitignore;canonical 為 `dumps/talk_bilingual.json`。
 
 ---
 

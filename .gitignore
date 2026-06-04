@@ -16,3 +16,6 @@ u4upgrad.zip
 # OS / 編輯器
 .DS_Store
 *.swp
+
+# 翻譯中間批次檔(已合併進 talk_bilingual.json)
+/dumps/batches/
