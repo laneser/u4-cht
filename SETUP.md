@@ -59,6 +59,27 @@ python3 tools/extract_tlk.py \
   --out-report dumps/talk_alignment_report.md
 ```
 
+stringtable(intro/codex/shrine)與硬編 `screenMessage` 字串(需先取出 `avatar.exe`/`title.exe`):
+
+```bash
+# 從 ultima4.zip 取出 exe(同上,放 data/)
+python3 - <<'PY'
+import zipfile
+zf=zipfile.ZipFile('data/zip/ultima4.zip')
+for n in zf.namelist():
+    if n.lower() in ('avatar.exe','title.exe'):
+        open(f'data/{n.lower()}','wb').write(zf.read(n))
+PY
+
+# u4read_stringtable(title.exe/avatar.exe)→ 114 字串
+python3 tools/extract_stringtable.py --data-dir data \
+  --out dumps/stringtable_bilingual.json --out-report dumps/stringtable_report.md
+
+# 硬編 screenMessage 字面(靜態分析 xu4/src)→ 420 site / 318 唯一
+python3 tools/extract_hardcoded.py --src-dir xu4/src \
+  --out dumps/hardcoded_strings.json --out-report dumps/hardcoded_report.md
+```
+
 ## 檔案
 
 | 路徑 | 說明 |
@@ -68,7 +89,11 @@ python3 tools/extract_tlk.py \
 | `docker/Dockerfile.test` | 在上者之上加 headless 截圖工具 |
 | `docker/shot.sh` | Xvfb + llvmpipe 跑 xu4 並截圖 |
 | `tools/extract_tlk.py` | 抽 DOS `.TLK` NPC 對話 + 對齊 talk.json → 雙語表 |
+| `tools/extract_stringtable.py` | 抽 `u4read_stringtable`(intro/codex/shrine)114 字串 |
+| `tools/extract_hardcoded.py` | 靜態抽硬編 `screenMessage` 字面 → 318 唯一字串 |
 | `dumps/talk_bilingual.json` | 256 NPC × 12 欄雙語表雛形(en 已填,zh 待填) |
-| `dumps/talk_alignment_report.md` | `.TLK` ↔ talk.json 對齊/差異報告 |
+| `dumps/stringtable_bilingual.json` | 114 intro/codex/shrine 字串雙語雛形 |
+| `dumps/hardcoded_strings.json` | 318 唯一硬編字串(en + zh 待填 + has_format) |
+| `dumps/*_report.md` | 各抽取的對齊/統計報告 |
 | `docs/` | P3 hook 盤點等工程文件 |
 | `data/`(gitignore) | 原始遊戲資料(zip / `.TLK`),由 `make download` 重建 |

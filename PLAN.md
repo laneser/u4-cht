@@ -252,6 +252,19 @@ U6-cht 的核心經驗可直接套用:
 - 翻譯 key 以 DOS `.TLK` en 為準;`talk.json` 作校對參考。raw `.TLK`/zip 不入庫(`/data/`)。
 - 詳見 `docs/P3-hooks.md` §6。
 
+### 10d. P4 資料面續:stringtable + 硬編字串抽取(2026-06-04 實測)
+
+純資料抽取/報告,**不改引擎**:
+
+| 工具 | 來源 | 結果 | 產出 |
+|---|---|---|---|
+| `tools/extract_stringtable.py` | `title.exe` + `avatar.exe`(`u4read_stringtable`) | **114** 字串(intro 28+24+15、codex 11、endgame 7+5、shrine 24) | `dumps/stringtable_bilingual.json` + `_report.md` |
+| `tools/extract_hardcoded.py` | `xu4/src` 靜態分析 `screenMessage` 系列字面 | **420** call site / **318** 唯一 / 128 含 format / 26 dynamic | `dumps/hardcoded_strings.json` + `_report.md` |
+
+- 翻譯注意:`%c…%c` 顏色碼保留;含 `%s/%d` 需 format-aware hook;原版拼寫不一致需 glossary 正規化。
+- **尚未涵蓋**:vendor 文字(Boron module 腳本 `module/Ultima-IV/*.b`),非 stringtable / 非硬編 C 字面 → 後續另寫 Boron 抽取。
+- 詳見 `docs/P3-hooks.md` §7。
+
 ---
 
 ## 11. 風險與待決 (RAID)
@@ -274,7 +287,11 @@ U6-cht 的核心經驗可直接套用:
 2. **P1 引擎建置 — ✅ 已完成(2026-06-04)**:`Dockerfile.zh` build 成功,xu4 vDR-1.0 + 完整資料模組就位(見 §10a)。
 3. **P2 引擎/字型驗證 — ✅ 已完成(2026-06-04)**:headless 截圖 loop 成立(截到標題畫面,見 §10b);文字架構盤點 + 字型可行性定讞(§9)。
 4. **P3 文字 hook 盤點 — ✅ 已完成(2026-06-04)**:`docs/P3-hooks.md`。核心:**H1 `screenMessageN` 是遊戲內所有捲動文字(含 NPC 對話)的單一中央漏斗(417 個 `screenMessage` call site 匯入)**,對應 U6 `MsgScroll` hook。
-5. **P4 資料面 — 🔵 已起手(2026-06-04)**:`tools/extract_tlk.py` 抽 16 個 DOS `.TLK`(256 NPC)→ 對齊 `talk.json` → 雙語表 `dumps/talk_bilingual.json` + 報告 `dumps/talk_alignment_report.md`(§10c)。**不改引擎**。下一步:intro/vendor stringtable + 417 硬編字串抽取,再進字型/翻譯/接 hook。
+5. **P4 資料面 — 🔵 進行中(2026-06-04)**:純資料抽取,**不改引擎**。
+   - (a) `.TLK` 256 NPC 對話 → 雙語表(§10c)。
+   - (b) `u4read_stringtable` 114 字串(intro/codex/endgame/shrine)→ `dumps/stringtable_bilingual.json`(§10d)。
+   - (c) 硬編 `screenMessage` 字面 420 site / 318 唯一 → `dumps/hardcoded_strings.json`(§10d)。
+   - 待做:vendor(Boron 腳本)抽取;之後進字型/翻譯/接 hook。
 6. 保留 `u4remastered/src/talk/talk.json` 作為翻譯底本與 oracle。
 7. **git repo — ✅ 本地已 init(2026-06-04)**:納管 PLAN/SETUP/docker/docs/tools/dumps;上游 `xu4/`、`u4remastered/`、原始資料 `data/` 由 `.gitignore` 排除。**push 遠端待使用者確認**。
 

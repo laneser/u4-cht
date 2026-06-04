@@ -56,8 +56,8 @@ B. GUI / 選單 / 遊戲瀏覽器(.txf SDF 紋理字,uint16 碼位)──── 
 
 1. **抽字串**:
    - (a) ✅ **已完成**:`tools/extract_tlk.py` 抽 16 個 DOS `.TLK`(256 NPC 對話)→ 對齊 `talk.json` → 雙語表 `dumps/talk_bilingual.json` + 對齊報告 `dumps/talk_alignment_report.md`(見 §6)。
-   - (b) 待做:`u4read_stringtable`(intro/故事/vendor)→ en 字串集。
-   - (c) 待做:grep 抽 417 `screenMessage` 字面 + 選單/discourse 字面 → 硬編 string table。
+   - (b) ✅ **已完成**:`tools/extract_stringtable.py` 抽 `u4read_stringtable` 7 段(intro/codex/endgame/shrine)共 114 字串 → `dumps/stringtable_bilingual.json`(§7)。
+   - (c) ✅ **已完成**:`tools/extract_hardcoded.py` 靜態抽 `screenMessage` 系列字面 → 420 call site / 318 唯一字串 → `dumps/hardcoded_strings.json`(§7)。
 2. **lookup 格式**:binary length-prefixed(byte-safe,避 U6 的 0x5C trail 坑);en 一律從 source 抽取,禁手打(U6 坑 #9)。
 3. **CJK 字庫**(二選一或併用):
    - CHARSET 路徑:用 Noto/UMing 烘 CJK 點陣字庫,改 `screenShowChar`(H2)支援全形/多格 + `screenMessageN`(H1)tokenizer 把每個 CJK 字當獨立 token(U6 坑 #3)、調行高(U6 坑 #4)。
@@ -96,3 +96,37 @@ B. GUI / 選單 / 遊戲瀏覽器(.txf SDF 紋理字,uint16 碼位)──── 
 - `dumps/talk_alignment_report.md`:對齊摘要 + 無對應清單 + 英文差異明細。
 
 **翻譯原則**:以 **DOS `.TLK` 的 en 為翻譯 key**(引擎實際輸出);`talk.json` 作乾淨參考(校對、補 remaster 修正)。**raw `.TLK` / zip 不入庫**(`/data/`,Origin © 1985),由 `make download` 重建。
+
+---
+
+## 7. P4(b)(c) stringtable + 硬編字串抽取(2026-06-04)
+
+### (b) `u4read_stringtable` — `tools/extract_stringtable.py`(不改引擎)
+
+| section | 來源 | 數量 |
+|---|---|---|
+| intro_questions / intro_text / intro_gypsy | `title.exe` @17444 起順序讀 | 28 / 24 / 15 |
+| codex_virtue_questions | `avatar.exe` @0x0fc7b | 11 |
+| endgame_text1 / endgame_text2 | `avatar.exe` @0x0fee4 / @0x10187 | 7 / 5 |
+| shrine_advice | `avatar.exe` @93682 | 24 |
+| **合計** | | **114** |
+
+→ `dumps/stringtable_bilingual.json`(en 已填,zh 待填)+ `dumps/stringtable_report.md`。
+
+### (c) 硬編 `screenMessage` 字面 — `tools/extract_hardcoded.py`(純靜態分析)
+
+| 項目 | 數 |
+|---|---|
+| 有字面引數的 call site(`screenMessage` 405 + `screenTextAt` 14 + `screenMessageN` 1) | **420** |
+| 去重後唯一字串 | **318** |
+| 含 format specifier(`%s`/`%d`/`%c`,H1 需 format-aware) | 128 |
+| 第一引數為變數(dynamic,走 fragment 替換,不入硬編表) | 26 |
+
+→ `dumps/hardcoded_strings.json`(en + zh 待填 + has_format + occurrences)+ `dumps/hardcoded_report.md`。
+
+**翻譯注意**:
+- `%c…%c` = 顏色碼包裹(FG 切換),翻譯時保留 `%c`;含 `%s/%d` 者於 H1 hook 需 format-aware(post-vsnprintf 比對或 fragment)。
+- 原版拼寫不一致(`Not here!` vs `Not Here!`、`Hmm...No effect!` vs `Hmmm--No Effect!`)→ 翻譯 glossary 需正規化映同一中文(U6 坑 #7)。
+
+### 尚未涵蓋(後續純資料項)
+- **vendor 文字**:走 Boron module 腳本(`module/Ultima-IV/*.b`),非 `u4read_stringtable` / 非硬編 C 字面 → 需另寫 Boron 腳本字串抽取。
