@@ -17,12 +17,18 @@
       "$gp": "價格gp",
       "^/": "換行(已解為 \\n)"
     },
-    "note": "en = Boron 字面解碼後文字;zh 待填。佔位符 @ % $ # = $gp 翻譯時保留。"
+    "note": "en = Boron 字面解碼後文字;zh 待填。佔位符 @ % $ # = $gp 翻譯時保留。",
+    "translation": {
+      "status": "translated",
+      "date": "2026-06-04",
+      "method": "平行 agent + docs/glossary-u4.md",
+      "validated": "format/佔位符 0 不符"
+    }
   },
   "strings": [
     {
       "en": "\nAnything\nelse? ",
-      "zh": "",
+      "zh": "\n還要\n別的嗎？ ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -32,7 +38,7 @@
     },
     {
       "en": "\nFine! What else?",
-      "zh": "",
+      "zh": "\n好！還要些什麼？",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -42,7 +48,7 @@
     },
     {
       "en": "\nHow many =s\nwould you wish\nto sell? ",
-      "zh": "",
+      "zh": "\n汝欲售出\n幾件 =\n呢? ",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -52,7 +58,7 @@
     },
     {
       "en": "\nHow many would\nyou like? ",
-      "zh": "",
+      "zh": "\n汝欲購\n多少？ ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -62,7 +68,7 @@
     },
     {
       "en": "\nI will give you $gp for that =.\nDeal? ",
-      "zh": "",
+      "zh": "\n這 = 我願出 $gp 收購。\n成交否？ ",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -72,7 +78,7 @@
     },
     {
       "en": "\nI will give you $gp for them.\nDeal? ",
-      "zh": "",
+      "zh": "\n這些我願出 $gp 收購。\n成交否? ",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -82,7 +88,7 @@
     },
     {
       "en": "\nTake it? ",
-      "zh": "",
+      "zh": "\n要嗎？ ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -92,7 +98,7 @@
     },
     {
       "en": "\nToo bad.",
-      "zh": "",
+      "zh": "\n真是可惜。",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -102,7 +108,7 @@
     },
     {
       "en": "\nYou don't have that many swine!\n",
-      "zh": "",
+      "zh": "\n汝可沒那麼多牲口!\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -112,7 +118,7 @@
     },
     {
       "en": "\nYou have not the funds for even one!\n",
-      "zh": "",
+      "zh": "\n汝之金幣連一件都不夠！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -122,7 +128,7 @@
     },
     {
       "en": "\nYou sell: ",
-      "zh": "",
+      "zh": "\n汝欲售出： ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -132,7 +138,7 @@
     },
     {
       "en": "Anything\nelse? ",
-      "zh": "",
+      "zh": "還要\n別的嗎? ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -142,7 +148,7 @@
     },
     {
       "en": "Winston",
-      "zh": "",
+      "zh": "溫斯頓",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -152,7 +158,7 @@
     },
     {
       "en": "black stone",
-      "zh": "",
+      "zh": "黑石",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -162,7 +168,7 @@
     },
     {
       "en": "mandrake",
-      "zh": "",
+      "zh": "曼陀羅根",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -172,7 +178,7 @@
     },
     {
       "en": "nightshade",
-      "zh": "",
+      "zh": "夜影",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -182,7 +188,7 @@
     },
     {
       "en": "sextant",
-      "zh": "",
+      "zh": "六分儀",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -192,7 +198,7 @@
     },
     {
       "en": "skull",
-      "zh": "",
+      "zh": "骷髏頭",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -202,7 +208,7 @@
     },
     {
       "en": "white stone",
-      "zh": "",
+      "zh": "白石",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -212,7 +218,7 @@
     },
     {
       "en": "\n\nTake it? ",
-      "zh": "",
+      "zh": "\n\n收下否？ ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -221,7 +227,7 @@
     },
     {
       "en": "\n\nWill ya buy? ",
-      "zh": "",
+      "zh": "\n\n買不買? ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -230,7 +236,7 @@
     },
     {
       "en": "\n                Unfortunately, I have but only a very small room with 1 bed:\n                worse yet, it's haunted! If you do wish to stay it costs 5gp.\n                ",
-      "zh": "",
+      "zh": "\n                可惜，我這只剩一間極小的房，僅有一床：\n                更糟的是，那兒鬧鬼！汝若仍願留宿，需付 5 金幣。\n                ",
       "kind": "brace",
       "has_placeholder": false,
       "occurrences": [
@@ -239,7 +245,7 @@
     },
     {
       "en": "\n            % says: Ah, the Black Stone.\n            Yes I've heard of it. But, the\n            only one who knows where it\n            lies is the wizard Merlin.\n            ",
-      "zh": "",
+      "zh": "\n            % 道：啊，那黑石。\n            是的，我曾聽聞。然而，\n            唯一知曉它藏身何處者，\n            乃是巫師梅林。\n            ",
       "kind": "brace",
       "has_placeholder": true,
       "occurrences": [
@@ -248,7 +254,7 @@
     },
     {
       "en": "\n            % says: For navigation a Sextant is vital... Ask for item \"D\" in the Guild shops!\n            ",
-      "zh": "",
+      "zh": "\n            % 道:航行少不得六分儀…到行會鋪子問「D」號貨色!\n            ",
       "kind": "brace",
       "has_placeholder": true,
       "occurrences": [
@@ -257,7 +263,7 @@
     },
     {
       "en": "\n            % says: If thou must know of that evilest of all things...\n            find the beggar Jude. He is very very poor!\n            ",
-      "zh": "",
+      "zh": "\n            % 說道：汝若定要探知那萬惡之最……\n            去尋那乞丐裘德。他窮苦至極！\n            ",
       "kind": "brace",
       "has_placeholder": true,
       "occurrences": [
@@ -266,7 +272,7 @@
     },
     {
       "en": "\n            % says: Of Nightshade I know but this...\n            Seek out Virgil or thou shalt miss! Try in Trinsic!\n            ",
-      "zh": "",
+      "zh": "\n            % 道：論夜影，我所知唯此……\n            汝當尋維吉爾，否則錯失良機！可往特林希克一試！\n            ",
       "kind": "brace",
       "has_placeholder": true,
       "occurrences": [
@@ -275,7 +281,7 @@
     },
     {
       "en": "\n            % says: The last person I knew that had\n            any Mandrake was an old alchemist\n            named Calumny.\n            ",
-      "zh": "",
+      "zh": "\n            % 道:我所知最後一個藏有\n            曼陀羅根的,是個喚作\n            卡倫尼的老鍊金師。\n            ",
       "kind": "brace",
       "has_placeholder": true,
       "occurrences": [
@@ -284,7 +290,7 @@
     },
     {
       "en": "\n            A blind woman turns to you and says: Welcome to @\n\n            I am %\n            Are you in need of Reagents? \n        ",
-      "zh": "",
+      "zh": "\n            一名盲眼婦人轉身向汝說道：歡迎光臨 @\n\n            我是 %\n            汝可需要施法材料？ \n        ",
       "kind": "brace",
       "has_placeholder": true,
       "occurrences": [
@@ -293,7 +299,7 @@
     },
     {
       "en": "\n            Avast ye mate! Shure ye wishes to buy from ol'\n%?\n\n            % says: Welcome to @.\nLike to see my goods? \n        ",
-      "zh": "",
+      "zh": "\n            且慢，夥計！汝當真欲向老\n% 採買？\n\n            % 道：歡迎光臨 @。\n欲一覽我的貨色否？ \n        ",
       "kind": "brace",
       "has_placeholder": true,
       "occurrences": [
@@ -302,7 +308,7 @@
     },
     {
       "en": "\n            Flasks of oil make great weapons and creates a wall of flame too.\n            $gp each.\n        ",
-      "zh": "",
+      "zh": "\n            油瓶是上好的武器,還能燒出一道火牆。\n            每瓶 $gp。\n        ",
       "kind": "brace",
       "has_placeholder": true,
       "occurrences": [
@@ -311,7 +317,7 @@
     },
     {
       "en": "\n            Leather Armour is both supple and strong, and costs a mere $gp.\n            A Bargain!\n        ",
-      "zh": "",
+      "zh": "\n            皮甲既柔韌又堅固，僅售 $gp。\n            真是划算！\n        ",
       "kind": "brace",
       "has_placeholder": true,
       "occurrences": [
@@ -320,7 +326,7 @@
     },
     {
       "en": "\n            Magical swords such as these are rare indeed\n            I will part with one for $gp.\n        ",
-      "zh": "",
+      "zh": "\n            這般魔法之劍，實屬罕見，\n            我願以 $gp 割愛其一。\n        ",
       "kind": "brace",
       "has_placeholder": true,
       "occurrences": [
@@ -329,7 +335,7 @@
     },
     {
       "en": "\n            Now let me see... Yes it was the old Hermit...\n            Sloven! He is tough to find,\n            lives near Lock Lake I hear.\n            ",
-      "zh": "",
+      "zh": "\n            待我想想…對了,是那老隱士…\n            斯洛文!此人難尋,\n            聽聞住在洛克湖畔。\n            ",
       "kind": "brace",
       "has_placeholder": false,
       "occurrences": [
@@ -338,7 +344,7 @@
     },
     {
       "en": "\n            Our slings are made from only the finest guy and leather,\n            'Tis yours for $gp.\n        ",
-      "zh": "",
+      "zh": "\n            我們的投石索皆取上等繩索與皮革製成，\n            $gp 即歸汝所有。\n        ",
       "kind": "brace",
       "has_placeholder": true,
       "occurrences": [
@@ -347,7 +353,7 @@
     },
     {
       "en": "\n            Welcome to\n            @\n\n            % says:\n            Welcome friend!\n            Art thou here to\n            Buy or Sell? \n        ",
-      "zh": "",
+      "zh": "\n            歡迎光臨\n            @\n\n            % 道：\n            歡迎，朋友！\n            汝此來是欲\n            購買還是售出？ \n        ",
       "kind": "brace",
       "has_placeholder": true,
       "occurrences": [
@@ -356,7 +362,7 @@
     },
     {
       "en": "\n            Welcome to\n            @\n\n            % says:\n            Welcome friend!\n            Want to Buy or\n            Sell? \n        ",
-      "zh": "",
+      "zh": "\n            歡迎光臨\n            @\n\n            % 道:\n            歡迎,朋友!\n            欲買還是\n            欲賣? \n        ",
       "kind": "brace",
       "has_placeholder": true,
       "occurrences": [
@@ -365,7 +371,7 @@
     },
     {
       "en": "\n            Welcome unto\n            @\n\n            % says:\n            Peace and Joy be with you friend.\n            Are you in need of help? \n        ",
-      "zh": "",
+      "zh": "\n            歡迎來到\n            @\n\n            % 說道：\n            願安寧與喜樂與汝同在，朋友。\n            汝可需要醫治？ \n        ",
       "kind": "brace",
       "has_placeholder": true,
       "occurrences": [
@@ -374,7 +380,7 @@
     },
     {
       "en": "\n        A-Curing\n        B-Healing\n        C-Resurrection\n    ",
-      "zh": "",
+      "zh": "\n        A-解毒\n        B-治癒\n        C-復活\n    ",
       "kind": "brace",
       "has_placeholder": false,
       "occurrences": [
@@ -383,7 +389,7 @@
     },
     {
       "en": "\n        A-Sulfurous Ash\n        B-Ginseng\n        C-Garlic\n        D-Spider Silk\n        E-Blood Moss\n        F-Black Pearl\n    ",
-      "zh": "",
+      "zh": "\n        A-硫磺灰\n        B-人蔘\n        C-大蒜\n        D-蜘蛛絲\n        E-血苔\n        F-黑珍珠\n    ",
       "kind": "brace",
       "has_placeholder": false,
       "occurrences": [
@@ -392,7 +398,7 @@
     },
     {
       "en": "\n        A-Torches\n        B-Magic Gems\n        C-Magic Keys\n    ",
-      "zh": "",
+      "zh": "\n        A-火把\n        B-魔法寶石\n        C-魔法鑰匙\n    ",
       "kind": "brace",
       "has_placeholder": false,
       "occurrences": [
@@ -401,7 +407,7 @@
     },
     {
       "en": "\n% asks:\nWho is in\nneed? ",
-      "zh": "",
+      "zh": "\n% 問：\n何人\n有恙？ ",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -410,7 +416,7 @@
     },
     {
       "en": "\n% asks: Do you need more help? ",
-      "zh": "",
+      "zh": "\n% 問:汝還需相助否? ",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -419,7 +425,7 @@
     },
     {
       "en": "\n% says:\nFare thee well!\n",
-      "zh": "",
+      "zh": "\n% 說道：\n祝汝一路平安！\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -428,7 +434,7 @@
     },
     {
       "en": "\n% says:\nGood Bye.\n",
-      "zh": "",
+      "zh": "\n% 道：\n再會。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -437,7 +443,7 @@
     },
     {
       "en": "\n% says:\nPerhaps another time then....\nand slowly turns away.\n",
-      "zh": "",
+      "zh": "\n% 道:\n那便改日再說吧….\n說罷緩緩轉身離去。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -446,7 +452,7 @@
     },
     {
       "en": "\n% says: A fine choice!\n",
-      "zh": "",
+      "zh": "\n% 說道：好眼光！\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -455,7 +461,7 @@
     },
     {
       "en": "\n% says: Good Mate!\nYa see I gots:\n+Wat'l it be? ",
-      "zh": "",
+      "zh": "\n% 道：好夥計！\n汝瞧我這有：\n+欲要哪樣？ ",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -464,7 +470,7 @@
     },
     {
       "en": "\n% says: Good choice!\n",
-      "zh": "",
+      "zh": "\n% 道:好眼光!\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -473,7 +479,7 @@
     },
     {
       "en": "\n% says: May thy life be guarded by the powers of good.\n",
-      "zh": "",
+      "zh": "\n% 說道：願良善之力護佑汝之性命。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -482,7 +488,7 @@
     },
     {
       "en": "\n% says: See\nmore? ",
-      "zh": "",
+      "zh": "\n% 道：再看\n些許？ ",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -491,7 +497,7 @@
     },
     {
       "en": "\n% says: See ya matie!\n",
-      "zh": "",
+      "zh": "\n% 道:後會有期,夥計!\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -500,7 +506,7 @@
     },
     {
       "en": "\n% says: Sorry, you seem to have too many. Bye!\n",
-      "zh": "",
+      "zh": "\n% 說道：抱歉，汝似乎已持有過多。再會！\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -509,7 +515,7 @@
     },
     {
       "en": "\n% says: Then you have come to the wrong place!\nGood day.\n",
-      "zh": "",
+      "zh": "\n% 道：那汝可來錯地方了！\n告辭。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -518,7 +524,7 @@
     },
     {
       "en": "\n% says: We can perform:\n+Your need: ",
-      "zh": "",
+      "zh": "\n% 道:我等可施行:\n+汝所需: ",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -527,7 +533,7 @@
     },
     {
       "en": "\n% says: What'll it be, Food er Ale? ",
-      "zh": "",
+      "zh": "\n% 說道：要點什麼，食物還是麥酒？ ",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -536,7 +542,7 @@
     },
     {
       "en": "\n'fraid I can't help ya there friend!\n",
-      "zh": "",
+      "zh": "\n抱歉，這事我可幫不上汝，朋友！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -545,7 +551,7 @@
     },
     {
       "en": "\n+ will cost thee $gp.\n",
-      "zh": "",
+      "zh": "\n+ 需汝付 $gp。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -554,7 +560,7 @@
     },
     {
       "en": "\nA shame, thou looks like thou could use a good horse!\n",
-      "zh": "",
+      "zh": "\n真可惜，汝看來正需要一匹好馬呢！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -563,7 +569,7 @@
     },
     {
       "en": "\nArt thou willing to give 100pts of thy blood to aid others? ",
-      "zh": "",
+      "zh": "\n汝可願獻出汝之百點鮮血，以濟他人？ ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -572,7 +578,7 @@
     },
     {
       "en": "\nCome back when you have some money!\n",
-      "zh": "",
+      "zh": "\n等汝有了錢再來吧!\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -581,7 +587,7 @@
     },
     {
       "en": "\nCome on, you\ndon't own any.",
-      "zh": "",
+      "zh": "\n別鬧了，汝\n根本一件也沒有。",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -590,7 +596,7 @@
     },
     {
       "en": "\nExcellent! Which\nwouldst ",
-      "zh": "",
+      "zh": "\n甚好！汝欲要\n哪一樣 ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -599,7 +605,7 @@
     },
     {
       "en": "\nFine... fine...\n",
-      "zh": "",
+      "zh": "\n罷了…罷了…\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -608,7 +614,7 @@
     },
     {
       "en": "\nFor only $g.p.\nThou can have the best! Wilt thou buy? ",
-      "zh": "",
+      "zh": "\n僅需 $g.p.\n汝即可擁有最佳之物！汝願購買嗎？ ",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -617,7 +623,7 @@
     },
     {
       "en": "\nGoodbye. Come again!\n",
-      "zh": "",
+      "zh": "\n再會。歡迎再臨！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -626,7 +632,7 @@
     },
     {
       "en": "\nHarumph. What else would ",
-      "zh": "",
+      "zh": "\n哼。汝還要 ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -635,7 +641,7 @@
     },
     {
       "en": "\nHere's a mug of our best.\nThat'll be 2gp.\nYou pay? ",
-      "zh": "",
+      "zh": "\n這是我們最好的一杯。\n要價 2 金幣。\n汝付帳嗎？ ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -644,7 +650,7 @@
     },
     {
       "en": "\nHere, a better breed thou shalt not find ever!\n",
-      "zh": "",
+      "zh": "\n喏，這般良駒，汝再難尋得！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -653,7 +659,7 @@
     },
     {
       "en": "\nHmmm...Grmbl...\n",
-      "zh": "",
+      "zh": "\n唔…嘟囔…\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -662,7 +668,7 @@
     },
     {
       "en": "\nHmmph. What else\nwould ",
-      "zh": "",
+      "zh": "\n哼。汝還想\n要 ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -671,7 +677,7 @@
     },
     {
       "en": "\nHow many packs of # would you like? ",
-      "zh": "",
+      "zh": "\n汝欲要幾包 #？ ",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -680,7 +686,7 @@
     },
     {
       "en": "\nHow many plates would you\nlike? ",
-      "zh": "",
+      "zh": "\n汝欲要幾副\n甲冑? ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -689,7 +695,7 @@
     },
     {
       "en": "\nI can give ya # long lasting Torches for a mere $gp.",
-      "zh": "",
+      "zh": "\n我可給汝 # 支耐久火把，僅需 $gp。",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -698,7 +704,7 @@
     },
     {
       "en": "\nI fear you have not the funds, perhaps something else.",
-      "zh": "",
+      "zh": "\n恐怕汝囊中羞澀，或許看看別樣。",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -707,7 +713,7 @@
     },
     {
       "en": "\nI have\n+Your\nInterest: ",
-      "zh": "",
+      "zh": "\n我有\n+汝意\n屬意: ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -716,7 +722,7 @@
     },
     {
       "en": "\nI see by thy purse that thou hast not enough gold. I cannot aid thee.\n",
-      "zh": "",
+      "zh": "\n我瞧汝錢袋，知汝金幣不足。我無法相助。\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -725,7 +731,7 @@
     },
     {
       "en": "\nI see, then ",
-      "zh": "",
+      "zh": "\n原來如此，那麼 ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -734,7 +740,7 @@
     },
     {
       "en": "\nI've got magical mapping Gems, # for only $gp.",
-      "zh": "",
+      "zh": "\n我有魔法測繪寶石,# 顆只需 $gp。",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -743,7 +749,7 @@
     },
     {
       "en": "\nIf you can't pay, you can't stay! Good Bye.\n",
-      "zh": "",
+      "zh": "\n付不起就別想留宿！再會。\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -752,7 +758,7 @@
     },
     {
       "en": "\nIt seems that you have not the gold. Good Day!\n",
-      "zh": "",
+      "zh": "\n看來汝金幣不足。告辭！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -761,7 +767,7 @@
     },
     {
       "en": "\nIt seems thou hast not gold enough to pay!\n",
-      "zh": "",
+      "zh": "\n汝囊中金幣似乎不足支付!\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -770,7 +776,7 @@
     },
     {
       "en": "\nIt seems you have not the gold! ",
-      "zh": "",
+      "zh": "\n汝似乎金幣不足！ ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -779,7 +785,7 @@
     },
     {
       "en": "\nMagical Keys, 1 use each, a fair price at $gp for #.",
-      "zh": "",
+      "zh": "\n魔法鑰匙，一把一用，# 把僅售 $gp，價格公道。",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -788,7 +794,7 @@
     },
     {
       "en": "\nMay I interest you in some rations? ",
-      "zh": "",
+      "zh": "\n要不要來些口糧? ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -797,7 +803,7 @@
     },
     {
       "en": "\nOh, and don't mind the strange noises, it's only rats!\n",
-      "zh": "",
+      "zh": "\n喔，別在意那些怪聲，不過是老鼠罷了！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -806,7 +812,7 @@
     },
     {
       "en": "\nOur specialty is =, which costs $gp.",
-      "zh": "",
+      "zh": "\n本店招牌乃是 =，售價 $gp。",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -815,7 +821,7 @@
     },
     {
       "en": "\nSo...Ya want a Sextant...Well I gots one which I might part with fer $ gold!",
-      "zh": "",
+      "zh": "\n哦…汝要六分儀…嗯,我這兒有一具,$ 金幣便可割愛!",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -824,7 +830,7 @@
     },
     {
       "en": "\nSorry, I could\nnot help ya mate!\n",
-      "zh": "",
+      "zh": "\n抱歉，老兄，我\n幫不上忙！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -833,7 +839,7 @@
     },
     {
       "en": "\nThank you. ",
-      "zh": "",
+      "zh": "\n謝謝惠顧。 ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -842,7 +848,7 @@
     },
     {
       "en": "\nThat subject is a bit foggy, perhaps more gold will refresh my memory. You\ngive: ",
-      "zh": "",
+      "zh": "\n此事我記得模糊,多些金幣或許能喚醒我的記性。汝\n付: ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -851,7 +857,7 @@
     },
     {
       "en": "\nThou art a great help. We are in dire need!\n",
-      "zh": "",
+      "zh": "\n汝乃莫大的幫助。我等正急需相助！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -860,7 +866,7 @@
     },
     {
       "en": "\nThou dost not own that. What else might",
-      "zh": "",
+      "zh": "\n汝並無此物。還有何物 ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -869,7 +875,7 @@
     },
     {
       "en": "\nToo bad. Maybe next time.\n",
-      "zh": "",
+      "zh": "\n真可惜。或許下回吧。\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -878,7 +884,7 @@
     },
     {
       "en": "\nVery Good!",
-      "zh": "",
+      "zh": "\n很好！",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -887,7 +893,7 @@
     },
     {
       "en": "\nVery good, that will be $gp.  You pay: ",
-      "zh": "",
+      "zh": "\n甚好，共計 $gp。  汝付： ",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -896,7 +902,7 @@
     },
     {
       "en": "\nVery good. ",
-      "zh": "",
+      "zh": "\n甚好。 ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -905,7 +911,7 @@
     },
     {
       "en": "\nVery good.  Have\na pleasant night.\n",
-      "zh": "",
+      "zh": "\n很好。願汝\n一夜安眠。\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -914,7 +920,7 @@
     },
     {
       "en": "\nVery well,",
-      "zh": "",
+      "zh": "\n好極，",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -923,7 +929,7 @@
     },
     {
       "en": "\nVery well, we sell = for $gp. How many would you\nlike? ",
-      "zh": "",
+      "zh": "\n好,= 我等售價 $gp。汝欲要\n幾件? ",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -932,7 +938,7 @@
     },
     {
       "en": "\nWe Have:\n+Your\nInterest? ",
-      "zh": "",
+      "zh": "\n我們有：\n+汝\n可有意？ ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -941,7 +947,7 @@
     },
     {
       "en": "\nWe have the best adventure rations, # for only $gp.\n",
-      "zh": "",
+      "zh": "\n本店備有最上等的冒險口糧，# 份僅售 $gp。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -950,7 +956,7 @@
     },
     {
       "en": "\nWe have three rooms available,\na 1, 2 and 3 bed room for 30, 60\nand 90gp each.\n1, 2 or 3\nbeds? ",
-      "zh": "",
+      "zh": "\n我等有三種客房,\n一、二、三床房分別為 30、60\n與 90gp。\n要 1、2 還是 3\n床? ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -959,7 +965,7 @@
     },
     {
       "en": "\nWe've got:\n+\nWhat'll it\nbe? ",
-      "zh": "",
+      "zh": "\n我們有：\n+\n要選\n哪樣？ ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -968,7 +974,7 @@
     },
     {
       "en": "\nWell then,",
-      "zh": "",
+      "zh": "\n那麼，",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -977,7 +983,7 @@
     },
     {
       "en": "\nWhat will",
-      "zh": "",
+      "zh": "\n汝要",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -986,7 +992,7 @@
     },
     {
       "en": "\nWhat'd ya like to know friend?\n",
-      "zh": "",
+      "zh": "\n朋友，汝想知道什麼？\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -995,7 +1001,7 @@
     },
     {
       "en": "\nWhat? Can't pay! Buzz off swine!\n",
-      "zh": "",
+      "zh": "\n啥？付不起！滾開，豬玀！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1004,7 +1010,7 @@
     },
     {
       "en": "\nWilt thou\npay? ",
-      "zh": "",
+      "zh": "\n汝願\n付否? ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1013,7 +1019,7 @@
     },
     {
       "en": "\nWon't pay, eh.\nYa scum, be gone\nfore ey call the\nguards!\n",
-      "zh": "",
+      "zh": "\n不付帳，是吧。\n汝這敗類，趁我還沒\n喚衛兵之前，快\n滾！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1022,7 +1028,7 @@
     },
     {
       "en": "\nYe don't have that mate!\n",
-      "zh": "",
+      "zh": "\n汝沒那玩意兒，夥計！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1031,7 +1037,7 @@
     },
     {
       "en": "\nYou can only afford ",
-      "zh": "",
+      "zh": "\n汝只買得起 ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1040,7 +1046,7 @@
     },
     {
       "en": "\nYou don't have enough gold. Maybe something cheaper?\n",
-      "zh": "",
+      "zh": "\n汝的金幣不夠。或許要點便宜些的？\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1049,7 +1055,7 @@
     },
     {
       "en": "\nYou won't find a better deal in this towne!\n",
-      "zh": "",
+      "zh": "\n在這鎮上，汝再尋不著更划算的買賣了！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1058,7 +1064,7 @@
     },
     {
       "en": " packs.\n",
-      "zh": "",
+      "zh": " 份。\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1067,7 +1073,7 @@
     },
     {
       "en": " plates.\n",
-      "zh": "",
+      "zh": " 盤。\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1076,7 +1082,7 @@
     },
     {
       "en": "% says: Welcome to @",
-      "zh": "",
+      "zh": "% 道：歡迎光臨 @",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -1085,7 +1091,7 @@
     },
     {
       "en": "A Halberd is a mighty weapon to attack over obstacles; a must and only $gp.\n",
-      "zh": "",
+      "zh": "戟乃強力武器,可越障攻敵;必備之選,只需 $gp。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -1094,7 +1100,7 @@
     },
     {
       "en": "A curing",
-      "zh": "",
+      "zh": "一劑解毒",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1103,7 +1109,7 @@
     },
     {
       "en": "A healing",
-      "zh": "",
+      "zh": "一次治療",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1112,7 +1118,7 @@
     },
     {
       "en": "A magical bow will keep thy enemies far away or dead! A must for $gp!\n",
-      "zh": "",
+      "zh": "魔法弓能令汝之敵遠遁或斃命!必備之選,$gp!\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -1121,7 +1127,7 @@
     },
     {
       "en": "Adventure Food",
-      "zh": "",
+      "zh": "冒險口糧",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1130,7 +1136,7 @@
     },
     {
       "en": "All we have is that cot over there. But it is comfortable, and only 1 gp.",
-      "zh": "",
+      "zh": "我們只剩那邊那張行軍床。不過甚是舒適，僅需 1 金幣。",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1139,7 +1145,7 @@
     },
     {
       "en": "Arron",
-      "zh": "",
+      "zh": "亞倫",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1148,7 +1154,7 @@
     },
     {
       "en": "Axe",
-      "zh": "",
+      "zh": "斧",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1157,7 +1163,7 @@
     },
     {
       "en": "Axe 'n Ale",
-      "zh": "",
+      "zh": "斧與麥酒",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1166,7 +1172,7 @@
     },
     {
       "en": "Basic Armour",
-      "zh": "",
+      "zh": "基本護甲",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1175,7 +1181,7 @@
     },
     {
       "en": "Black Pearl",
-      "zh": "",
+      "zh": "黑珍珠",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1184,7 +1190,7 @@
     },
     {
       "en": "Blood Moss",
-      "zh": "",
+      "zh": "血苔",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1193,7 +1199,7 @@
     },
     {
       "en": "Bow",
-      "zh": "",
+      "zh": "弓",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1202,7 +1208,7 @@
     },
     {
       "en": "Britannia Manor",
-      "zh": "",
+      "zh": "不列顛尼亞莊園",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1211,7 +1217,7 @@
     },
     {
       "en": "Brown Beans",
-      "zh": "",
+      "zh": "褐豆",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1220,7 +1226,7 @@
     },
     {
       "en": "Captain Black Tavern",
-      "zh": "",
+      "zh": "黑船長酒館",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1229,7 +1235,7 @@
     },
     {
       "en": "Celest",
-      "zh": "",
+      "zh": "瑟蕾絲特",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1238,7 +1244,7 @@
     },
     {
       "en": "Celestial",
-      "zh": "",
+      "zh": "天界",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1247,7 +1253,7 @@
     },
     {
       "en": "Chail Mail is the armour used by more warriors than all others. Ours costs $gp.\n",
-      "zh": "",
+      "zh": "鎖子甲乃眾武者最常用之護甲。我等售價 $gp。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -1256,7 +1262,7 @@
     },
     {
       "en": "Chain Mail",
-      "zh": "",
+      "zh": "鎖子甲",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1265,7 +1271,7 @@
     },
     {
       "en": "Cloth",
-      "zh": "",
+      "zh": "布甲",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1274,7 +1280,7 @@
     },
     {
       "en": "Cloth Armour is good for a tight budget, Fairly priced at $gp.\n",
-      "zh": "",
+      "zh": "布甲適合手頭拮据者,價格公道,$gp。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -1283,7 +1289,7 @@
     },
     {
       "en": "Come again!\n",
-      "zh": "",
+      "zh": "歡迎再來！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1292,7 +1298,7 @@
     },
     {
       "en": "Crossbow",
-      "zh": "",
+      "zh": "弩",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1301,7 +1307,7 @@
     },
     {
       "en": "Crossbows made by Iolo the Bard are the finest in the world, your for $gp.\n",
-      "zh": "",
+      "zh": "吟遊詩人尤洛所製弩弓乃天下第一,$gp 即歸汝所有。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -1310,7 +1316,7 @@
     },
     {
       "en": "Dagger",
-      "zh": "",
+      "zh": "匕首",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1319,7 +1325,7 @@
     },
     {
       "en": "Dog Meat Pie",
-      "zh": "",
+      "zh": "狗肉派",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1328,7 +1334,7 @@
     },
     {
       "en": "Donnar",
-      "zh": "",
+      "zh": "唐納",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1337,7 +1343,7 @@
     },
     {
       "en": "Dragon Tartar",
-      "zh": "",
+      "zh": "龍肉韃靼",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1346,7 +1352,7 @@
     },
     {
       "en": "Dueling Weapons",
-      "zh": "",
+      "zh": "決鬥兵器",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1355,7 +1361,7 @@
     },
     {
       "en": "Duelling Armour",
-      "zh": "",
+      "zh": "決鬥護甲",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1364,7 +1370,7 @@
     },
     {
       "en": "Estro",
-      "zh": "",
+      "zh": "艾斯特羅",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1373,7 +1379,7 @@
     },
     {
       "en": "Flaming Oil",
-      "zh": "",
+      "zh": "燃油",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1382,7 +1388,7 @@
     },
     {
       "en": "Folley Filet",
-      "zh": "",
+      "zh": "弗利菲列",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1391,7 +1397,7 @@
     },
     {
       "en": "Folley Tavern",
-      "zh": "",
+      "zh": "弗利酒館",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1400,7 +1406,7 @@
     },
     {
       "en": "Food For Thought",
-      "zh": "",
+      "zh": "思糧",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1409,7 +1415,7 @@
     },
     {
       "en": "Full Plate armour is the ultimate in non-magical armour. Get yours for $gp.\n",
-      "zh": "",
+      "zh": "全身板甲乃非魔法護甲之極品。$gp 即可入手。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -1418,7 +1424,7 @@
     },
     {
       "en": "Garlic",
-      "zh": "",
+      "zh": "大蒜",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1427,7 +1433,7 @@
     },
     {
       "en": "Get that horse out of here!!!\n",
-      "zh": "",
+      "zh": "把那匹馬牽出去！！！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1436,7 +1442,7 @@
     },
     {
       "en": "Ginseng",
-      "zh": "",
+      "zh": "人蔘",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1445,7 +1451,7 @@
     },
     {
       "en": "Green Granukit",
-      "zh": "",
+      "zh": "綠葛拉努奇",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1454,7 +1460,7 @@
     },
     {
       "en": "Greg 'n Rob",
-      "zh": "",
+      "zh": "葛瑞格與羅伯",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1463,7 +1469,7 @@
     },
     {
       "en": "Halberd",
-      "zh": "",
+      "zh": "戟",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1472,7 +1478,7 @@
     },
     {
       "en": "Harmony",
-      "zh": "",
+      "zh": "和諧",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1481,7 +1487,7 @@
     },
     {
       "en": "Heal and Health",
-      "zh": "",
+      "zh": "療傷與安康",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1490,7 +1496,7 @@
     },
     {
       "en": "Herbs and Spice",
-      "zh": "",
+      "zh": "藥草香料鋪",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1499,7 +1505,7 @@
     },
     {
       "en": "Here ye arr.\n",
-      "zh": "",
+      "zh": "給汝的，拿去。\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1508,7 +1514,7 @@
     },
     {
       "en": "Honorable Inn",
-      "zh": "",
+      "zh": "榮譽客棧",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1517,7 +1523,7 @@
     },
     {
       "en": "Hook",
-      "zh": "",
+      "zh": "鉤子",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1526,7 +1532,7 @@
     },
     {
       "en": "Hook's Arms",
-      "zh": "",
+      "zh": "胡克軍械行",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1535,7 +1541,7 @@
     },
     {
       "en": "Jason",
-      "zh": "",
+      "zh": "傑森",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1544,7 +1550,7 @@
     },
     {
       "en": "Jean",
-      "zh": "",
+      "zh": "珍",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1553,7 +1559,7 @@
     },
     {
       "en": "Jolly Spirits",
-      "zh": "",
+      "zh": "歡樂烈酒",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1562,7 +1568,7 @@
     },
     {
       "en": "Jumar",
-      "zh": "",
+      "zh": "朱瑪",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1571,7 +1577,7 @@
     },
     {
       "en": "Just Healing",
-      "zh": "",
+      "zh": "純治療",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1580,7 +1586,7 @@
     },
     {
       "en": "Justin",
-      "zh": "",
+      "zh": "賈斯汀",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1589,7 +1595,7 @@
     },
     {
       "en": "Lamb Chops",
-      "zh": "",
+      "zh": "羊排",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1598,7 +1604,7 @@
     },
     {
       "en": "Leather",
-      "zh": "",
+      "zh": "皮甲",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1607,7 +1613,7 @@
     },
     {
       "en": "Light Armour",
-      "zh": "",
+      "zh": "輕甲",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1616,7 +1622,7 @@
     },
     {
       "en": "Limpy",
-      "zh": "",
+      "zh": "跛子",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1625,7 +1631,7 @@
     },
     {
       "en": "Long John Leary",
-      "zh": "",
+      "zh": "長腿約翰‧黎瑞",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1634,7 +1640,7 @@
     },
     {
       "en": "Mace",
-      "zh": "",
+      "zh": "釘頭錘",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1643,7 +1649,7 @@
     },
     {
       "en": "Magic Armour is rare and expensive. This chain sells for $gp.\n",
-      "zh": "",
+      "zh": "魔法護甲罕見而昂貴。這副鎖子甲售 $gp。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -1652,7 +1658,7 @@
     },
     {
       "en": "Magic Axe",
-      "zh": "",
+      "zh": "魔法斧",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1661,7 +1667,7 @@
     },
     {
       "en": "Magic Bow",
-      "zh": "",
+      "zh": "魔法弓",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1670,7 +1676,7 @@
     },
     {
       "en": "Magic Chain",
-      "zh": "",
+      "zh": "魔法鎖子甲",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1679,7 +1685,7 @@
     },
     {
       "en": "Magic Mentar",
-      "zh": "",
+      "zh": "魔法門塔",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1688,7 +1694,7 @@
     },
     {
       "en": "Magic Plate",
-      "zh": "",
+      "zh": "魔法板甲",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1697,7 +1703,7 @@
     },
     {
       "en": "Magic Plate Armour is the best known protection. Only we have it.  Cost: $gp.\n",
-      "zh": "",
+      "zh": "魔法板甲乃眾所周知最佳的防護。唯本店有售。  價：$gp。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -1706,7 +1712,7 @@
     },
     {
       "en": "Magic Sword",
-      "zh": "",
+      "zh": "魔法劍",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1715,7 +1721,7 @@
     },
     {
       "en": "Magic Wand",
-      "zh": "",
+      "zh": "魔杖",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1724,7 +1730,7 @@
     },
     {
       "en": "Magical Herbs",
-      "zh": "",
+      "zh": "魔法草藥",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1733,7 +1739,7 @@
     },
     {
       "en": "Margot",
-      "zh": "",
+      "zh": "瑪歌",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1742,7 +1748,7 @@
     },
     {
       "en": "Max",
-      "zh": "",
+      "zh": "麥斯",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1751,7 +1757,7 @@
     },
     {
       "en": "Mintol",
-      "zh": "",
+      "zh": "明托",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1760,7 +1766,7 @@
     },
     {
       "en": "Mystic Robe",
-      "zh": "",
+      "zh": "神秘長袍",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1769,7 +1775,7 @@
     },
     {
       "en": "Mystic Sword",
-      "zh": "",
+      "zh": "神秘之劍",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1778,7 +1784,7 @@
     },
     {
       "en": "No one?\n",
-      "zh": "",
+      "zh": "無人？\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1787,7 +1793,7 @@
     },
     {
       "en": "Notice the fine workmanship on this axe, you'll agree $gp is a good price.\n",
-      "zh": "",
+      "zh": "且看這斧的精工細作,汝定會認同 $gp 是個好價錢。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -1796,7 +1802,7 @@
     },
     {
       "en": "One Eyed Willey",
-      "zh": "",
+      "zh": "獨眼威利",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1805,7 +1811,7 @@
     },
     {
       "en": "Our bows are made of finest yew, and the arrows willow, a steal at $gp.\n",
-      "zh": "",
+      "zh": "本店之弓以上等紫杉木製成，箭桿取自柳木，$gp 實屬撿便宜。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -1814,7 +1820,7 @@
     },
     {
       "en": "Pendragon",
-      "zh": "",
+      "zh": "潘德拉貢",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1823,7 +1829,7 @@
     },
     {
       "en": "Peter",
-      "zh": "",
+      "zh": "彼得",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1832,7 +1838,7 @@
     },
     {
       "en": "Pierre",
-      "zh": "",
+      "zh": "皮耶",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1841,7 +1847,7 @@
     },
     {
       "en": "Pirate's Guild",
-      "zh": "",
+      "zh": "海盜行會",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1850,7 +1856,7 @@
     },
     {
       "en": "Plate Mail",
-      "zh": "",
+      "zh": "板甲",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1859,7 +1865,7 @@
     },
     {
       "en": "Quat",
-      "zh": "",
+      "zh": "夸特",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1868,7 +1874,7 @@
     },
     {
       "en": "Resurrection",
-      "zh": "",
+      "zh": "復活",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1877,7 +1883,7 @@
     },
     {
       "en": "Salle'",
-      "zh": "",
+      "zh": "薩勒",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1886,7 +1892,7 @@
     },
     {
       "en": "Sam",
-      "zh": "",
+      "zh": "山姆",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1895,7 +1901,7 @@
     },
     {
       "en": "Sasha",
-      "zh": "",
+      "zh": "莎夏",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1904,7 +1910,7 @@
     },
     {
       "en": "Scatu",
-      "zh": "",
+      "zh": "斯卡圖",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1913,7 +1919,7 @@
     },
     {
       "en": "See ya mate!\n",
-      "zh": "",
+      "zh": "回頭見，夥計！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1922,7 +1928,7 @@
     },
     {
       "en": "Shaman",
-      "zh": "",
+      "zh": "薩滿",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1931,7 +1937,7 @@
     },
     {
       "en": "Shannon",
-      "zh": "",
+      "zh": "夏儂",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1940,7 +1946,7 @@
     },
     {
       "en": "Sheila",
-      "zh": "",
+      "zh": "希拉",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1949,7 +1955,7 @@
     },
     {
       "en": "Sling",
-      "zh": "",
+      "zh": "投石索",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1958,7 +1964,7 @@
     },
     {
       "en": "Smirk",
-      "zh": "",
+      "zh": "斯莫克",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1967,7 +1973,7 @@
     },
     {
       "en": "Somethin'\nelse? ",
-      "zh": "",
+      "zh": "還要\n別樣？ ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1976,7 +1982,7 @@
     },
     {
       "en": "Spider Silk",
-      "zh": "",
+      "zh": "蜘蛛絲",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1985,7 +1991,7 @@
     },
     {
       "en": "Spiran",
-      "zh": "",
+      "zh": "斯派蘭",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -1994,7 +2000,7 @@
     },
     {
       "en": "Staff",
-      "zh": "",
+      "zh": "法杖",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2003,7 +2009,7 @@
     },
     {
       "en": "Starfire",
-      "zh": "",
+      "zh": "星火",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2012,7 +2018,7 @@
     },
     {
       "en": "Sulfur Ash",
-      "zh": "",
+      "zh": "硫磺灰",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2021,7 +2027,7 @@
     },
     {
       "en": "Sword",
-      "zh": "",
+      "zh": "劍",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2030,7 +2036,7 @@
     },
     {
       "en": "Terran",
-      "zh": "",
+      "zh": "泰倫",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2039,7 +2045,7 @@
     },
     {
       "en": "The Bloody Pub",
-      "zh": "",
+      "zh": "血色酒館",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2048,7 +2054,7 @@
     },
     {
       "en": "The Cap'n",
-      "zh": "",
+      "zh": "船長",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2057,7 +2063,7 @@
     },
     {
       "en": "The Courage Healer",
-      "zh": "",
+      "zh": "勇氣治療所",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2066,7 +2072,7 @@
     },
     {
       "en": "The Dry Goods",
-      "zh": "",
+      "zh": "雜貨舖",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2075,7 +2081,7 @@
     },
     {
       "en": "The Guild Shop",
-      "zh": "",
+      "zh": "公會商店",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2084,7 +2090,7 @@
     },
     {
       "en": "The Healer",
-      "zh": "",
+      "zh": "治療所",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2093,7 +2099,7 @@
     },
     {
       "en": "The Healer Shop",
-      "zh": "",
+      "zh": "治療師店舖",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2102,7 +2108,7 @@
     },
     {
       "en": "The Honest Inn",
-      "zh": "",
+      "zh": "誠實客棧",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2111,7 +2117,7 @@
     },
     {
       "en": "The Inn of Ends",
-      "zh": "",
+      "zh": "終末旅店",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2120,7 +2126,7 @@
     },
     {
       "en": "The Inn of the Spirits",
-      "zh": "",
+      "zh": "靈魂旅店",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2129,7 +2135,7 @@
     },
     {
       "en": "The Innkeeper says: ",
-      "zh": "",
+      "zh": "店主道： ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2138,7 +2144,7 @@
     },
     {
       "en": "The Iron Works",
-      "zh": "",
+      "zh": "鐵工坊",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2147,7 +2153,7 @@
     },
     {
       "en": "The Keg Tap",
-      "zh": "",
+      "zh": "酒桶龍頭",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2156,7 +2162,7 @@
     },
     {
       "en": "The Love Healer",
-      "zh": "",
+      "zh": "愛之療者",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2165,7 +2171,7 @@
     },
     {
       "en": "The Magics",
-      "zh": "",
+      "zh": "魔法鋪",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2174,7 +2180,7 @@
     },
     {
       "en": "The Market",
-      "zh": "",
+      "zh": "市集",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2183,7 +2189,7 @@
     },
     {
       "en": "The Mystic Heal",
-      "zh": "",
+      "zh": "神秘療所",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2192,7 +2198,7 @@
     },
     {
       "en": "The Royal Healer",
-      "zh": "",
+      "zh": "皇家治療所",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2201,7 +2207,7 @@
     },
     {
       "en": "The Sage Deli",
-      "zh": "",
+      "zh": "賢者熟食舖",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2210,7 +2216,7 @@
     },
     {
       "en": "The Sleep Shop",
-      "zh": "",
+      "zh": "安眠居",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2219,7 +2225,7 @@
     },
     {
       "en": "The Truth Healer",
-      "zh": "",
+      "zh": "真理治療所",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2228,7 +2234,7 @@
     },
     {
       "en": "The fine work on these swords will be the dread of thy foes, for $gp.\n",
-      "zh": "",
+      "zh": "這些刀劍工藝精良，必令汝之敵聞風喪膽，僅售 $gp。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -2237,7 +2243,7 @@
     },
     {
       "en": "These maces have a hardened shaft and a 5lb head fairly priced at $gp.\n",
-      "zh": "",
+      "zh": "這些釘頭錘柄身堅硬，錘頭重五磅，售 $gp，價格公道。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -2246,7 +2252,7 @@
     },
     {
       "en": "This magic wand casts mighty blue bolts to strike down thy foes, $gp.\n",
-      "zh": "",
+      "zh": "此魔杖可施放強力藍色閃電,擊倒汝之仇敵,$gp。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -2255,7 +2261,7 @@
     },
     {
       "en": "This magical axe can be thrown at thy enemy and will then return all for $gp.\n",
-      "zh": "",
+      "zh": "此魔法戰斧可擲向汝之敵，擲出後又會飛回，盡歸汝有，僅售 $gp。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -2264,7 +2270,7 @@
     },
     {
       "en": "Thou art already quite healthy!\n",
-      "zh": "",
+      "zh": "汝早已甚是康健！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2273,7 +2279,7 @@
     },
     {
       "en": "Thou art not dead fool!\n",
-      "zh": "",
+      "zh": "汝又沒死,蠢貨!\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2282,7 +2288,7 @@
     },
     {
       "en": "Thou suffers not from Poison!\n",
-      "zh": "",
+      "zh": "汝並未中毒！\n",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2291,7 +2297,7 @@
     },
     {
       "en": "Triplet",
-      "zh": "",
+      "zh": "三胞胎",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2300,7 +2306,7 @@
     },
     {
       "en": "Tymus",
-      "zh": "",
+      "zh": "泰摩斯",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2309,7 +2315,7 @@
     },
     {
       "en": "Tyrone",
-      "zh": "",
+      "zh": "泰隆",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2318,7 +2324,7 @@
     },
     {
       "en": "Valiant",
-      "zh": "",
+      "zh": "勇者",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2327,7 +2333,7 @@
     },
     {
       "en": "Valiant's Armour",
-      "zh": "",
+      "zh": "勇士護甲",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2336,7 +2342,7 @@
     },
     {
       "en": "Village Arms",
-      "zh": "",
+      "zh": "鄉村軍械行",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2345,7 +2351,7 @@
     },
     {
       "en": "Wayfarer's Inn",
-      "zh": "",
+      "zh": "旅人客棧",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2354,7 +2360,7 @@
     },
     {
       "en": "We are the only staff makers in Britannia, yet sell them for only $gp.\n",
-      "zh": "",
+      "zh": "我等乃不列顛尼亞唯一的法杖匠人,卻只售 $gp。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -2363,7 +2369,7 @@
     },
     {
       "en": "We have a modest sized room with 1 bed for 15 gp.",
-      "zh": "",
+      "zh": "我們有一間中等大小、附一床的房，售 15 金幣。",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2372,7 +2378,7 @@
     },
     {
       "en": "We have a room with 2 beds that rents for 20gp.",
-      "zh": "",
+      "zh": "本店有一間雙床房，租金 20 金幣。",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2381,7 +2387,7 @@
     },
     {
       "en": "We have a single bed room with a back door for 15gp.",
-      "zh": "",
+      "zh": "我等有間附後門的單人房,15gp。",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2390,7 +2396,7 @@
     },
     {
       "en": "We have a very secure room of modest size and 1 bed for 10gp.",
-      "zh": "",
+      "zh": "我們有一間十分安全、中等大小、附一床的房，售 10 金幣。",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2399,7 +2405,7 @@
     },
     {
       "en": "We sell the most deadly of daggers, a bargain at only $gp each.\n",
-      "zh": "",
+      "zh": "本店出售最致命的匕首，每把僅 $gp，划算之至。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -2408,7 +2414,7 @@
     },
     {
       "en": "Welcome friend!\nCan I interest thee in\nhorses? ",
-      "zh": "",
+      "zh": "歡迎,朋友!\n汝可有意添置\n馬匹? ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2417,7 +2423,7 @@
     },
     {
       "en": "Welcome to @\n\n% says: Good day, and Welcome friend.\n",
-      "zh": "",
+      "zh": "歡迎光臨 @\n\n% 說道：日安，歡迎汝，朋友。\n",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -2426,7 +2432,7 @@
     },
     {
       "en": "Welcome to @\n\nI am %.\n\nAre you in need of lodging? ",
-      "zh": "",
+      "zh": "歡迎光臨 @\n\n我乃 %。\n\n汝可需投宿？ ",
       "kind": "quote",
       "has_placeholder": true,
       "occurrences": [
@@ -2435,7 +2441,7 @@
     },
     {
       "en": "Wendy",
-      "zh": "",
+      "zh": "溫蒂",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2444,7 +2450,7 @@
     },
     {
       "en": "Willard",
-      "zh": "",
+      "zh": "威拉德",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2453,7 +2459,7 @@
     },
     {
       "en": "Willard's Weaponry",
-      "zh": "",
+      "zh": "威拉德兵器行",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2462,7 +2468,7 @@
     },
     {
       "en": "Windrick",
-      "zh": "",
+      "zh": "溫德里克",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2471,7 +2477,7 @@
     },
     {
       "en": "Windsor Weaponry",
-      "zh": "",
+      "zh": "溫莎兵器行",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2480,7 +2486,7 @@
     },
     {
       "en": "Windwalker",
-      "zh": "",
+      "zh": "御風者",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2489,7 +2495,7 @@
     },
     {
       "en": "Winsdor Armour",
-      "zh": "",
+      "zh": "溫莎護甲",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2498,7 +2504,7 @@
     },
     {
       "en": "Wound Healing",
-      "zh": "",
+      "zh": "傷口治療",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2507,7 +2513,7 @@
     },
     {
       "en": "Ya can only afford ",
-      "zh": "",
+      "zh": "汝只買得起 ",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2516,7 +2522,7 @@
     },
     {
       "en": "Zajac",
-      "zh": "",
+      "zh": "札亞克",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2525,7 +2531,7 @@
     },
     {
       "en": "bcdefgh",
-      "zh": "",
+      "zh": "bcdefgh",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [
@@ -2534,7 +2540,7 @@
     },
     {
       "en": "bcdefghijklmnop",
-      "zh": "",
+      "zh": "bcdefghijklmnop",
       "kind": "quote",
       "has_placeholder": false,
       "occurrences": [

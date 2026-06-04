@@ -102,8 +102,7 @@ docker run --rm -v /tmp/u4shot:/out u4cht/xu4-test 22 3   # → /tmp/u4shot/scre
 | P2 | headless 截圖 loop + 文字架構 / 字型可行性 | ✅ |
 | P3 | 文字輸出 hook 盤點(H1–H8) | ✅ |
 | P4 資料面 | `.TLK` / stringtable / 硬編 / vendor 四源抽取 | ✅ |
-| P5 翻譯 | NPC 對話 256 NPC(分批平行 + 共享 glossary) | 🔵 對話完成 |
-| P5 後續 | stringtable / 硬編 / vendor 翻譯 | ⬜ |
+| P5 翻譯 | 四源全譯(talk 256 + stringtable 114 + 硬編 318 + vendor 278) | ✅ |
 | P6 | CJK 字型 + 接 hook(動引擎) | ⬜ |
 | P7+ | 整合驗證 / 跨平台打包 | ⬜ |
 

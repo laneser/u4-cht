@@ -6,7 +6,13 @@
     ],
     "mechanism": "u4read_stringtable (xu4 src/u4file.cpp:578)",
     "total_strings": 114,
-    "note": "en = DOS exe 原文(= H8/codex/shrine hook 的 lookup key);zh 待填。title.exe 三段為順序讀。vendor 文字不在此(走 Boron module 腳本,見報告)。"
+    "note": "en = DOS exe 原文(= H8/codex/shrine hook 的 lookup key);zh 待填。title.exe 三段為順序讀。vendor 文字不在此(走 Boron module 腳本,見報告)。",
+    "translation": {
+      "status": "translated",
+      "date": "2026-06-04",
+      "method": "平行 agent + docs/glossary-u4.md",
+      "validated": "format/佔位符 0 不符"
+    }
   },
   "sections": {
     "intro_questions": {
@@ -17,142 +23,142 @@
         {
           "idx": 0,
           "en": "Entrusted to deliver an uncounted purse\nof gold, thou dost meet a poor beggar.\nDost thou A) deliver the gold knowing\nthe Trust in thee was well placed, or\nB) show Compassion, giving the beggar a\ncoin, knowing it won't be missed?",
-          "zh": ""
+          "zh": "汝受託送交一袋未經清點的金幣，\n途中遇見一名貧苦的乞丐。\n汝願 A) 信守所託，將金幣如數送達，\n深知此信任託付得宜，抑或\nB) 心懷慈悲，施予乞丐一枚金幣，\n深知此微薄之數無人察覺？"
         },
         {
           "idx": 1,
           "en": "Thou has been prohibited by thy absent\nLord from joining thy friends in a close\npitched battle. Dost thou A) refrain, so\nthou may Honesty claim obedience, or\nB) show Valor, and aid thy comrades,\nknowing thou may deny it later?",
-          "zh": ""
+          "zh": "汝因身在遠方之君主之命，\n受禁與同袍並肩浴血鏖戰。\n汝當 A) 退避不戰，\n以保誠實之德、可宣稱奉命行事，或\nB) 顯勇敢之德，馳援同袍，\n縱知日後或可矢口否認？"
         },
         {
           "idx": 2,
           "en": "A merchant owes thy friend money, now\nlong past due.  Thou dost see the same\nmerchant drop a purse of gold. Dost thou\nA) Honestly return the purse intact, or\nB) Justly give thy friend a portion of\nthe gold first?",
-          "zh": ""
+          "zh": "一名商人欠汝友人錢財，早已逾期甚久。\n汝見此商人遺落一袋金幣。\n汝願 A) 誠實地將金幣原封歸還，抑或\nB) 本於正義，先取一部分金幣\n償還汝友人？"
         },
         {
           "idx": 3,
           "en": "Thee and thy friend are valiant but\npenniless warriors.  Thou both go out to\nslay a mighty dragon.  Thy friend thinks\nhe slew it; thee did.  When asked, dost\nthou A) Truthfully claim the gold, or\nB) Allow thy friend the large reward?",
-          "zh": ""
+          "zh": "汝與汝之友皆驍勇而身無分文之戰士。\n二人同往斬一頭巨龍。\n汝友自以為龍乃其所殺；實則汝所殺也。\n他人問及，汝當 A) 據實領取那筆黃金，或\nB) 將厚賞讓與汝之友？"
         },
         {
           "idx": 4,
           "en": "Thou art sworn to protect thy Lord at\nany cost, yet thou know he hath\ncommitted a crime.  Authorities ask thee\nof the affair.  Dost thou A) break thine\noath by Honestly speaking, or B) uphold\nHonor by silently keeping thine oath?",
-          "zh": ""
+          "zh": "汝立誓不惜代價護衛汝之主君，\n然汝深知他犯下了罪行。\n當權者就此事詢問於汝。\n汝願 A) 違背誓言，誠實道出真相，\n抑或 B) 恪守榮譽，緘默以全汝之誓？"
         },
         {
           "idx": 5,
           "en": "Thy friend seeks admittance to thy\nSpiritual order. Thou art asked to vouch\nfor his purity of Spirit, of which thou\nart unsure.  Dost thou A) Honestly\nexpress thy doubt, or B) Vouch for him\nhoping for his Spiritual improvement?",
-          "zh": ""
+          "zh": "汝友求入汝所屬之靈性之教團。\n眾人請汝為其靈魂之純淨作保，\n而汝實心存疑慮。\n汝當 A) 誠實道出汝之疑慮，或\nB) 為其作保，望其靈性日後得以精進？"
         },
         {
           "idx": 6,
           "en": "Thy Lord mistakenly believes he slew a\ndragon.  Thou hast proof that thy lance\nfelled the beast.  When asked, dost thou\nA) Honestly claim the kill and the\nprize, or B) Humbly permit thy Lord his\nbelief?",
-          "zh": ""
+          "zh": "汝之主君誤以為龍乃他親手所斬。\n汝握有證據，斬獸者實為汝之長槍。\n當被問及時，汝願\nA) 誠實宣稱此功與獎賞，抑或\nB) 謙卑地任憑汝之主君持其所信？"
         },
         {
           "idx": 7,
           "en": "Thou dost manage to disarm thy mortal\nenemy in a duel.  He is at thy mercy.\nDost thou A) show Compassion by\npermitting him to yield, or B) slay him\nas expected of a Valiant duelist?",
-          "zh": ""
+          "zh": "決鬥之中，汝得以繳了不共戴天之仇敵之械。\n其命懸於汝手。\n汝當 A) 顯慈悲之德，准其認輸求饒，或\nB) 如勇敢決鬥者所應為，將其斬殺？"
         },
         {
           "idx": 8,
           "en": "After 20 years thou hast found the\nslayer of thy best friends.  The villain\nproves to be a man who provides the sole\nsupport for a young girl.  Dost thou\nA) spare him in Compassion for the girl,\nor B) slay him in the name of Justice?",
-          "zh": ""
+          "zh": "二十年後，汝終尋得殺害摯友之凶手。\n那惡徒原來是一名男子，\n獨力撫養一名幼女。\n汝願 A) 為那女孩心懷慈悲，饒其性命，\n抑或 B) 以正義之名，取其性命？"
         },
         {
           "idx": 9,
           "en": "Thee and thy friends have been routed\nand ordered to retreat.  In defiance of\nthy orders, dost thou A) stop in\nCompassion to aid a wounded companion,\nor B) Sacrifice thyself to slow the\npursuing enemy, so others may escape?",
-          "zh": ""
+          "zh": "汝與同袍潰敗，奉命撤退。\n違抗將令，汝當 A) 心懷慈悲，\n駐足救護一名負傷之同伴，或\nB) 犧牲己身以阻緩追兵，\n使他人得以脫逃？"
         },
         {
           "idx": 10,
           "en": "Thou art sworn to uphold a Lord who\nparticipates in the forbidden torture of\nprisoners.  Each night their cries of\npain reach thee.  Dost thou A) show\nCompassion by reporting the deeds, or\nB) Honor thy oath and ignore the deeds?",
-          "zh": ""
+          "zh": "汝立誓效忠之主君，\n竟參與了對囚犯的禁忌酷刑。\n每夜他們痛苦的哀號傳入汝耳。\n汝願 A) 心懷慈悲，揭發此等惡行，\n抑或 B) 恪守誓言之榮譽，視而不見？"
         },
         {
           "idx": 11,
           "en": "Thou hast been taught to preserve all\nlife as sacred. A man lies fatally stung\nby a venomous serpent.  He pleads for a\nmerciful death.  Dost thou A) show\nCompassion and end his pain, or B) heed\nthy Spiritual beliefs and refuse?",
-          "zh": ""
+          "zh": "汝自幼受教，當以萬物之生命為神聖而珍護之。\n今有一人為毒蛇所螫，命在旦夕，\n苦苦哀求一個慈悲之死。\n汝當 A) 顯慈悲之德，了結其痛苦，或\nB) 守汝之靈性信念而拒之？"
         },
         {
           "idx": 12,
           "en": "As one of the King's Guard, thy Captain\nhas asked that one amongst you visit\na hospital to cheer the children with\ntales of thy valiant deeds.  Dost thou\nA) Show thy Compassion and play the\nbraggart, or B) Humbly let another go?",
-          "zh": ""
+          "zh": "身為國王衛兵之一，汝之隊長\n指派你們之中一人前往醫院，\n以汝英勇事蹟之傳說\n撫慰院中孩童。汝願\nA) 展現慈悲，扮起誇耀之人，抑或\nB) 謙卑地讓另一人前往？"
         },
         {
           "idx": 13,
           "en": "Thou hast been sent to secure a needed\ntreaty with a distant Lord.  Thy host is\nagreeable to the proposal but insults\nthy country at dinner.  Dost thou\nA) Valiantly bear the slurs, or\nB) Justly rise and demand an apology?",
-          "zh": ""
+          "zh": "汝奉命前往與一遠方君主締結要緊之盟約。\n東道主雖允汝之提議，\n席間卻辱及汝之國邦。\n汝當 A) 勇敢隱忍此等羞辱，或\nB) 秉持正義，起身討一句道歉？"
         },
         {
           "idx": 14,
           "en": "A mighty knight accosts thee and demands\nthy food.  Dost thou A) Valiantly refuse\nand engage the knight, or B) Sacrifice\nthy food unto the hungry knight?",
-          "zh": ""
+          "zh": "一名強悍的騎士攔住汝，索討汝之食糧。\n汝願 A) 英勇地拒絕，與騎士交戰，抑或\nB) 犧牲汝之食糧，獻予這飢餓的騎士？"
         },
         {
           "idx": 15,
           "en": "During battle thou art ordered to guard\nthy commander's empty tent.  The battle\ngoes poorly and thou dost yearn to aid\nthy fellows.  Dost thou A) Valiantly\nenter the battle to aid thy companions,\nor B) Honor thy post as guard?",
-          "zh": ""
+          "zh": "戰事之中，汝奉命守衛統帥之空帳。\n戰局不利，汝心切欲援同袍。\n汝當 A) 勇敢投身戰陣以助同伴，或\nB) 守榮譽而堅其哨位？"
         },
         {
           "idx": 16,
           "en": "A local bully pushes for a fight.  Dost\nthou A) Valiantly trounce the rogue, or\nB) Decline, knowing in thy Spirit that\nno lasting good will come of it?",
-          "zh": ""
+          "zh": "一名當地惡霸尋釁挑戰。汝願\nA) 英勇地痛擊這無賴，抑或\nB) 婉拒，深知於汝之靈性，\n此事終無善果？"
         },
         {
           "idx": 17,
           "en": "Although a teacher of music, thou art\na skillful wrestler.  Thou hast been\nasked to fight in a local championship.\nDost thou A) accept the invitation and\nValiantly fight to win, or B) Humbly\ndecline knowing thou art sure to win?",
-          "zh": ""
+          "zh": "汝雖為授樂之師，亦是擅鬥之角力好手。\n今有人邀汝參與本地之錦標賽。\n汝當 A) 應其邀約，勇敢力戰求勝，或\nB) 明知必勝，仍謙卑婉拒？"
         },
         {
           "idx": 18,
           "en": "During a pitched battle, thou dost see\na fellow desert his post, endangering\nmany.  As he flees, he is set upon by\nseveral enemies. Dost thou A) Justly let\nhim fight alone, or B) Risk Sacrificing\nthine own life to aid him?",
-          "zh": ""
+          "zh": "激戰之中，汝見一名同袍棄守崗位，\n使眾人陷於險境。當他逃竄之際，\n遭數名敵人圍攻。汝願\nA) 本於正義，任他獨自奮戰，抑或\nB) 甘冒犧牲己命之險，前去相救？"
         },
         {
           "idx": 19,
           "en": "Thou hast sworn to do thy Lord's\nbidding in all.  He covets a piece of\nland and orders the owner removed.  Dost\nthou A) serve Justice refusing to act,\nthus being disgraced, or B) Honor thine\noath and unfairly evict the landowner?",
-          "zh": ""
+          "zh": "汝曾立誓，凡汝君主之命無不遵從。\n他覬覦一塊土地，下令逐其地主。\n汝當 A) 秉正義而拒不奉命，因此蒙羞，或\nB) 守汝之誓，不公地驅逐那地主？"
         },
         {
           "idx": 20,
           "en": "Thou dost believe that virtue resides\nin all people.  Thou dost see a rogue\nsteal from thy Lord.  Dost thou A) call\nhim to Justice, or B) personally try to\nsway him back to the Spiritual path of\ngood?",
-          "zh": ""
+          "zh": "汝深信美德存於眾人心中。\n汝見一無賴竊取汝主君之物。\n汝願 A) 將他繩之以正義，抑或\nB) 親自設法感化於他，\n使他重歸靈性向善之道？"
         },
         {
           "idx": 21,
           "en": "Unwitnessed, thou hast slain a great\ndragon in self defense.  A poor warrior\nclaims the offered reward.  Dost thou\nA) Justly step forward to claim the\nreward, or B) Humbly go about life,\nsecure in thy self esteem?",
-          "zh": ""
+          "zh": "無人目睹，汝為自衛而斬殺了一頭巨龍。\n一名貧苦戰士前來認領所懸之賞。\n汝當 A) 秉正義，挺身領取那賞，或\nB) 謙卑度日，安於汝之自尊？"
         },
         {
           "idx": 22,
           "en": "Thou art a bounty hunter sworn to return\nan alleged murder.  After his capture\nthou believest him to be innocent.  Dost\nthou A) Sacrifice thy sizable bounty\nfor thy belief, or B) Honor thy oath to\nreturn him as thou hast promised?",
-          "zh": ""
+          "zh": "汝乃賞金獵人，立誓押回一名被控的殺人犯。\n將他擒獲之後，汝卻深信他是無辜的。\n汝願 A) 為汝之信念，犧牲那筆可觀的賞金，\n抑或 B) 信守榮譽之誓，\n依約將他押回？"
         },
         {
           "idx": 23,
           "en": "Thou hast spent thy life in charitable\nand righteous work.  Thine uncle the\ninnkeeper lies ill and asks you to take\nover his tavern.  Dost thou A) Sacrifice\nthy life of purity to aid thy kin, or\nB) decline & follow thy Spirit's call?",
-          "zh": ""
+          "zh": "汝畢生行慈善與正直之事。\n汝之叔父乃一旅店主人，今臥病在床，\n求汝接掌其酒館。\n汝當 A) 犧牲汝清修之生，以助汝之至親，或\nB) 婉拒，追隨汝靈性之召喚？"
         },
         {
           "idx": 24,
           "en": "Thou art an elderly, wealthy eccentric.\nThy end is near. Dost thou A) donate all\nthy wealth to feed hundreds of starving\nchildren, and receive public adulation,\nor B) Humbly live out thy life, willing\nthy fortune to thy heirs?",
-          "zh": ""
+          "zh": "汝乃年邁富有的怪人，大限將至。\n汝願 A) 將全部財富捐出，\n餵養數百名挨餓的孩童，\n並受眾人的讚頌，抑或\nB) 謙卑地度過餘生，\n將財產遺贈予汝之子嗣？"
         },
         {
           "idx": 25,
           "en": "In thy youth thou pledged to marry thy\nsweetheart.  Now thou art on a sacred\nquest in distant lands.  Thy sweetheart\nasks thee to keep thy vow.  Dost thou\nA) Honor thy pledge to wed, or B) follow\nthy Spiritual crusade?",
-          "zh": ""
+          "zh": "汝於年少之時，曾立誓迎娶汝之心上人。\n今汝身負神聖使命，遠在他鄉。\n汝之心上人求汝信守誓約。\n汝當 A) 守榮譽，履汝成婚之諾，或\nB) 追隨汝靈性之征途？"
         },
         {
           "idx": 26,
           "en": "Thou art at a crossroads in thy life.\nDost thou A) Choose the Honorable life\nof a Paladin, striving for Truth and\nCourage, or B) Choose the Humble life\nof a Shepherd, and a world of simplicity\nand peace?",
-          "zh": ""
+          "zh": "汝正立於人生的十字路口。\n汝願 A) 選擇聖騎士那榮譽的一生，\n為真理與勇氣而奮鬥，抑或\nB) 選擇牧人那謙卑的一生，\n享一個質樸與安寧的世界？"
         },
         {
           "idx": 27,
           "en": "Thy parents wish thee to become an\napprentice. Two positions are available.\nDost thou A) Become an acolyte in the\nSpiritual order, or B) Become an\nassistant to a humble village cobbler?",
-          "zh": ""
+          "zh": "汝之雙親願汝拜師為徒。\n今有二缺可選。\n汝當 A) 入靈性之教團為侍僧，或\nB) 入一謙卑之鄉村鞋匠門下為助手？"
         }
       ]
     },
@@ -164,122 +170,122 @@
         {
           "idx": 0,
           "en": "  The day is warm, yet there is a\ncooling breeze.  The latest in a series\nof personal crises seems insurmountable.\nYou are being pulled apart in all\ndirections.",
-          "zh": ""
+          "zh": "  這一日溫暖，卻有一陣涼風拂過。\n你接連遭逢的個人危機之中，\n最新的這一樁似乎難以承受。\n你彷彿被扯向四面八方。"
         },
         {
           "idx": 1,
           "en": "Yet this afternoon walk in the country-\nside slowly brings relaxation to your\nharried mind.  The soil and strain of\nmodern high-tech living begins to wash\noff in layers. That willow tree near the\nstream looks comfortable and inviting.",
-          "zh": ""
+          "zh": "然而這午後於鄉間之漫步，\n緩緩撫平了你疲憊紛亂之心。\n現代高科技生活之塵勞與重壓，\n彷彿一層層被洗滌而去。\n溪畔那株柳樹，\n看來如此愜意而誘人。"
         },
         {
           "idx": 2,
           "en": "The buzz of dragonflies and the whisper\nof the willow's swaying branches bring\na deep peace.  Searching inward for\ntranquility and happiness, you close\nyour eyes.",
-          "zh": ""
+          "zh": "蜻蜓的嗡鳴與柳枝搖曳的低語\n帶來一片深沉的平靜。\n你向內探尋寧靜與喜悅，\n緩緩閉上了雙眼。"
         },
         {
           "idx": 3,
           "en": "A high-pitched cascading sound like\ncrystal wind-chimes impinges on your\nfloating awareness.  As you open your\neyes, you see a shimmering blueness rise\nfrom the ground.  The sound seems to be\nemanating from this glowing portal.",
-          "zh": ""
+          "zh": "一陣高亢而層層傾瀉之聲，\n如水晶風鈴一般，\n闖入你飄忽之意識。\n當你睜開雙眼，\n見一團微微閃爍之藍光自地面升起。\n那聲響，似自這道發光之門扉中傳出。"
         },
         {
           "idx": 4,
           "en": "It is difficult to look at the blueness.\nLight seems to bend and distort around\nit, while the sound waves become so\nintense, they appear to become visible.",
-          "zh": ""
+          "zh": "那一片湛藍令人難以直視。\n光線似在其周圍彎折扭曲，\n而聲波變得如此強烈，\n竟彷彿化為可見之形。"
         },
         {
           "idx": 5,
           "en": "The portal hangs there for a moment;\nthen, with the rush of an imploding\nvacuum, it sinks into the ground.\nSomething remains suspended in mid-air\nfor a moment before falling to earth\nwith a heavy thud.",
-          "zh": ""
+          "zh": "那門扉懸於空中片刻；\n隨即，如真空內爆般急速一捲，\n沒入了地下。\n有一物懸於半空，\n停滯片刻，方才沉重地一聲悶響墜落於地。"
         },
         {
           "idx": 6,
           "en": "Somewhat shaken by this vision, you\nrise to your feet to investigate.  A\ncrude circle of stones surrounds the\nspot where the portal appeared. There is\nsomething glinting in the grass.",
-          "zh": ""
+          "zh": "為此景象所動，你略感震顫，\n起身一探究竟。一圈粗糙的石頭\n環繞著門戶顯現之處。\n草叢之中，有物正閃爍著微光。"
         },
         {
           "idx": 7,
           "en": "You pick up an amulet shaped like a\ncross with a loop at the top.  It is an\nAnkh, the sacred symbol of life and\nrebirth.  But this could not have made\nthe thud, so you look again and find\na large book wrapped in thick cloth!",
-          "zh": ""
+          "zh": "你拾起一枚護身符，\n形如十字而頂端帶環。\n這是安卡，\n生命與重生之神聖符記。\n然此物不致發出方才那聲悶響，\n於是你再度尋覓，\n竟尋得一部以厚布裹覆之巨冊！"
         },
         {
           "idx": 8,
           "en": "With trembling hands you unwrap the\nbook.  Behold, the cloth is a map, and\nwithin lies not one book, but two.  The\nmap is of a land strange to you, and the\nstyle speaks of ancient cartography.",
-          "zh": ""
+          "zh": "你以顫抖的雙手解開那本書冊。\n看哪，那布竟是一張地圖，\n其中所藏並非一本書，而是兩本。\n地圖所繪是一片你陌生的土地，\n其風格透著古老的製圖之術。"
         },
         {
           "idx": 9,
           "en": "The script on the cover of the first\nbook is arcane but readable.  The title\nis:\n        The History of Britannia\n               as told by\n            Kyle the Younger",
-          "zh": ""
+          "zh": "第一部書封面之文字玄奧，\n卻尚可辨讀。\n其書名為：\n        不列顛尼亞之史\n               口述者\n            少者凱爾"
         },
         {
           "idx": 10,
           "en": "The other book is disturbing to look at.\nIts small cover appears to be fashioned\nout of some sort of leathery hide, but\nfrom what creature is uncertain.  The\nreddish-black skin radiates an intense\naura suggestive of ancient power.",
-          "zh": ""
+          "zh": "另一本書令人不安。\n它小小的封面似以某種皮革製成，\n卻不知出自何種生靈。\n那赤黑的皮面散發出強烈的氣息，\n隱隱透著古老的力量。"
         },
         {
           "idx": 11,
           "en": "The tongue of the title is beyond your\nken.  You dare not open the book and\ndisturb whatever sleeps within.  You\ndecide to peruse the History.  Settling\nback under the willow tree, you open the\nbook.",
-          "zh": ""
+          "zh": "另一部書名之文字，\n則非你所能識。\n你不敢開啟此書，\n驚擾其中沉睡之物。\n你決意先細閱那部史書。\n復又倚回柳樹之下，\n翻開了書冊。"
         },
         {
           "idx": 12,
           "en": "\n\n    (You read the Book of History)",
-          "zh": ""
+          "zh": "\n\n    (你翻閱了歷史之書)"
         },
         {
           "idx": 13,
           "en": "\n\n(No, really! Read the Book of History!)",
-          "zh": ""
+          "zh": "\n\n（不，當真！且讀那部史書吧！）"
         },
         {
           "idx": 14,
           "en": "Closing the book, you again pick up\nthe Ankh.  As you hold it, you begin to\nhear a hauntingly familiar, lute-like\nsound wafting over a nearby hill.  Still\nclutching the strange artifacts, you\nrise unbidden and climb the slope.",
-          "zh": ""
+          "zh": "合上書冊，你再次拾起那枚十字章。\n當你握住它時，你開始聽見\n一陣縈繞於心、似曾相識的琴音，\n自鄰近的山丘飄揚而來。仍緊握著\n那些奇異的遺物，你不由自主地起身，\n登上了那道山坡。"
         },
         {
           "idx": 15,
           "en": "In the valley below you see what appears\nto be a fair.  It seems strange that you\ncame that way earlier and noticed\nnothing.  As you mull this over, your\nfeet carry you down towards the site.",
-          "zh": ""
+          "zh": "於下方之谷中，\n你瞧見彷彿一場集市。\n怪也，\n稍早你正由那條路而來，\n卻一無所覺。\n當你尚在思忖之際，\n雙足已不自禁地帶你步向那處。"
         },
         {
           "idx": 16,
           "en": "This is no ordinary travelling\ncarnival, but a Renaissance Fair.  The\npennants on the tent tops blow briskly\nin the late afternoon breeze.",
-          "zh": ""
+          "zh": "這並非尋常的流動嘉年華，\n而是一場文藝復興的市集。\n帳篷頂上的旗幡\n在午後將盡的微風中獵獵飄揚。"
         },
         {
           "idx": 17,
           "en": "The ticket taker at the RenFair's gate\nstarts to ask you for money, but upon\nspotting your Ankh says, \"Welcome,\nfriend.  Enter in peace and find your\npath.\"",
-          "zh": ""
+          "zh": "文藝復興集市門口之收票人，\n本欲向你索取錢財，\n然一瞥見你之安卡，\n便道：「歡迎，朋友。\n安然入內，尋汝之道吧。」"
         },
         {
           "idx": 18,
           "en": "The music continues to pull you\nforward amongst the merchants and\nvendors.  Glimpses of fabulous treasures\ncan be seen in some of the shadowy\nbooths.",
-          "zh": ""
+          "zh": "樂聲不斷牽引你向前，\n穿行於商賈與小販之間。\n在某些幽暗的攤位裡，\n隱約可見奇珍異寶的光影。"
         },
         {
           "idx": 19,
           "en": "These people are very happy.  They seem\nto glow with an inner light.  Some look\nup as you pass and smile, but you cannot\nstop - the music compels you to move\nonward through the crowd.",
-          "zh": ""
+          "zh": "這些人甚是歡喜，\n彷彿由內而外煥發著一股光輝。\n你經過時，\n有人抬眼向你微笑，\n你卻無法駐足——\n那樂音催促著你，\n繼續穿行於人群之中。"
         },
         {
           "idx": 20,
           "en": "Through the gathering dusk you see a\nsecluded gypsy wagon sitting off in the\nwoods.  The music seems to emanate from\nthe wagon.  As you draw near, a woman's\nvoice weaves into the music, saying:\n\"You may approach, O seeker.\"",
-          "zh": ""
+          "zh": "透過漸濃的暮色，你望見一輛\n隱蔽的吉普賽篷車，停在林間。\n那樂聲似乎正自篷車中傳出。\n當你走近時，一個女子的嗓音\n織入樂聲之中，說道：\n「汝可上前，啊，尋道之人。」"
         },
         {
           "idx": 21,
           "en": "You enter to find an old gypsy sitting\nin a small curtained room.  She wears an\nAnkh around her neck. In front of her is\na round table covered in deep green\nvelvet.  The room smells so heavily of\nincense that you feel dizzy.",
-          "zh": ""
+          "zh": "你步入其中，\n見一老吉普賽婦人坐於一間以帷幕圍起之小室裡。\n她頸間掛著一枚安卡。\n她面前是一張覆以深綠絲絨之圓桌。\n室中濃濃薰香之氣，\n薰得你頭暈目眩。"
         },
         {
           "idx": 22,
           "en": "Seeing the Ankh, the ancient gypsy\nsmiles and warns you never to part with\nit.  \"We have been waiting such a long\ntime, but at last you have come.  Sit\nhere and I shall read the path of your\nfuture.\"",
-          "zh": ""
+          "zh": "見到那十字章，年邁的吉普賽人\n微微一笑，並告誡你切莫與它分離。\n「我們已等候了如此漫長的歲月，\n而你終於來了。坐下吧，\n讓我為你卜讀未來之路。」"
         },
         {
           "idx": 23,
           "en": "Upon the table she places a curious\nwooden object like an abacus but without\nbeads.  In her hands she holds eight\nunusual cards.  \"Let us begin the\ncasting.\"",
-          "zh": ""
+          "zh": "她於桌上置下一件奇異之木器，\n狀如算盤，卻無算珠。\n她手中執著八張不尋常之牌。\n「讓我們開始這場卜算吧。」"
         }
       ]
     },
@@ -291,62 +297,62 @@
         {
           "idx": 0,
           "en": "The gypsy places the first two cards\n",
-          "zh": ""
+          "zh": "吉普賽人擺下了頭兩張牌\n"
         },
         {
           "idx": 1,
           "en": "The gypsy places two more of the cards\n",
-          "zh": ""
+          "zh": "吉普賽婦人又取出兩張牌\n"
         },
         {
           "idx": 2,
           "en": "The gypsy places the last two cards\n",
-          "zh": ""
+          "zh": "吉普賽人擺下了最後兩張牌\n"
         },
         {
           "idx": 3,
           "en": "upon the table.  They are the cards of\n",
-          "zh": ""
+          "zh": "置於桌上。它們乃是\n"
         },
         {
           "idx": 4,
           "en": "Honesty",
-          "zh": ""
+          "zh": "誠實"
         },
         {
           "idx": 5,
           "en": "Compassion",
-          "zh": ""
+          "zh": "慈悲"
         },
         {
           "idx": 6,
           "en": "Valor",
-          "zh": ""
+          "zh": "勇敢"
         },
         {
           "idx": 7,
           "en": "Justice",
-          "zh": ""
+          "zh": "正義"
         },
         {
           "idx": 8,
           "en": "Sacrifice",
-          "zh": ""
+          "zh": "犧牲"
         },
         {
           "idx": 9,
           "en": "Honor",
-          "zh": ""
+          "zh": "榮譽"
         },
         {
           "idx": 10,
           "en": "Spirituality",
-          "zh": ""
+          "zh": "靈性"
         },
         {
           "idx": 11,
           "en": "Humility",
-          "zh": ""
+          "zh": "謙卑"
         },
         {
           "idx": 12,
@@ -356,12 +362,12 @@
         {
           "idx": 13,
           "en": "With the final choice, the incense\nswells up around you.  The gypsy speaks\nas if from a great distance, her voice\ngrowing fainter with each word:\n\"So be it!  Thy path is chosen!\"",
-          "zh": ""
+          "zh": "隨著最後的抉擇，香煙在你四周升騰。\n吉普賽人開口，彷彿自極遙遠之處傳來，\n她的嗓音隨每一個字漸漸微弱：\n「便如此吧！汝之道路已定！」"
         },
         {
           "idx": 14,
           "en": "There is a moment of intense, wrenching\nvertigo.  As you open your eyes, a\nvoice whispers within your mind, \"Seek\nthe counsel of thy sovereign.\"  After a\nmoment, the spinning subsides, and you\nopen your eyes to...",
-          "zh": ""
+          "zh": "一陣劇烈而扭絞之暈眩襲來。\n當你睜開雙眼，\n一個聲音於你心中低語：\n「去尋求汝君主之指引。」\n片刻之後，旋轉漸止，\n你睜開雙眼，所見乃是……"
         }
       ]
     },
@@ -373,57 +379,57 @@
         {
           "idx": 0,
           "en": "What dost thou possess if all may rely upon your every word?",
-          "zh": ""
+          "zh": "若眾人皆可信賴汝之一言一語，汝所擁有者為何？"
         },
         {
           "idx": 1,
           "en": "What quality compels one to share in the journeys of others?",
-          "zh": ""
+          "zh": "何種品德，驅使一人去分擔他人之旅途？"
         },
         {
           "idx": 2,
           "en": "What answers when great deeds are called for?",
-          "zh": ""
+          "zh": "當偉業有所召喚時，何者挺身回應？"
         },
         {
           "idx": 3,
           "en": "What should be the same for Lord and Serf alike?",
-          "zh": ""
+          "zh": "何者，於君主與農奴之間皆應一視同仁？"
         },
         {
           "idx": 4,
           "en": "What is loath to place the self above aught else?",
-          "zh": ""
+          "zh": "何者不願將自身置於他物之上？"
         },
         {
           "idx": 5,
           "en": "What shirks no duty?",
-          "zh": ""
+          "zh": "何者，從不推卸任何職責？"
         },
         {
           "idx": 6,
           "en": "What, in knowing the true self, knows all?",
-          "zh": ""
+          "zh": "何者於洞悉真我之中，便知曉一切？"
         },
         {
           "idx": 7,
           "en": "What is that which Serfs are born with but Nobles must strive to obtain?",
-          "zh": ""
+          "zh": "何者，乃農奴與生俱來，而貴族卻須竭力方能得之？"
         },
         {
           "idx": 8,
           "en": "If all else is imaginary, this is real...",
-          "zh": ""
+          "zh": "若餘者皆為虛幻，此者乃真實……"
         },
         {
           "idx": 9,
           "en": "What plunges to the depths, while soaring on the heights?",
-          "zh": ""
+          "zh": "何者，能墜入幽深之淵，亦能翱翔於至高之巔？"
         },
         {
           "idx": 10,
           "en": "What turns not away from any peril?",
-          "zh": ""
+          "zh": "何者面對任何險境皆不退縮？"
         }
       ]
     },
@@ -435,37 +441,37 @@
         {
           "idx": 0,
           "en": "The boundless knowledge of the Codex of Ultimate Wisdom is revealed unto thee.",
-          "zh": ""
+          "zh": "知識寶典那無邊無際之智慧，向汝顯現。"
         },
         {
           "idx": 1,
           "en": "\n\nThe voice says: Thou hast proven thyself to be truly good in nature.",
-          "zh": ""
+          "zh": "\n\n那聲音說道：汝已證明己身本性確為至善。"
         },
         {
           "idx": 2,
           "en": "\n\nThou must know that thy quest to become an Avatar is the endless quest of a lifetime.",
-          "zh": ""
+          "zh": "\n\n汝須謹記，汝成為聖者之追尋，乃是一生無盡之追尋。"
         },
         {
           "idx": 3,
           "en": "\n\nAvatarhood is a living gift.  It must always and forever be nurtured to flourish.",
-          "zh": ""
+          "zh": "\n\n聖者之道乃是活生生的恩賜。它必須恒久不斷地受滋養，方能興盛。"
         },
         {
           "idx": 4,
           "en": "\n\nFor if thou dost stray from the paths of virtue, thy way may be lost forever.",
-          "zh": ""
+          "zh": "\n\n蓋若汝偏離美德之道，汝之路途或將永遠迷失。"
         },
         {
           "idx": 5,
           "en": "\n\nReturn now unto thine own world. Live there as an example to thy people, as our memory of thy gallant deeds serves us.",
-          "zh": ""
+          "zh": "\n\n如今歸返汝自己的世界吧。在那裡作汝子民之典範，一如我等銘記汝之英勇事蹟。"
         },
         {
           "idx": 6,
           "en": "\n\nAs the sound of the voice trails off, darkness seems to rise around you. There is a moment of intense, wrenching vertigo.",
-          "zh": ""
+          "zh": "\n\n當那聲音漸漸消逝，黑暗彷彿自你四周升起。一陣劇烈而扭絞之暈眩襲來。"
         }
       ]
     },
@@ -477,27 +483,27 @@
         {
           "idx": 0,
           "en": "You open your eyes to a familiar circle of stones.  You wonder of your recent adventures.",
-          "zh": ""
+          "zh": "你睜開雙眼，眼前是那熟悉的一圈石頭。你回想著近來的種種冒險。"
         },
         {
           "idx": 1,
           "en": "\n\nIt seems a time and place very distant.  You wonder if it really happened. Then you realize that in your hand you hold The Ankh.",
-          "zh": ""
+          "zh": "\n\n那彷彿是極為遙遠之時與地。你不禁懷疑此事是否當真發生過。隨即你方才驚覺，你手中正握著那枚安卡。"
         },
         {
           "idx": 2,
           "en": "\n\nYou walk away from the circle, knowing that you can always return from whence you came, since you now know the secret of the gates.",
-          "zh": ""
+          "zh": "\n\n你步出那石圈，深知自己隨時可由來處歸返，因你如今已知曉門戶的祕密。"
         },
         {
           "idx": 3,
           "en": "\n\nCONGRATULATIONS!\n   Thou hast\n   completed\n   ULTIMA IV\n  Quest of the\n    AVATAR\n  in ",
-          "zh": ""
+          "zh": "\n\n恭喜！\n   汝已\n   完成\n   創世紀 IV\n  聖者的\n    追尋\n  歷時 "
         },
         {
           "idx": 4,
           "en": "\n turns! Report\n thy feat unto\nLord British at\nOrigin Systems!",
-          "zh": ""
+          "zh": "\n 回合！將汝之\n 功業稟報於\n奧瑞金系統的\n不列顛王！"
         }
       ]
     },
@@ -509,122 +515,122 @@
         {
           "idx": 0,
           "en": "Take not the gold of others found in towns and castles for yours it is not!\n",
-          "zh": ""
+          "zh": "勿取城鎮與城堡中他人之黃金，因那非汝所有！\n"
         },
         {
           "idx": 1,
           "en": "Cheat not the merchants and peddlers for tis an evil thing to do!\n",
-          "zh": ""
+          "zh": "切莫欺瞞商賈與小販，因那實為一樁惡行！\n"
         },
         {
           "idx": 2,
           "en": "Second, read the Book of Truth at the entrance to the Great Stygian Abyss!\n",
-          "zh": ""
+          "zh": "其次，於大冥河深淵之入口，研讀真理之書！\n"
         },
         {
           "idx": 3,
           "en": "Kill not the non-evil beasts of the land, and do not attack the fair people!\n",
-          "zh": ""
+          "zh": "切莫殺害這片土地上非邪惡的生靈，亦勿攻擊善良之人！\n"
         },
         {
           "idx": 4,
           "en": "Give of thy purse to those who beg and thy deed shall not be forgotten!\n",
-          "zh": ""
+          "zh": "傾汝囊中之財予乞求者，汝之善行必不致被遺忘！\n"
         },
         {
           "idx": 5,
           "en": "Third, light the Candle of Love at the entrance to the Great Stygian Abyss!\n",
-          "zh": ""
+          "zh": "其三，於那宏偉的冥河深淵入口，點燃愛之燭！\n"
         },
         {
           "idx": 6,
           "en": "Victories scored over evil creatures help to build a valorous soul!\n",
-          "zh": ""
+          "zh": "戰勝邪惡之物所得之勝利，有助鑄就一顆勇敢之魂！\n"
         },
         {
           "idx": 7,
           "en": "To flee from battle with less than grievous wounds often shows a coward!\n",
-          "zh": ""
+          "zh": "傷勢未及重創便臨陣脫逃，往往顯露懦夫本色！\n"
         },
         {
           "idx": 8,
           "en": "First, ring the Bell of Courage at the entrance to the Great Stygian Abyss!\n",
-          "zh": ""
+          "zh": "首先，於大冥河深淵之入口，敲響勇氣之鐘！\n"
         },
         {
           "idx": 9,
           "en": "To take the gold of others is injustice not soon forgotten. Take only thy due!\n",
-          "zh": ""
+          "zh": "奪取他人之金乃一樁不義，不久難忘。但取汝應得者！\n"
         },
         {
           "idx": 10,
           "en": "Attack not a peaceful citizen for that action deserves strict punishment!\n",
-          "zh": ""
+          "zh": "勿攻擊安分之平民，因此舉理當受嚴懲！\n"
         },
         {
           "idx": 11,
           "en": "Kill not a non-evil beast for they deserve not death, even if in hunger they attack thee!",
-          "zh": ""
+          "zh": "切莫殺害非邪惡的生靈，縱使它們因飢餓而襲汝，亦不該受死！"
         },
         {
           "idx": 12,
           "en": "To give thy last gold piece unto the needy shows good measure of self-sacrifice!\n",
-          "zh": ""
+          "zh": "將汝最後一枚金幣施予貧困者，正可顯犧牲之德！\n"
         },
         {
           "idx": 13,
           "en": "For thee to flee and leave thy companions is a self-serving action to be avoided!\n",
-          "zh": ""
+          "zh": "臨陣脫逃、捨棄汝之同伴，乃一樁自私之舉，當避之！\n"
         },
         {
           "idx": 14,
           "en": "To give of thy life's blood so that others may live is a virtue of great praise!\n",
-          "zh": ""
+          "zh": "傾汝生命之血，使他人得以存活，乃是大可讚揚之美德！\n"
         },
         {
           "idx": 15,
           "en": "Take not the gold of others for this shall bring dishonor upon thee!\n",
-          "zh": ""
+          "zh": "切莫奪取他人之金，因此將為汝招致恥辱！\n"
         },
         {
           "idx": 16,
           "en": "To strike first a non-evil being is by no means an honorable deed!\n",
-          "zh": ""
+          "zh": "先行出手攻擊一非邪惡之眾生，絕非榮譽之舉！\n"
         },
         {
           "idx": 17,
           "en": "Seek ye to solve the many Quests before thee, and honor shall be a reward!\n",
-          "zh": ""
+          "zh": "願汝設法達成眼前諸多任務，榮譽必為汝之獎賞！\n"
         },
         {
           "idx": 18,
           "en": "Seek ye to know thyself.  Visit the seer often for he can see into thy inner being!\n",
-          "zh": ""
+          "zh": "汝當求知己心。常往拜訪先知，因他能窺視汝之內在！\n"
         },
         {
           "idx": 19,
           "en": "Meditation leads to enlightenment Seek ye all Wisdom and Knowledge!\n",
-          "zh": ""
+          "zh": "冥想引向開悟。願汝追尋一切智慧與知識！\n"
         },
         {
           "idx": 20,
           "en": "If thou dost seek the White Stone, search ye not under the ground, but in Serpent's Spine!\n",
-          "zh": ""
+          "zh": "汝若尋覓白石，莫於地底搜尋，而當往巨蛇之脊！\n"
         },
         {
           "idx": 21,
           "en": "Claim not to be that which thou art not.  Humble actions speak well of thee!\n",
-          "zh": ""
+          "zh": "切莫自稱汝所非是者。謙卑之舉方能為汝增光！\n"
         },
         {
           "idx": 22,
           "en": "Strive not to wield the Great Force of Evil for its power will overcome thee!\n",
-          "zh": ""
+          "zh": "勿圖駕馭那邪惡之巨力，因其威能將反噬於汝！\n"
         },
         {
           "idx": 23,
           "en": "If thou dost seek the Black Stone, search ye at the Time and Place of the Gate on the darkest of all nights!\n",
-          "zh": ""
+          "zh": "汝若欲尋那黑石，當於最幽暗之夜，在門戶顯現的時與地搜尋！\n"
         }
       ]
     }
