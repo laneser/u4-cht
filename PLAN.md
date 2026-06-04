@@ -314,6 +314,16 @@ CJK 字型 + H1 hook PoC,headless Docker 驗證通過:
 
 **建置 gotcha 修正**:Docker `COPY` 層快取會用舊 source/資產 → `Dockerfile.zh` 加 `ARG CACHEBUST`(改碼後 `--build-arg CACHEBUST=<新值>` 強制重編);`textview.cpp` 補 `<cstring>`。
 
+### 10h. B spike:640×400 內部解析度可行性(2026-06-04)
+
+**結論:✅ 可行**(throwaway spike 驗證,程式碼已還原,僅留證據截圖)。
+
+- **架構**:`GPU=scale` 全程把 320×200 CPU 合成 framebuffer 上傳 GPU 放大;**無內建影像預縮放**。
+- **spike 改動**(4 行):`u4.h` `U4_SCREEN_W/H`→640/400、`screen.cpp` `screenImage`→640×400、**`gpu_opengl.cpp` 螢幕紋理 + shader scDim 硬編 320×200→640×400**(黑畫面主因,GPU 管線唯二硬編處)。
+- **結果**(`docs/screenshots/09_640_spike.png`):遊戲正常渲染,標題 + Britannia 地圖正確,**但美術/座標仍 320×200 → 畫面落在 640×400 左上 1/4**。證明解析度路徑可跑、GPU 耦合僅 2 處。
+- **剩餘 productionize 工作**(中-大):`CHAR_WIDTH/HEIGHT` 8→16(`TILE` 自動 32)+ **全美術 2x**(charset/tiles/UI/intro 圖,需載入時 upscale 或 2x blit)。完成後 CJK 16px = 1 cell,**徹底免 2 列距、可放更多文字**。
+- **決策**:A(14px + 2 列距)已可用且 ship-able;B(640)為「更佳但中-大工」的後續選項,待決定是否投入。
+
 ---
 
 ## 11. 風險與待決 (RAID)
