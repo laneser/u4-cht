@@ -1,10 +1,29 @@
 # Ultima IV: Quest of the Avatar 繁體中文化專案
 
-> *Ultima IV: Quest of the Avatar*(1985 Origin Systems）— 以 **xu4** 開源引擎為基礎的繁體中文化工程
-> SDL/Allegro 跨平台 ✦ Docker 全程建置 ✦ 文字資料四源已抽取 ✦ **工程進行中**
+> *Ultima IV: Quest of the Avatar*(1985 Origin Systems)— 以 **xu4** 開源引擎為基礎的繁體中文化工程
+> Allegro 5 跨平台 ✦ Docker 全程建置 ✦ 640×400 全美術 2x ✦ **遊戲內中文已上畫面**
 
-![title](docs/screenshots/01_title.png)
-*xu4(Allegro 5 + Mesa 軟體 GL)於 Docker headless 渲染的標題畫面 — 本專案的決定性 pass/fail loop。*
+![story](docs/screenshots/15_story_zh1.png)
+*intro 月之門故事以繁體中文呈現,疊在 640×400 2x 重繪的不列顛尼亞風景上 —— 「這一日溫暖,卻有一陣涼風拂過⋯⋯」*
+
+---
+
+<a name="gallery"></a>
+## 🖼️ 美術展示 — 1985 的畫面,2026 的母語
+
+xu4 把 1985 年 Ultima IV 的 EGA 美術重現;本專案再以 **640×400 全美術 2x + CJK 點陣字**,讓那些經典畫面說中文。
+
+| 開場故事 | 角色創建 |
+|---|---|
+| ![s1](docs/screenshots/16_story_zh2.png) | ![cc](docs/screenshots/12_bfull_charcreate.png) |
+| *「現代高科技生活之塵勞與重壓,彷彿一層層被洗滌而去⋯⋯」(文白並用)* | *「汝之名諱為何 / 於此世此刻?」* |
+
+| 主選單 | 不列顛尼亞世界地圖 |
+|---|---|
+| ![menu](docs/screenshots/10_bfull_menu.png) | ![map](docs/screenshots/11_bfull_map.png) |
+| *啟程冒險 / 開始新遊戲 / 設定 / 關於 — CJK 1-cell 全乾淨* | *EGA 世界地圖 2x 重繪填滿 640×400* |
+
+> 全部為 Docker headless(Allegro 5 + Mesa 軟體 GL)實機渲染截圖,非合成。
 
 ---
 
@@ -105,8 +124,10 @@ docker run --rm -v /tmp/u4shot:/out u4cht/xu4-test 22 3   # → /tmp/u4shot/scre
 | P3 | 文字輸出 hook 盤點(H1–H8) | ✅ |
 | P4 資料面 | `.TLK` / stringtable / 硬編 / vendor 四源抽取 | ✅ |
 | P5 翻譯 | 四源全譯(talk 256 + stringtable 114 + 硬編 318 + vendor 278) | ✅ |
-| P6 | CJK 字型 + 接 H1 hook(垂直切片,headless 驗證) | 🔵 PoC 通過 |
-| P7+ | 完整 in-game 整合 / format-aware / 跨平台打包 | ⬜ |
+| P6 | CJK 字型(Noto Sans CJK TC 灰階 AA)+ 接 H1 hook | ✅ |
+| P7 多面 hook | 對話 / 系統訊息 / 選單 / 角色創建 / intro 故事 hook | ✅ |
+| **B 640×400** | 全美術 2x regime + CJK 1-cell(menu/prompt/訊息/故事/cinematic 全乾淨) | ✅ |
+| 剩餘 | intro 標題動畫 2x、vendor/戰鬥實機驗證、跨平台打包 | ⬜ |
 
 ![cjk](docs/screenshots/02_cjk_ingame.png)
 *Phase B 驗證:xu4 文字區經真實 `chtLookup`(en→zh)+ **Noto Sans CJK TC** 16×16 點陣字渲染中文 —— 「一位迷人的吟遊詩人。」(Iolo)、「馬精西亞城為其驕傲所毀。」*
