@@ -20,7 +20,7 @@ docker build -f docker/Dockerfile.zh -t u4cht/xu4-allegro xu4
 ## Hook 點(對應 docs/P3-hooks.md)
 
 - **H1 `screenMessageN`**:進入時 `chtLookup(buffer, buflen)`;命中 → `screenMessageCJK(zh)` 渲染後 return(load-time 替換,不改原 bytecode)。
-- **H2 glyph**:`cjkBlit` 把 16×16 CJK alpha blit 到 `xu4.screenImage` 文字區(全形佔 2 欄,行距 2)。
+- **H2 glyph**:`cjkBlit` 把 16×16 CJK **灰階 alpha 混色**(白字混黑底,二值 atlas 亦相容)blit 到 `xu4.screenImage`(全形佔 2 欄,行距 2)。
 - **self-test**:`screenRender()` 開頭 `chtSelfTest()`,env `U4CHT_SELFTEST=1` 時用真實 `chtLookup` 渲染已知 en,headless 驗證全鏈路。
 
 ## 已知限制(PoC 階段)

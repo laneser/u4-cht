@@ -285,10 +285,12 @@ U6-cht 的核心經驗可直接套用:
 CJK 字型 + H1 hook PoC,headless Docker 驗證通過:
 
 - **資料側**:`tools/build_cjk_font.py`(掃四源 zh → 1978 唯一漢字 → **Noto Sans CJK TC Medium**(`--index 3`)烘 16×16 atlas `assets/cjk_font.bin`)+ `tools/build_lookup.py`(四源合併 en→zh 二進位 `assets/u4_cht.tab`,2614 條,依 en 排序)。
-  - **字型可讀性**(2026-06-04):16px 二值化下,Noto Sans CJK TC **Medium** 優於 AR PL UMing(Ming serif 細筆易斷)與 Noto Bold(密筆糊成一團);對比見 `docs/screenshots/03_font_compare.png`。
+  - **字型可讀性**(2026-06-04):
+    - 字型:Noto Sans CJK TC **Medium** 優於 AR PL UMing(Ming serif 細筆易斷)與 Noto Bold(密筆糊);對比 `docs/screenshots/03_font_compare.png`。
+    - **灰階 AA**:`build_cjk_font.py --mode gray`(預設)存抗鋸齒 alpha,`cjkBlit` 用該值混黑底(二值 atlas 仍相容)→ 斜筆/曲線鋸齒減少;對比 `docs/screenshots/04_aa_compare.png`。註:xu4 預設 nearest-neighbor 放大會部分削弱 AA,搭配 `--filter` 線性放大效果更明顯。
 - **引擎側**(`patches/engine/`,套用 `tools/apply_cht.sh`):
   - 新模組 `cht.cpp/h`:載入資產 + `chtLookup`(二分)+ `chtGlyph`。
-  - `screen.cpp`:`cjkBlit`(16×16 全形 blit 到 `xu4.screenImage`)+ `screenMessageCJK`(UTF-8、CJK-aware 換行)+ **H1 `screenMessageN` 進入查表命中改走 CJK**;`chtSelfTest`(env 守護)。
+  - `screen.cpp`:`cjkBlit`(16×16 全形,**灰階 alpha 混色** blit 到 `xu4.screenImage`)+ `screenMessageCJK`(UTF-8、CJK-aware 換行)+ **H1 `screenMessageN` 進入查表命中改走 CJK**;`chtSelfTest`(env 守護)。
 - **驗證**:`U4CHT_SELFTEST=1` 用真實 `chtLookup` 渲染已知 NPC 對白 → 截圖顯示「一位迷人的吟遊詩人。」「馬精西亞城為其驕傲所毀。」(`docs/screenshots/02_cjk_ingame.png`)。log:`loaded 2614 translations / 1978 glyphs`。
 - **限制**:文字區 16×12@8px → CJK 每行 8 字;含 `%s/%d` 硬編字串需 format-aware;vendor Boron 路徑待驗;長對白 CJK 換行/捲動待精修(P7)。
 

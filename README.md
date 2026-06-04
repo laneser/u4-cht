@@ -112,6 +112,9 @@ docker run --rm -v /tmp/u4shot:/out u4cht/xu4-test 22 3   # → /tmp/u4shot/scre
 ![font-compare](docs/screenshots/03_font_compare.png)
 *字型可讀性:AR PL UMing(左,Ming serif 細筆)→ Noto Sans CJK TC Medium(右,粗筆均勻)。*
 
+![aa-compare](docs/screenshots/04_aa_compare.png)
+*灰階 AA:二值(左)→ 灰階抗鋸齒(右),`cjkBlit` 以 alpha 混黑底,斜筆/曲線鋸齒減少。*
+
 ---
 
 <a name="技術架構"></a>

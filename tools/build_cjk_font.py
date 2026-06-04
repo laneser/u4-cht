@@ -48,7 +48,7 @@ def collect_codepoints():
     return sorted(cps, key=ord)
 
 
-def render_glyph(font, ch, W, H):
+def render_glyph(font, ch, W, H, mode="gray", threshold=96):
     img = Image.new("L", (W, H), 0)
     d = ImageDraw.Draw(img)
     # 量測並置中
@@ -57,8 +57,9 @@ def render_glyph(font, ch, W, H):
     x = (W - gw) // 2 - bbox[0]
     y = (H - gh) // 2 - bbox[1]
     d.text((x, y), ch, fill=255, font=font)
-    # 二值化(EGA/點陣風格,門檻 96)
-    return img.point(lambda p: 255 if p >= 96 else 0)
+    if mode == "binary":
+        return img.point(lambda p: 255 if p >= threshold else 0)
+    return img   # gray:保留抗鋸齒 alpha(引擎 cjkBlit 以該值混色)
 
 
 def main():
@@ -67,6 +68,8 @@ def main():
     ap.add_argument("--index", type=int, default=0,
                     help=".ttc face index(Noto Sans CJK TC = 3)")
     ap.add_argument("--size", type=int, default=16)
+    ap.add_argument("--mode", choices=["gray", "binary"], default="gray",
+                    help="gray=抗鋸齒 alpha(預設);binary=二值化")
     ap.add_argument("--out", required=True)
     ap.add_argument("--preview", default="")
     args = ap.parse_args()
@@ -79,7 +82,7 @@ def main():
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     glyphs = []
     for ch in chars:
-        g = render_glyph(font, ch, W, H)
+        g = render_glyph(font, ch, W, H, args.mode)
         glyphs.append((ord(ch), g.tobytes()))
 
     with open(args.out, "wb") as f:

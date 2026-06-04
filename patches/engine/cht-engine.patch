@@ -23,7 +23,7 @@ index 6736af1..ac16f35 100644
          death.cpp \
          debug.cpp \
 diff --git a/src/screen.cpp b/src/screen.cpp
-index 46d51bd..7cfed93 100644
+index 46d51bd..180f4c8 100644
 --- a/src/screen.cpp
 +++ b/src/screen.cpp
 @@ -25,6 +25,7 @@
@@ -61,7 +61,7 @@ index 46d51bd..7cfed93 100644
 +    }
 +    for (int y = 0; y < dim; ++y)
 +        for (int x = 0; x < dim; ++x) {
-+            int a = g[y * dim + x] ? 255 : 0;
++            int a = g[y * dim + x];   // 灰階 alpha:白字混黑底(二值 atlas 亦相容)
 +            screen->putPixel(px + x, py + y, a, a, a, 255);
 +        }
 +}
