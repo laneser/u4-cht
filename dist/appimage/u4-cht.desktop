@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Ultima IV CHT
+Comment=Ultima IV: Quest of the Avatar 繁體中文版 (xu4 640x400 2x)
+Exec=AppRun
+Icon=u4-cht
+Categories=Game;RolePlaying;
+Terminal=false

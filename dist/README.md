@@ -16,3 +16,21 @@ U4CHT_FONT=firefly ./run.sh -s 2 --filter xBRZ
 
 ## Windows
 xu4 內建 `dist/Dockerfile.mingw` + `tools/cbuild` 可跨編(需下載 mingw SDK);本專案尚未產出 Windows 包。
+
+## AppImage(Linux,全自包含含遊戲資料)
+於 **Ubuntu 22.04** 建置(老 glibc 提升相容性),bundle 所有 .so + modules + 3 字型 + 遊戲資料:
+```bash
+docker build --build-arg CACHEBUST=1 -f dist/appimage/Dockerfile -t u4cht/appimage xu4
+docker run --rm -v "$PWD/out":/out u4cht/appimage   # → out/u4-cht-x86_64.AppImage
+chmod +x u4-cht-x86_64.AppImage && ./u4-cht-x86_64.AppImage          # 預設 Noto
+U4CHT_FONT=firefly ./u4-cht-x86_64.AppImage                          # 宋體
+```
+
+## Windows zip(mingw 交叉編譯,含所有 DLL + 遊戲資料)
+GLFW 後端 + 所有 mingw DLL + modules + 3 字型 + 遊戲資料:
+```bash
+docker build --build-arg CACHEBUST=1 -f dist/win/Dockerfile -t u4cht/win xu4
+bash dist/win/make-zip.sh u4-cht-windows-x64.zip
+# 解壓後雙擊 run.bat;字形:set U4CHT_FONT=firefly 再執行
+```
+含 DLL:glfw3 / libgcc_s_seh / libwinpthread / zlib1 / libpng16 / libogg / libvorbis(file) / libssp(libstdc++ 靜態連結)。
