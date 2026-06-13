@@ -1,0 +1,192 @@
+{
+  "strings": [
+    {
+      "en": "Hands",
+      "zh": "徒手"
+    },
+    {
+      "en": "Staff",
+      "zh": "法杖"
+    },
+    {
+      "en": "Dagger",
+      "zh": "匕首"
+    },
+    {
+      "en": "Sling",
+      "zh": "投石索"
+    },
+    {
+      "en": "Mace",
+      "zh": "釘錘"
+    },
+    {
+      "en": "Axe",
+      "zh": "戰斧"
+    },
+    {
+      "en": "Sword",
+      "zh": "長劍"
+    },
+    {
+      "en": "Bow",
+      "zh": "弓"
+    },
+    {
+      "en": "Crossbow",
+      "zh": "弩"
+    },
+    {
+      "en": "Flaming Oil",
+      "zh": "燃油"
+    },
+    {
+      "en": "Halberd",
+      "zh": "長戟"
+    },
+    {
+      "en": "Magic Axe",
+      "zh": "魔斧"
+    },
+    {
+      "en": "Magic Sword",
+      "zh": "魔劍"
+    },
+    {
+      "en": "Magic Bow",
+      "zh": "魔弓"
+    },
+    {
+      "en": "Magic Wand",
+      "zh": "魔杖"
+    },
+    {
+      "en": "Mystic Sword",
+      "zh": "秘法劍"
+    },
+    {
+      "en": "Skin",
+      "zh": "無甲"
+    },
+    {
+      "en": "Cloth",
+      "zh": "布衣"
+    },
+    {
+      "en": "Leather",
+      "zh": "皮甲"
+    },
+    {
+      "en": "Chain Mail",
+      "zh": "鎖子甲"
+    },
+    {
+      "en": "Plate Mail",
+      "zh": "板甲"
+    },
+    {
+      "en": "Magic Chain",
+      "zh": "魔法鎖甲"
+    },
+    {
+      "en": "Magic Plate",
+      "zh": "魔法板甲"
+    },
+    {
+      "en": "Mystic Robe",
+      "zh": "秘法長袍"
+    },
+    {
+      "en": "Weapons",
+      "zh": "武器"
+    },
+    {
+      "en": "Armour",
+      "zh": "防具"
+    },
+    {
+      "en": "Equipment",
+      "zh": "裝備"
+    },
+    {
+      "en": "Items",
+      "zh": "物品"
+    },
+    {
+      "en": "Reagents",
+      "zh": "試劑"
+    },
+    {
+      "en": "Mixtures",
+      "zh": "調和"
+    },
+    {
+      "en": "A  -No Armour",
+      "zh": "A  -無甲"
+    },
+    {
+      "en": "HND",
+      "zh": "徒"
+    },
+    {
+      "en": "STF",
+      "zh": "杖"
+    },
+    {
+      "en": "DAG",
+      "zh": "匕"
+    },
+    {
+      "en": "SLN",
+      "zh": "索"
+    },
+    {
+      "en": "MAC",
+      "zh": "錘"
+    },
+    {
+      "en": "AXE",
+      "zh": "斧"
+    },
+    {
+      "en": "SWD",
+      "zh": "劍"
+    },
+    {
+      "en": "BOW",
+      "zh": "弓"
+    },
+    {
+      "en": "XBO",
+      "zh": "弩"
+    },
+    {
+      "en": "OIL",
+      "zh": "油"
+    },
+    {
+      "en": "HAL",
+      "zh": "戟"
+    },
+    {
+      "en": "+AX",
+      "zh": "魔斧"
+    },
+    {
+      "en": "+SW",
+      "zh": "魔劍"
+    },
+    {
+      "en": "+BO",
+      "zh": "魔弓"
+    },
+    {
+      "en": "WND",
+      "zh": "魔杖"
+    },
+    {
+      "en": "^^SW",
+      "zh": "秘劍"
+    }
+  ]
+}

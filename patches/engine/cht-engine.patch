@@ -22,6 +22,45 @@ index 6736af1..ac16f35 100644
          creature.cpp \
          death.cpp \
          debug.cpp \
+diff --git a/src/config_boron.cpp b/src/config_boron.cpp
+index 5136bdc..2adcfe4 100644
+--- a/src/config_boron.cpp
++++ b/src/config_boron.cpp
+@@ -11,6 +11,7 @@
+ 
+ #include <boron/boron.h>
+ 
++#include "cht.h"
+ #include "config.h"
+ #include "city.h"
+ #include "dungeon.h"
+@@ -760,16 +761,23 @@ static Creature* conf_creature(ConfigBoron* cfg, Tileset* ts, UBlockIt& bi)
+ //--------------------------------------
+ // Items (weapons & armor)
+ 
++/* U4 繁中化:武器/防具名 + 縮寫經 chtLookup 換中文(vendor 面板 / 角色 ztats)。
++ * chtLookup 命中回傳指向 lookup 表的常駐指標,直接回傳安全。 */
++static inline const char* chtConfStr(const char* s) {
++    const char* zh = s ? chtLookup(s, (int) strlen(s)) : NULL;
++    return zh ? zh : s;
++}
++
+ const char* Armor::getName() const {
+-    return xu4.config->confString(name);
++    return chtConfStr(xu4.config->confString(name));
+ }
+ 
+ const char* Weapon::getName() const {
+-    return xu4.config->confString(name);
++    return chtConfStr(xu4.config->confString(name));
+ }
+ 
+ const char* Weapon::getAbbrev() const {
+-    return xu4.config->confString(abbr);
++    return chtConfStr(xu4.config->confString(abbr));
+ }
+ 
+ static Armor* conf_armor(UThread* ut, int type, Armor* arm, UBlockIt& bi) {
 diff --git a/src/discourse_castle.cpp b/src/discourse_castle.cpp
 index cdd6837..56c0966 100644
 --- a/src/discourse_castle.cpp
@@ -755,6 +794,37 @@ index 396af65..4b9c6e3 100644
  void screenSetLayer(int layer, void (*renderFunc)(ScreenState*, void*),
                      void* data);
  bool screenLayerUsed(int layer);
+diff --git a/src/stats.cpp b/src/stats.cpp
+index d2c466b..9235af3 100644
+--- a/src/stats.cpp
++++ b/src/stats.cpp
+@@ -7,6 +7,7 @@
+ 
+ #include "stats.h"
+ 
++#include "cht.h"      // U4 繁中化:stats 標題查表
+ #include "config.h"
+ #include "party.h"
+ #include "spell.h"
+@@ -246,7 +247,17 @@ void StatsArea::flashPlayers(int playerMask) {
+  * Sets the title of the stats area.
+  */
+ void StatsArea::setTitle(const char* s) {
+-    int titleStart = (STATS_AREA_WIDTH / 2) - ((strlen(s) + 2) / 2);
++    /* U4 繁中化:標題查表(武器/防具/裝備…);置中寬度依顯示格數(CJK 1 格)。 */
++    const char* zh = chtLookup(s, (int) strlen(s));
++    if (zh) s = zh;
++    int cells = 0;
++    for (const unsigned char* q = (const unsigned char*) s; *q; ++cells) {
++        if (*q < 0x80) q += 1;
++        else if (*q < 0xE0) q += 2;
++        else if (*q < 0xF0) q += 3;
++        else q += 4;
++    }
++    int titleStart = (STATS_AREA_WIDTH / 2) - ((cells + 2) / 2);
+     title.textAtFmt(titleStart, 0, "%c%s%c", 16, s, 17);
+ }
+ 
 diff --git a/src/textview.cpp b/src/textview.cpp
 index eb6fcc0..8b051af 100644
 --- a/src/textview.cpp

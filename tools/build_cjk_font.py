@@ -26,7 +26,7 @@ from PIL import Image, ImageFont, ImageDraw
 
 JSON_FILES = ["talk_bilingual", "stringtable_bilingual",
               "hardcoded_strings", "vendor_bilingual",
-              "castle_bilingual", "ui_bilingual"]
+              "castle_bilingual", "ui_bilingual", "config_bilingual"]
 
 
 def collect_codepoints():
