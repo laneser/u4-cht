@@ -191,6 +191,18 @@
     {
       "en": "SPELL # Reagents MP",
       "zh": "法術 # 試劑 MP"
+    },
+    {
+      "en": "\nWeapon: ",
+      "zh": "\n武器: "
+    },
+    {
+      "en": "\nArmour: ",
+      "zh": "\n護甲: "
+    },
+    {
+      "en": "\nSpell: ",
+      "zh": "\n法術: "
     }
   ]
 }

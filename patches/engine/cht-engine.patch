@@ -177,18 +177,31 @@ index 01f961c..251ef42 100644
                  return USTR(question);
              case DS_ANSWER_Y:
 diff --git a/src/event.cpp b/src/event.cpp
-index 0bef0c9..7accd7f 100644
+index 0bef0c9..f919e16 100644
 --- a/src/event.cpp
 +++ b/src/event.cpp
-@@ -11,6 +11,7 @@
+@@ -10,7 +10,9 @@
+ #include "event.h"
  
  #include "config.h"
++#include "cht.h"
  #include "context.h"
 +#include "game.h"
  #include "location.h"
  #include "savegame.h"
  #include "screen.h"
-@@ -822,6 +823,12 @@ bool EventHandler::globalKeyHandler(int key) {
+@@ -778,7 +780,9 @@ bool AlphaActionController::keyPressed(int key) {
+         value = -1;
+         doneWaiting();
+     } else {
+-        screenMessage("\n%s", prompt.c_str());
++        /* U4 繁中化:重顯提示時查表(Weapon:/Armour:/Spell: → 武器:/護甲:/法術:)。 */
++        const char* zhP = chtLookup(prompt.c_str(), (int) prompt.length());
++        screenMessage("\n%s", zhP ? zhP : prompt.c_str());
+         return EventHandler::defaultKeyHandler(key);
+     }
+     return true;
+@@ -822,6 +826,12 @@ bool EventHandler::globalKeyHandler(int key) {
          xu4.eventHandler->quitGame();
          return true;
  
