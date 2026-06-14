@@ -43,6 +43,12 @@ def collect():
     for sec, sd in d["sections"].items():
         for e in sd["entries"]:
             add(e["en"], e["zh"])
+            # intro_gypsy:引擎在 intro.cpp 載入後會 pop 掉結尾 \n,runtime 字串
+            # 與含 \n 的 key 不符 → 補一份去尾 \n 的 variant 才查得到。
+            if sec == "intro_gypsy":
+                en2, zh2 = e["en"].rstrip("\n"), e["zh"].rstrip("\n")
+                if en2 != e["en"]:
+                    add(en2, zh2)
     # hardcoded
     d = json.load(open("dumps/hardcoded_strings.json", encoding="utf-8"))
     for e in d["strings"]:
