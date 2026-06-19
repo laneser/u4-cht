@@ -25,15 +25,15 @@ BSMI="${BSMI:-/usr/share/fonts/truetype/arphic-bsmi00lp/bsmi00lp.ttf}"
 BKAI="${BKAI:-/usr/share/fonts/truetype/arphic-bkai00mp/bkai00mp.ttf}"
 NOTO_INDEX="${NOTO_INDEX:-3}"
 if [ ! -f "$ROOT/assets/cjk_font.bin" ] && [ -f "$NOTO" ]; then
-  python3 "$ROOT/tools/build_cjk_font.py" --font "$NOTO" --index "$NOTO_INDEX" --size 14 --cell 16 \
+  python3 "$ROOT/tools/build_cjk_font.py" --font "$NOTO" --index "$NOTO_INDEX" --size 22 --cell 24 \
     --out "$ROOT/assets/cjk_font.bin" --preview "$ROOT/assets/cjk_preview.png"
 fi
 if [ ! -f "$ROOT/assets/cjk_font_firefly.bin" ] && [ -f "$BSMI" ]; then
-  python3 "$ROOT/tools/build_cjk_font.py" --font "$BSMI" --size 14 --cell 16 \
+  python3 "$ROOT/tools/build_cjk_font.py" --font "$BSMI" --size 22 --cell 24 \
     --out "$ROOT/assets/cjk_font_firefly.bin"
 fi
 if [ ! -f "$ROOT/assets/cjk_font_kai.bin" ] && [ -f "$BKAI" ]; then
-  python3 "$ROOT/tools/build_cjk_font.py" --font "$BKAI" --size 14 --cell 16 \
+  python3 "$ROOT/tools/build_cjk_font.py" --font "$BKAI" --size 22 --cell 24 \
     --out "$ROOT/assets/cjk_font_kai.bin"
 fi
 # GUI SDF 字型(模組瀏覽器中文化):對乾淨 cfont.png 注入 CJK glyph + 產 cfont-cjk.txf。

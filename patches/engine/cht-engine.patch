@@ -401,7 +401,7 @@ index 73bf48a..90a9ac6 100644
      TxfDrawState ds;
      ds.fontTable = ss->fontTable;
 diff --git a/src/gpu_opengl.cpp b/src/gpu_opengl.cpp
-index 882a30c..29a699e 100644
+index 882a30c..e3965cf 100644
 --- a/src/gpu_opengl.cpp
 +++ b/src/gpu_opengl.cpp
 @@ -574,7 +574,7 @@ const char* gpu_init(void* res, int w, int h, int scale, int filter)
@@ -409,7 +409,7 @@ index 882a30c..29a699e 100644
      // Create screen, white, noise & shadow textures.
      glGenTextures(TEXTURE_COUNT, &gr->screenTex);
 -    gpu_defineTex(gr->screenTex, 320, 200, NULL,
-+    gpu_defineTex(gr->screenTex, 640, 400, NULL,
++    gpu_defineTex(gr->screenTex, 960, 600, NULL,   // U4 繁中化 C:3x regime
  #if defined(ANDROID) || defined(USE_GLES)
                    GL_RGBA,  // Must match glTexSubImage2D format.
  #else
@@ -418,12 +418,12 @@ index 882a30c..29a699e 100644
          glUseProgram(sh);
          glUniform2f(mmap, (float) w, (float) h);
 -        glUniform2f(gr->slocScDim, 320.0f, 200.0f);
-+        glUniform2f(gr->slocScDim, 640.0f, 400.0f);
++        glUniform2f(gr->slocScDim, 960.0f, 600.0f);   // U4 繁中化 C:3x regime
          glUniform1i(cmap, GTU_CMAP);
      }
      }
 diff --git a/src/imagemgr.cpp b/src/imagemgr.cpp
-index a7cd166..c53647c 100644
+index a7cd166..f62678a 100644
 --- a/src/imagemgr.cpp
 +++ b/src/imagemgr.cpp
 @@ -489,6 +489,14 @@ ImageInfo* ImageMgr::load(ImageInfo* info) {
@@ -441,43 +441,44 @@ index a7cd166..c53647c 100644
      U4FILE *file = getImageFile(info);
      Image *unscaled = NULL;
      if (file) {
-@@ -609,6 +617,35 @@ ImageInfo* ImageMgr::load(ImageInfo* info) {
+@@ -609,6 +617,36 @@ ImageInfo* ImageMgr::load(ImageInfo* info) {
      unscaled->save(out2.append("-fixup.ppm").c_str());
  #endif
  
-+    /* U4 繁中化 B:全美術 2x(640×400 regime;RGBA 保留來源像素)*/
++    /* U4 繁中化 C:全美術 3x(960×600 regime;RGBA 保留來源像素,nearest 放大)。
++       CJK 用 24×24 點陣字,底圖 crisp 放大不糊(rule 81)。 */
 +    {
++        const int S = 3;
 +        int sw = unscaled->width(), sh = unscaled->height();
-+        Image* big = Image::create(sw * 2, sh * 2);
++        Image* big = Image::create(sw * S, sh * S);
 +        for (int yy = 0; yy < sh; ++yy)
 +            for (int xx = 0; xx < sw; ++xx) {
 +                RGBA c; unscaled->getPixel(xx, yy, c);
-+                big->putPixel(xx*2,   yy*2,   c.r, c.g, c.b, c.a);
-+                big->putPixel(xx*2+1, yy*2,   c.r, c.g, c.b, c.a);
-+                big->putPixel(xx*2,   yy*2+1, c.r, c.g, c.b, c.a);
-+                big->putPixel(xx*2+1, yy*2+1, c.r, c.g, c.b, c.a);
++                for (int dy = 0; dy < S; ++dy)
++                    for (int dx = 0; dx < S; ++dx)
++                        big->putPixel(xx*S+dx, yy*S+dy, c.r, c.g, c.b, c.a);
 +            }
 +        delete unscaled;
 +        unscaled = big;
-+        /* reload-safe:首次 2x 時記錄原始尺寸並放大 subImages;重載(scaled2x 已設)
++        /* reload-safe:首次放大時記錄原始尺寸並放大 subImages;重載(scaled2x 已設)
 +           時 subImages 仍是上次放大後的值,不可再次放大,只需重設 width/height。 */
 +        if (! info->scaled2x) {
 +            info->rawWidth  = info->width;
 +            info->rawHeight = info->height;
 +            SubImage* si = (SubImage*) info->subImages;
 +            for (int i = 0; i < info->subImageCount; ++i) {
-+                si[i].x *= 2; si[i].y *= 2; si[i].width *= 2; si[i].height *= 2;
++                si[i].x *= S; si[i].y *= S; si[i].width *= S; si[i].height *= S;
 +            }
 +            info->scaled2x = 1;
 +        }
-+        info->width  = info->rawWidth  * 2;
-+        info->height = info->rawHeight * 2;
++        info->width  = info->rawWidth  * S;
++        info->height = info->rawHeight * S;
 +    }
 +
      info->image = unscaled;
      //info->tex = gpu_makeTexture(info->image);
  
-@@ -700,6 +737,8 @@ ImageInfo::ImageInfo() {
+@@ -700,6 +738,8 @@ ImageInfo::ImageInfo() {
      tileTexCoord = NULL;
      subImageCount = 0;
      subImages = NULL;
@@ -502,7 +503,7 @@ index fd2d981..a309fe5 100644
      uint8_t fixup;              /**< a routine to do miscellaneous fixes to the image */
      Image *image;               /**< the image we're describing */
 diff --git a/src/intro.cpp b/src/intro.cpp
-index acdf1f7..f92d0cd 100644
+index acdf1f7..88cbc8b 100644
 --- a/src/intro.cpp
 +++ b/src/intro.cpp
 @@ -20,6 +20,7 @@
@@ -533,7 +534,7 @@ index acdf1f7..f92d0cd 100644
  
      backgroundArea.draw(beastiesImg, beastieSub[beast] + frame,
 -                        beast ? (320 - 48) : 0,
-+                        beast ? (U4_SCREEN_W - 96) : 0,   // U4 繁中化 B:2x(48→96)
++                        beast ? (U4_SCREEN_W - 144) : 0,   // U4 繁中化 C:3x(48→144)
                          vertoffset);
  }
  
@@ -671,8 +672,8 @@ index acdf1f7..f92d0cd 100644
      AnimElement data = {
 -        x, y,               // source x and y
 -        w, h,               // source width and height
-+        x * 2, y * 2,       // U4 繁中化 B:2x(抽取/destImage/落點皆 640 space)
-+        w * 2, h * 2,       // source width and height
++        x * 3, y * 3,       // U4 繁中化 C:3x(抽取/destImage/落點皆 960 space)
++        w * 3, h * 3,       // source width and height
          method,             // render method
          0,                  // animStep
          0,                  // animStepMax
@@ -682,8 +683,8 @@ index acdf1f7..f92d0cd 100644
                      AnimPlot plot = {
 -                        uint8_t(x),
 -                        uint8_t(y),
-+                        int16_t(x * 2),     // U4 繁中化 B:2x 位置(漸層仍用 1x y)
-+                        int16_t(y * 2),
++                        int16_t(x * 3),     // U4 繁中化 C:3x 位置(漸層仍用 1x y)
++                        int16_t(y * 3),
                          uint8_t(color.r),
                          uint8_t(color.g),
                          uint8_t(color.b),
@@ -711,13 +712,14 @@ index acdf1f7..f92d0cd 100644
              while (animStepTarget > title->animStep)
              {
 -                // blit the pixel-pair to the src surface
-+                // blit the pixel-pair to the src surface(U4 繁中化 B:2x → 4x2)
++                // blit the signature point(U4 繁中化 C:3x → 6x3)
                  title->destImage->fillRect(
                      title->plotData[title->animStep].x,
                      title->plotData[title->animStep].y,
-+                    4,
-                     2,
+-                    2,
 -                    1,
++                    6,
++                    3,
                      title->plotData[title->animStep].r,
                      title->plotData[title->animStep].g,
                      title->plotData[title->animStep].b);
@@ -1466,7 +1468,7 @@ index eb6fcc0..b5e0191 100644
      textAt(x, y, ctext.c_str());
  }
 diff --git a/src/textview.h b/src/textview.h
-index 8bfa3de..ba90b57 100644
+index 8bfa3de..095db10 100644
 --- a/src/textview.h
 +++ b/src/textview.h
 @@ -11,8 +11,8 @@
@@ -1475,8 +1477,8 @@ index 8bfa3de..ba90b57 100644
  
 -#define CHAR_WIDTH 8
 -#define CHAR_HEIGHT 8
-+#define CHAR_WIDTH 16
-+#define CHAR_HEIGHT 16
++#define CHAR_WIDTH 24
++#define CHAR_HEIGHT 24
  
  #include <string>
  #include "view.h"
@@ -1509,28 +1511,30 @@ index f13c0c5..3c5e55a 100644
      if (tile->getAnim()) {
          // First, create our animated version of the tile
 diff --git a/src/u4.h b/src/u4.h
-index 767f30a..57f22e4 100644
+index 767f30a..3f6abe4 100644
 --- a/src/u4.h
 +++ b/src/u4.h
-@@ -24,8 +24,8 @@
+@@ -24,8 +24,10 @@
  #define TILE_HEIGHT (2 * CHAR_HEIGHT)
  
  /* info for loading image data from charset.ega */
 -#define CHAR_WIDTH 8
 -#define CHAR_HEIGHT 8
-+#define CHAR_WIDTH 16
-+#define CHAR_HEIGHT 16
++/* U4 繁中化 C:3x regime(960×600)讓 CJK 用 24×24 點陣字清楚可讀(rule 81)。
++   8×8 原始 cell × 3 = 24;art 在 imagemgr 改 3x 放大。 */
++#define CHAR_WIDTH 24
++#define CHAR_HEIGHT 24
  
  /* some character defines */
  #define CHARSET_ANKH '\0'
-@@ -47,16 +47,16 @@
+@@ -47,16 +49,16 @@
  #define CHARSET_FLOOR '\022'
  
  /* screen size (in pixels) */
 -#define U4_SCREEN_W 320
 -#define U4_SCREEN_H 200
-+#define U4_SCREEN_W 640
-+#define U4_SCREEN_H 400
++#define U4_SCREEN_W 960
++#define U4_SCREEN_H 600
  
  /* map viewport size (in tiles) */
  #define VIEWPORT_W 11
