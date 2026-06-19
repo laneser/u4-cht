@@ -18,10 +18,10 @@
 > 一個午後,你在自家後院的森林裡迷了路。林間一輛吉普賽篷車,一位老婦人以塔羅牌測你的心性 ——
 > 你最契合哪一種美德?於是,旅程開始了。
 
-| 吉普賽人的牌局 —— 你的道路由八張牌決定 | 開場:柳樹下的史書 |
+| 化身命名 —— 汝之名為何 | 命運之牌:勇氣,還是正義? |
 |---|---|
 | ![charcreate](docs/screenshots/12_bfull_charcreate.png) | ![story](docs/screenshots/13_bfull_story_2x.png) |
-| *「且思量此事⋯⋯」誠實?慈悲?犧牲?七道問題,定下你的職業與初心。* | *月之門開啟前,你倚在溪畔柳樹下,翻開《不列顛尼亞之史》。全文白並用的譯筆。* |
+| *「汝之名為何,於此世此刻?」化身命名,旅程自此啟封。* | *盟邦受辱席間 —— 汝當勇敢隱忍(勇氣),或起身討一句道歉(正義)?八張牌、七道兩難,問出你的美德與職業。* |
 
 | 主選單 —— 純粹的中文 | 啟程:Britannia 世界地圖 |
 |---|---|
@@ -190,10 +190,14 @@ docker run --rm -v /tmp/u4shot:/out u4cht/xu4-test 22 3   # → /tmp/u4shot/scre
 | vendor / showText | module 層 vendor 中文化、intro 故事 hook | ✅ |
 | **F2 EGA/VGA** | 遊玩中即時切換 graphics 模組(full config swap + map 堆疊 re-point) | ✅ |
 | **F3 解析度** | 遊玩中循環 scale(tile 物理放大) | ✅ |
+| **模組瀏覽器(GUI SDF)** | `ESC` 設定畫面標題 / 按鈕中文化 —— 自製單通道 SDF CJK 子集塞進 MSDF atlas，引擎加 UTF-8 解碼 + 稀疏碼位查找 | ✅ |
 | 打包 | AppImage(靜態 runtime)+ Windows zip(全 DLL + 遊戲資料) | ✅ |
 
 ![f3](docs/screenshots/20_gameplay_f3_s3.png)
 *`F3` 切換解析度:同一畫面物理放大,tile 與 HUD 一起變大、更有臨場感。*
+
+![browser](docs/screenshots/26_module_browser_zh.png)
+*遊戲中 `ESC` 的模組瀏覽器 —— 連這塊走 GPU SDF 紋理字型的設定畫面也中文化:「xu4 ∣ 遊戲模組」「開始 / 離開 / 取消」。模組名為檔名,保留原文。*
 
 ---
 
@@ -237,11 +241,11 @@ B. GUI / 選單(.txf SDF 紋理字,uint16 碼位)
 <a name="roadmap"></a>
 ## 🗺️ Roadmap
 
-**已完成**:四源全譯(talk 256 / stringtable 114 / 硬編 318 / vendor 278)→ CJK 灰階字庫(Noto / Firefly / Kai)→ H1–H8 文字 hook → 640×400 全美術 2x → 標題動畫 → `F2` EGA/VGA 即時切換 → `F3` 解析度 → AppImage + Windows 打包 → **Lord British 城堡對白**(LCB 二樓,載自 `avatar.exe`)→ **vendor 買賣面板** → **一般 NPC 對話系統**(遇見/look/代名詞 他她它/吾名為/汝欲問/給金幣/加入 — DS_LOOK・DS_PRONOUN hook)→ **HUD 風向/方向**(screenTextAt format 查表)→ **角色面板數值縮寫**(力/敏/智/生/法…)→ **法術名**(甦醒術/神光術…本地表免碰撞)+ 施法錯誤 → **吉普賽角色創建**(框架 + 28 題道德兩難)→ **怪物名拍板**(半獸人/巨鼠/樹妖/巨口妖)→ 職業/物品/方向/系統/戰鬥/聖壇/Codex 訊息 → 精訊官方手冊 OCR 參考 + **混合譯名政策**(見 [譯名政策](#naming))。
+**已完成**:四源全譯(talk 256 / stringtable 114 / 硬編 318 / vendor 278)→ CJK 灰階字庫(Noto / Firefly / Kai)→ H1–H8 文字 hook → 640×400 全美術 2x → 標題動畫 → `F2` EGA/VGA 即時切換 → `F3` 解析度 → AppImage + Windows 打包 → **Lord British 城堡對白**(LCB 二樓,載自 `avatar.exe`)→ **vendor 買賣面板** → **一般 NPC 對話系統**(遇見/look/代名詞 他她它/吾名為/汝欲問/給金幣/加入 — DS_LOOK・DS_PRONOUN hook)→ **HUD 風向/方向**(screenTextAt format 查表)→ **角色面板數值縮寫**(力/敏/智/生/法…)→ **法術名**(甦醒術/神光術…本地表免碰撞)+ 施法錯誤 → **吉普賽角色創建**(框架 + 28 題道德兩難)→ **怪物名拍板**(半獸人/巨鼠/樹妖/巨口妖)→ 職業/物品/方向/系統/戰鬥/聖壇/Codex 訊息 → 精訊官方手冊 OCR 參考 + **混合譯名政策**(見 [譯名政策](#naming))→ **模組瀏覽器 GUI SDF 中文化**(自製單通道 SDF CJK 塞入 MSDF atlas + 引擎 UTF-8/稀疏碼位查找)→ **reagents 術語統一**(材料)。
 
 > **全路徑多行掃描:玩家可見文字 0 殘留英文**(僅吉普賽卡牌名行 positional fragment、卡圖烘進的德目美術字、GPL 授權聲明刻意保留)。
 
-**未來方向**:`.txf` GUI 字(存檔瀏覽器)SDF 子集烘焙、吉普賽卡牌名行版面重排、譯文潤飾(文白比例與專名一致性)。
+**未來方向**:吉普賽卡牌名行 positional fragment 版面重排、譯文潤飾(文白比例與專名一致性的全面校讀)。
 
 ---
 
