@@ -90,16 +90,22 @@ description: 把同一款經典遊戲(此處 Ultima IV)各家移植版的 tilese
 - **可行性:易-中**。**教訓**:「Human68k 讀不出」是 boot sector 無 BPB 的假象,底層仍 FAT12,
   自寫 reader 即破——別被 mtools 的 "non DOS media" 嚇退。
 
-### Amiga — 🟡 recon 完成(卡點單一:LWZ/LZW,xu4 有現成 decoder)
+### Amiga — 🟢 完整破解(LZW 解壓 + 內嵌 palette + 逐列交錯 bitplane,16 色色彩正確)
 - `7z` 解 `ultima4_amiga_win.7z` = GamesNostalgia WHDLoad 包(Psygore 1988 Origin 官方版),
-  遊戲資料**已解包在硬碟映像目錄,不需破 .adf**:`.../data/ultmapp/`。主程式 `data/avatar`
-  = Amiga Hunk 執行檔(magic `0x000003F3`)。
-- **tileset `U4SH.LWZ` = LZW 壓縮**(高熵 0.96-1.0 確認;`CON*.BIN` combat 為未壓縮明文 tile index)。
-  標準 12-bit LZW 直套立即終止(開頭非 clear code)→ **需跳過 header**(開頭 BE16 疑為 dimension)。
-  **U4 PC 版 `SHAPES.EGZ` 同為 LZW,xu4 引擎已有 decoder 可參考** → bounded。解壓後才是 Amiga
-  planar bitplane(通常 5-plane/32 色,需再去交錯)。
-- 音樂:`mus[tbcdo].bin` + `snds.bin` = Origin 自訂格式(非 MOD),檔案層可抽、需逆向。
-- **可行性:中**(卡點單一明確;對中文化非必要,增值在 32 色圖)。
+  資料**已解包在硬碟映像目錄,不需破 .adf**:`.../data/ultmapp/`(路徑含空格 "Hard Drives"
+  → 先 cp 到無空格路徑再 docker -v)。
+- **tileset 管線(`tools/amiga/`)**:
+  1. `U4SH.LWZ`(16658B,熵 7.58 = 壓縮)是 **U4 專屬 12-bit LZW** —— **直接用 xu4 引擎的
+     `lzw/u4decode.cpp`+`lzw.c`+`hash.c`**(`lzw_unpack.c` C wrapper,`decompress_u4_memory`,
+     **skip=0**,skip 2/4 會壞)→ 解出 **32800 byte**。**不需自寫 LZW、不需跳 header**。
+  2. 解壓資料 = **前 32 byte = 16 色 palette**(Amiga `0x0RGB`,4-bit/分量)+ 256 tile × 128 byte。
+  3. 每 tile 16×16 = **逐列交錯 bitplane**(每 row 8 byte = 4 plane × 2 byte,MSB 左)——
+     **非**連續 plane、**非** chunky;autocorr lag=8(row)/lag=128(tile)。
+  4. tile 序 = canonical U4 = xu4 256 序;解出**清楚彩色 U4 tile**(ankh/城堡/船/磚牆/生物)。
+  - 工具:`extract_amiga.sh`(端到端)、`build_amiga_tileset.py`、`lzw_unpack.c`。
+- 音樂:`mus[tbcdo].bin` + `snds.bin` = Origin 自訂格式(非 MOD),檔案層可抽、需逆向(留後)。
+- **教訓**:遊戲自家壓縮格式(U4 LZW)別自己重寫——**目標引擎(xu4)常已有現成 decoder**,
+  編個 C wrapper 連它最穩;解壓後的 palette 常**內嵌在資料開頭**(省去 palette 大海撈針)。
 
 ### Apple II(1985,原版)— ⏸ 跳過待回頭
 - 媒體:4× `.dsk`(DOS 3.3)。`ac -l disk.dsk`(AppleCommander)列 catalog;`ac -g` 取檔。
