@@ -1001,7 +1001,7 @@ index 119aca3..8c22e70 100644
                  }
                  break;
 diff --git a/src/screen.cpp b/src/screen.cpp
-index 46d51bd..b036597 100644
+index 46d51bd..900fd73 100644
 --- a/src/screen.cpp
 +++ b/src/screen.cpp
 @@ -25,6 +25,7 @@
@@ -1087,7 +1087,7 @@ index 46d51bd..b036597 100644
 +    if (xu4.stage != StagePlay)
 +        return false;
 +    int s = xu4.settings->scale + 1;
-+    if (s > 4) s = 2;               // 循環 2→3→4
++    if (s > 4) s = 1;               // 循環 1→2→3→4(含 1 讓畫面可變小)
 +    xu4.settings->scale = s;
 +    screenReInit();
 +    gameUpdateScreen();
@@ -1344,7 +1344,7 @@ index 396af65..7bb48c7 100644
                      void* data);
  bool screenLayerUsed(int layer);
 diff --git a/src/screen_allegro.cpp b/src/screen_allegro.cpp
-index 2901aa8..11846a8 100644
+index 2901aa8..090381c 100644
 --- a/src/screen_allegro.cpp
 +++ b/src/screen_allegro.cpp
 @@ -107,11 +107,11 @@ void screenInit_sys(const Settings* settings, ScreenState* state, int reset) {
@@ -1361,6 +1361,29 @@ index 2901aa8..11846a8 100644
  #endif
      int scale = settings->scale;
      int dw = U4_SCREEN_W * scale;
+@@ -147,6 +147,22 @@ void screenInit_sys(const Settings* settings, ScreenState* state, int reset) {
+         al_register_event_source(sa->queue, al_get_mouse_event_source());
+     }
+ 
++    // U4 繁中化:windowed 模式依桌面大小自動降 scale,避免視窗比螢幕大。否則(尤其
++    // 配 ALLEGRO_RESIZABLE)WM 會把過大的視窗縮小 → al_get_display_height < dh →
++    // aspectY 變負 → 開頭畫面偏移。預留邊距給標題列/工作列。
++    if (! settings->fullscreen) {
++        ALLEGRO_MONITOR_INFO mi;
++        if (al_get_monitor_info(0, &mi)) {
++            int availW = mi.x2 - mi.x1;
++            int availH = (mi.y2 - mi.y1) - 96;
++            while (scale > 1 &&
++                   (U4_SCREEN_W * scale > availW || U4_SCREEN_H * scale > availH))
++                --scale;
++            dw = U4_SCREEN_W * scale;
++            dh = U4_SCREEN_H * scale;
++        }
++    }
++
+     if (settings->fullscreen)
+         dflags |= ALLEGRO_FULLSCREEN_WINDOW;
+     al_set_new_display_flags(dflags);
 diff --git a/src/screen_glfw.cpp b/src/screen_glfw.cpp
 index a8d7a6a..9eca7fe 100644
 --- a/src/screen_glfw.cpp
