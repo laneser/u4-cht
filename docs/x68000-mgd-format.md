@@ -70,8 +70,10 @@ index | DT/MUL[4] | TL[4] | AR[4] | D1R[4] | D2R[4] | D1L-RR[4] | CON/FB | slot
 - ✅ **檔案結構**:檔頭、voice 定義(42B stride、operator-major)、track 表、track 事件 —— 確定。
 - ✅ **voice → 音色**:FM patch 寫進 YM2151 暫存器,音色正確發聲。
 - ✅ **單 track 旋律**:音符 + 時值 + voice 切換解出,渲染成完整長度旋律。
-- 🟡 **多 track 合奏**:整首歌有多條 track(旋律 + 和聲 + 低音 + 鼓),要分配到 YM2151 的
-  8 個 channel **同時**演奏並依時間軸對齊 —— 目前只渲染單 track,合併尚未做。
+- ✅ **多 track 合奏**:`mgd_song.py` 解多 track、各分配 YM2151 channel(0-7,slot=ch+op*8)、
+  依絕對 tick 合併成統一 register 流(每 channel 自己的 KC/KON)。4 track 渲染 101 秒多聲部 FM。
+- 🟡 **song ↔ track 分組**:`ult.mgd` 含 17 track = 多首歌,哪幾條 track 屬同一首(目前手選 0-3)
+  待從 header / song 表確認。
 - 🟡 **tempo / 時值單位**:`dur × TICK` 的 TICK 目前是近似值;真正的速度藏在控制命令裡,待解。
 - 🟡 **控制命令**:音量、pan、detune、LFO、ADPCM 鼓點(走 MSM6258)等 `8x` 命令多數略過。
 - ⛔ **完全保真**:要和原機一模一樣,需把所有控制命令 + 多 track + ADPCM 鼓全解。目前是
