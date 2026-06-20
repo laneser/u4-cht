@@ -98,7 +98,10 @@ jobs:
           # FORWARD_COMPATIBLE 建核心 context。多版本 GL 標頭共存靠 GL_DO_NOT_WARN 巨集。
           perl -pi -e 's{#include <OpenGL/gl\.h>}{#include <OpenGL/gl3.h>}' src/gpu_opengl.h
           perl -pi -e "s{^CXXFLAGS=-Wall -I\. -Isupport}{CXXFLAGS=-Wall -I. -Isupport -I/usr/local/include -I$BREW/include -DGL_SILENCE_DEPRECATION -DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED}" src/Makefile
-          perl -pi -e 's{^LIBS=.*}{LIBS=\$(UILIBS) -lvorbisfile -lvorbis -logg -lpng -lz -framework OpenGL -framework AudioToolbox -framework CoreFoundation}' src/Makefile
+          # -lallegro_main:macOS 的 Allegro main 包裝(把使用者 main 移到工作執行緒,
+          # 主執行緒留給 Cocoa/dispatch);配合 xu4.cpp 的 #include <allegro5/allegro.h>,
+          # 否則 al_install_mouse 從主執行緒 dispatch_sync 到主執行緒會 SIGTRAP 當掉。
+          perl -pi -e 's{^LIBS=.*}{LIBS=\$(UILIBS) -lallegro_main -lvorbisfile -lvorbis -logg -lpng -lz -framework OpenGL -framework AudioToolbox -framework CoreFoundation}' src/Makefile
           perl -pi -e "s{^(-include \.\./make.config)}{\$1\nLDFLAGS+=-L/usr/local/lib -L$BREW/lib}" src/Makefile
           grep -q 'AudioToolbox' src/Makefile         # 確認連結 patch 已注入
           make download
