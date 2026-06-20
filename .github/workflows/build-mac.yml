@@ -85,7 +85,12 @@ jobs:
           # 改用 Linux 的 src/Makefile(平台中性,讀 make.config UI=allegro)。faun 改靜態 →
           # 連結需自帶其相依:vorbis/ogg + OpenGL/AudioToolbox framework + brew/usr-local 路徑。
           ./configure --allegro
-          perl -pi -e "s{^CXXFLAGS=-Wall -I\. -Isupport}{CXXFLAGS=-Wall -I. -Isupport -I/usr/local/include -I$BREW/include}" src/Makefile
+          # macOS 的 GL:xu4 渲染器要 GL 3.3 核心(VAO/glMapBufferRange/GL_MAP_WRITE_BIT)。
+          # gpu_opengl.h 在 __APPLE__ 引入 Apple 舊版 <OpenGL/gl.h>(僅到 GL 2.1)→ 缺核心
+          # 函式。改 <OpenGL/gl3.h>(Apple 核心 3.2);allegro 端已用 ALLEGRO_OPENGL_3_0|
+          # FORWARD_COMPATIBLE 建核心 context。多版本 GL 標頭共存靠 GL_DO_NOT_WARN 巨集。
+          perl -pi -e 's{#include <OpenGL/gl\.h>}{#include <OpenGL/gl3.h>}' src/gpu_opengl.h
+          perl -pi -e "s{^CXXFLAGS=-Wall -I\. -Isupport}{CXXFLAGS=-Wall -I. -Isupport -I/usr/local/include -I$BREW/include -DGL_SILENCE_DEPRECATION -DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED}" src/Makefile
           perl -pi -e 's{^LIBS=.*}{LIBS=\$(UILIBS) -lvorbisfile -lvorbis -logg -lpng -lz -framework OpenGL -framework AudioToolbox -framework CoreFoundation}' src/Makefile
           perl -pi -e "s{^(-include \.\./make.config)}{\$1\nLDFLAGS+=-L/usr/local/lib -L$BREW/lib}" src/Makefile
           grep -q 'AudioToolbox' src/Makefile         # 確認連結 patch 已注入
