@@ -298,6 +298,31 @@ index 0bef0c9..f919e16 100644
      default:
          return false;
      }
+diff --git a/src/event_allegro.cpp b/src/event_allegro.cpp
+index 8f3dce0..5b8bddc 100644
+--- a/src/event_allegro.cpp
++++ b/src/event_allegro.cpp
+@@ -4,6 +4,7 @@
+ 
+ #include <cstdio>
+ #include "screen_allegro.h"
++#include "screen.h"        // screenResize(視窗可調大小)
+ #include "event.h"
+ #include "xu4.h"
+ 
+@@ -140,6 +141,12 @@ mouse_event:
+             ie.type = IE_MOUSE_MOVE;
+             goto mouse_pos;
+ 
++        case ALLEGRO_EVENT_DISPLAY_RESIZE:
++            // U4 繁中化:視窗可調大小 — 確認 resize 後更新顯示尺寸並置中遊戲畫面。
++            al_acknowledge_resize(event.display.source);
++            screenResize(event.display.width, event.display.height);
++            break;
++
+         case ALLEGRO_EVENT_DISPLAY_EXPOSE:
+         case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
+             expose();
 diff --git a/src/game.cpp b/src/game.cpp
 index 5c359b0..3434275 100644
 --- a/src/game.cpp
@@ -976,7 +1001,7 @@ index 119aca3..8c22e70 100644
                  }
                  break;
 diff --git a/src/screen.cpp b/src/screen.cpp
-index 46d51bd..f12d643 100644
+index 46d51bd..b036597 100644
 --- a/src/screen.cpp
 +++ b/src/screen.cpp
 @@ -25,6 +25,7 @@
@@ -1047,7 +1072,7 @@ index 46d51bd..f12d643 100644
      xu4.screenImage->fill(Image::black);
  
      screenInit_sys(xu4.settings, &screen->state, SYS_CLEAN);
-@@ -302,6 +313,24 @@ void screenReInit() {
+@@ -302,6 +313,41 @@ void screenReInit() {
      //gs_emitMessage(SENDER_DISPLAY, &screen->state);
  }
  
@@ -1069,10 +1094,27 @@ index 46d51bd..f12d643 100644
 +    return true;
 +}
 +
++/*
++ * U4 繁中化:視窗大小改變時呼叫(Allegro DISPLAY_RESIZE / GLFW framebuffer callback)。
++ * 維持遊戲原生渲染尺寸(aspectW/H 不變 → scaler 整數倍、GUI 版面、滑鼠映射全部照舊),
++ * 只更新顯示尺寸與置中偏移(letterbox);放大時遊戲置中、四周留邊,縮小時置中裁切。
++ */
++void screenResize(int w, int h) {
++    Screen* screen = XU4_SCREEN;
++    if (! screen || w < 1 || h < 1)
++        return;
++    ScreenState* ss = &screen->state;
++    ss->displayW = w;
++    ss->displayH = h;
++    ss->aspectX = (w - ss->aspectW) / 2;
++    ss->aspectY = (h - ss->aspectH) / 2;
++    screen->clearCount = 2;     // 清掉新露出的邊框,避免殘影
++}
++
  // Private to screenInit_sys().
  int screenInitState(ScreenState* state, const Settings* settings, int dw, int dh)
  {
-@@ -350,15 +379,30 @@ bool screenLayerUsed(int layer) {
+@@ -350,15 +396,30 @@ bool screenLayerUsed(int layer) {
      return XU4_SCREEN->layers[layer].func ? true : false;
  }
  
@@ -1103,7 +1145,7 @@ index 46d51bd..f12d643 100644
      for (i = 0; i < buflen; i++)
          screenShowChar(buffer[i], x + i, y);
  }
-@@ -403,6 +447,13 @@ void screenMessage(const char *fmt, ...) {
+@@ -403,6 +464,13 @@ void screenMessage(const char *fmt, ...) {
      if (! c)
          return; // Some cases (like the intro) don't have the context initiated.
  
@@ -1117,7 +1159,7 @@ index 46d51bd..f12d643 100644
      va_list args;
      va_start(args, fmt);
      buflen = vsnprintf(buffer, MsgBufferSize, fmt, args);
-@@ -446,7 +497,124 @@ void screenMessageCenter(const char* text, int newlines) {
+@@ -446,7 +514,124 @@ void screenMessageCenter(const char* text, int newlines) {
      screenMessageN(start, cp - start);
  }
  
@@ -1242,7 +1284,7 @@ index 46d51bd..f12d643 100644
      bool colorize = xu4.settings->enhancements &&
                      xu4.settings->enhancementsOptions.textColorization;
      const int colCount = TEXT_AREA_W;
-@@ -850,7 +1018,44 @@ static void screenUploadCursor(Screen* sp, uint32_t stex) {
+@@ -850,7 +1035,44 @@ static void screenUploadCursor(Screen* sp, uint32_t stex) {
                      &cimg);
  }
  
@@ -1288,18 +1330,72 @@ index 46d51bd..f12d643 100644
      void* gpu = xu4.gpu;
      ScreenState* ss = &sp->state;
 diff --git a/src/screen.h b/src/screen.h
-index 396af65..8dc24ea 100644
+index 396af65..7bb48c7 100644
 --- a/src/screen.h
 +++ b/src/screen.h
-@@ -109,6 +109,8 @@ void screenInit(int layerCount);
+@@ -109,6 +109,9 @@ void screenInit(int layerCount);
  void screenRefreshTimerInit(void);
  void screenDelete(void);
  void screenReInit(void);
 +bool screenCycleScale(void);    /* U4 繁中化:F3 循環 game resolution(scale),tile 物理放大 */
++void screenResize(int w, int h);/* U4 繁中化:視窗可調大小 — 維持原生渲染、置中 letterbox */
 +void screenDrawCJKPixel(const char* s, int px, int py);  /* U4 繁中化:像素座標畫 CJK 字串 */
  void screenSetLayer(int layer, void (*renderFunc)(ScreenState*, void*),
                      void* data);
  bool screenLayerUsed(int layer);
+diff --git a/src/screen_allegro.cpp b/src/screen_allegro.cpp
+index 2901aa8..11846a8 100644
+--- a/src/screen_allegro.cpp
++++ b/src/screen_allegro.cpp
+@@ -107,11 +107,11 @@ void screenInit_sys(const Settings* settings, ScreenState* state, int reset) {
+ #ifdef _WIN32
+     // ALLEGRO_OPENGL_3_0 causes al_create_display() to fail on Windows 7 and
+     // with Wine.  We check that version 3.3 calls are available below.
+-    int dflags = ALLEGRO_OPENGL;
++    int dflags = ALLEGRO_OPENGL | ALLEGRO_RESIZABLE;
+ #else
+     // NOTE: _FORWARD_COMPATIBLE requires al_set_current_opengl_context()
+     int dflags = ALLEGRO_OPENGL | ALLEGRO_OPENGL_3_0 |
+-                 ALLEGRO_OPENGL_FORWARD_COMPATIBLE;
++                 ALLEGRO_OPENGL_FORWARD_COMPATIBLE | ALLEGRO_RESIZABLE;
+ #endif
+     int scale = settings->scale;
+     int dw = U4_SCREEN_W * scale;
+diff --git a/src/screen_glfw.cpp b/src/screen_glfw.cpp
+index a8d7a6a..9eca7fe 100644
+--- a/src/screen_glfw.cpp
++++ b/src/screen_glfw.cpp
+@@ -266,6 +266,13 @@ static void mouseMotionHandler(GLFWwindow* win, double x, double y)
+     dispatchEvent(&ie);
+ }
+ 
++// U4 繁中化:視窗可調大小 — framebuffer 尺寸改變時更新顯示尺寸並置中遊戲畫面。
++static void framebufferSizeHandler(GLFWwindow* win, int width, int height)
++{
++    (void) win;
++    screenResize(width, height);
++}
++
+ static void mouseButtonHandler(GLFWwindow* win, int button, int action,
+                                int mods)
+ {
+@@ -352,7 +359,7 @@ void screenInit_sys(const Settings* settings, ScreenState* state, int reset)
+             errorFatal("Unable to initialize GLFW");
+         }
+ 
+-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
++        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);   // U4 繁中化:視窗可調大小
+ #if defined(USE_GLES)
+         const int glVersion = 0x301;
+ #else
+@@ -388,6 +395,7 @@ void screenInit_sys(const Settings* settings, ScreenState* state, int reset)
+         glfwSetCursorPosCallback(ss->view, mouseMotionHandler);
+         glfwSetMouseButtonCallback(ss->view, mouseButtonHandler);
+         glfwSetScrollCallback(ss->view, scrollHandler);
++        glfwSetFramebufferSizeCallback(ss->view, framebufferSizeHandler);
+ 
+ #if defined(__linux__)
+         _setWindowIcon(ss->view, "/usr/share/icons/hicolor/48x48/apps/xu4.png");
 diff --git a/src/spell.cpp b/src/spell.cpp
 index 977cedf..0bc6f6c 100644
 --- a/src/spell.cpp
