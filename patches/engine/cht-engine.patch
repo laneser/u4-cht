@@ -654,7 +654,7 @@ index fd2d9817..a309fe59 100644
      uint8_t fixup;              /**< a routine to do miscellaneous fixes to the image */
      Image *image;               /**< the image we're describing */
 diff --git a/src/intro.cpp b/src/intro.cpp
-index acdf1f74..2dcccc69 100644
+index acdf1f74..7afd157f 100644
 --- a/src/intro.cpp
 +++ b/src/intro.cpp
 @@ -20,6 +20,7 @@
@@ -742,7 +742,7 @@ index acdf1f74..2dcccc69 100644
          // draw the extended background for all option screens
          backgroundArea.draw(BKGD_INTRO);
 -        backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 120);
-+        backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 240);
++        backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 360);
  
          // if there is an error message to display, show it
          if (xu4.errorMessage)
@@ -751,7 +751,7 @@ index acdf1f74..2dcccc69 100644
              // clear the screen again
              backgroundArea.draw(BKGD_INTRO);
 -            backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 120);
-+            backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 240);
++            backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 360);
          }
  
          menuArea.textAt(1,  1, "In another world, in a time to come.");
@@ -760,7 +760,7 @@ index acdf1f74..2dcccc69 100644
      // draw the extended background for all option screens
      backgroundArea.draw(BKGD_INTRO);
 -    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 120);
-+    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 240);
++    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 360);
  
      // display name prompt and read name from keyboard
      menuArea.textAt(3, 3, "By what name shalt thou be known");
@@ -769,7 +769,7 @@ index acdf1f74..2dcccc69 100644
      // draw the extended background for all option screens
      backgroundArea.draw(BKGD_INTRO);
 -    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 120);
-+    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 240);
++    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 360);
  
      // display sex prompt and read sex from keyboard
      menuArea.textAt(3, 3, "Art thou Male or Female?");
@@ -778,7 +778,7 @@ index acdf1f74..2dcccc69 100644
      // draw the extended background for all option screens
      backgroundArea.draw(BKGD_INTRO);
 -    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 120);
-+    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 240);
++    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 360);
  
      screenHideCursor();
      menuArea.textAtFmt(14, 1, "XU4 %s", VERSION);
@@ -798,7 +798,7 @@ index acdf1f74..2dcccc69 100644
      // draw the extended background for all option screens
      backgroundArea.draw(BKGD_OPTIONS_TOP, 0, 0);
 -    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 120);
-+    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 240);
++    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 360);
  }
  
  void IntroController::updateVideoMenu(MenuEvent &event) {
@@ -807,7 +807,7 @@ index acdf1f74..2dcccc69 100644
      // draw the extended background for all option screens
      backgroundArea.draw(BKGD_OPTIONS_TOP, 0, 0);
 -    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 120);
-+    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 240);
++    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 360);
  }
  
  void IntroController::updateGfxMenu(MenuEvent &event)
@@ -816,7 +816,7 @@ index acdf1f74..2dcccc69 100644
      // draw the extended background for all option screens
      backgroundArea.draw(BKGD_OPTIONS_TOP, 0, 0);
 -    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 120);
-+    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 240);
++    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 360);
  }
  
  void IntroController::updateSoundMenu(MenuEvent &event) {
@@ -825,7 +825,7 @@ index acdf1f74..2dcccc69 100644
      // draw the extended background for all option screens
      backgroundArea.draw(BKGD_OPTIONS_TOP, 0, 0);
 -    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 120);
-+    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 240);
++    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 360);
  }
  
  void IntroController::updateInputMenu(MenuEvent &event) {
@@ -834,7 +834,7 @@ index acdf1f74..2dcccc69 100644
      // draw the extended background for all option screens
      backgroundArea.draw(BKGD_OPTIONS_TOP, 0, 0);
 -    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 120);
-+    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 240);
++    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 360);
  
      // after drawing the menu, extra menu text can be added here
      extendedMenuArea.textAt(0, 5, "Mouse Options:");
@@ -843,7 +843,7 @@ index acdf1f74..2dcccc69 100644
      // draw the extended background for all option screens
      backgroundArea.draw(BKGD_OPTIONS_TOP, 0, 0);
 -    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 120);
-+    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 240);
++    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 360);
  }
  
  void IntroController::updateGameplayMenu(MenuEvent &event) {
@@ -852,7 +852,7 @@ index acdf1f74..2dcccc69 100644
      // draw the extended background for all option screens
      backgroundArea.draw(BKGD_OPTIONS_TOP, 0, 0);
 -    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 120);
-+    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 240);
++    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 360);
  }
  
  void IntroController::updateInterfaceMenu(MenuEvent &event) {
@@ -861,7 +861,7 @@ index acdf1f74..2dcccc69 100644
      // draw the extended background for all option screens
      backgroundArea.draw(BKGD_OPTIONS_TOP, 0, 0);
 -    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 120);
-+    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 240);
++    backgroundArea.draw(BKGD_OPTIONS_BTM, 0, 360);
  
      // after drawing the menu, extra menu text can be added here
      extendedMenuArea.textAt(2, 3, "  (Open, Jimmy, etc.)");
