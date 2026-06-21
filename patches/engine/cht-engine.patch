@@ -1825,3 +1825,62 @@ index 6a01ed5..afba495 100644
  #if defined(MACOSX)
      osxInit(argv[0]);
  #endif
+diff --git a/src/script_boron.cpp b/src/script_boron.cpp
+index 20691ed2..2dd25180 100644
+--- a/src/script_boron.cpp
++++ b/src/script_boron.cpp
+@@ -281,13 +281,52 @@ CFUNC(cf_viewStats)
+ 
+     Print to the screen message area.
+ */
++/* U4 繁中化:把一個 Unicode codepoint 以 UTF-8 附加到 out。 */
++static void chtAppendUtf8(std::string& out, uint32_t cp) {
++    if (cp < 0x80) {
++        out += (char) cp;
++    } else if (cp < 0x800) {
++        out += (char) (0xC0 | (cp >> 6));
++        out += (char) (0x80 | (cp & 0x3F));
++    } else if (cp < 0x10000) {
++        out += (char) (0xE0 | (cp >> 12));
++        out += (char) (0x80 | ((cp >> 6) & 0x3F));
++        out += (char) (0x80 | (cp & 0x3F));
++    } else {
++        out += (char) (0xF0 | (cp >> 18));
++        out += (char) (0x80 | ((cp >> 12) & 0x3F));
++        out += (char) (0x80 | ((cp >> 6) & 0x3F));
++        out += (char) (0x80 | (cp & 0x3F));
++    }
++}
++
+ CFUNC(cf_screenMessage)
+ {
+     if (ur_is(a1, UT_STRING)) {
++        /* U4 繁中化:Boron 把含 CJK(codepoint 256–65535)的字串字面存成
++         * UR_ENC_UCS2(每字 16-bit);construct(vendor `=>` / input-shop)沿用
++         * 該編碼。若直接把 buffer 的 ptr.c 當 UTF-8 byte 輸出,UCS2 會被誤讀
++         * (ASCII 高位 0x00 → NUL 截斷成空白、CJK 低位 byte → 亂碼)—— 即商店
++         * 對白「怪怪的字 + 一堆空白」之根因。(vendor 是唯一把 module 內 CJK
++         * 經此路徑輸出者;其餘文字走 C 端 chtLookup。)
++         *
++         * 不用 ur_toText 轉:它寫進 UR_ENC_UTF8 buffer 時按「字數」而非 byte 數
++         * 配置容量,CJK(3 byte/字)會 heap 溢位。改自行逐 codepoint 編 UTF-8。 */
+         USeriesIter si;
+         ur_seriesSlice(ut, &si, a1);
+-        ur_strTermNull((UBuffer*) si.buf);
+-        screenMessage(si.buf->ptr.c + si.it);
++        std::string utf;
++        if (si.buf->form == UR_ENC_UCS2) {
++            const uint16_t* s = si.buf->ptr.u16;
++            for (UIndex i = si.it; i < si.end; ++i)
++                chtAppendUtf8(utf, s[i]);
++        } else if (si.buf->form == UR_ENC_UTF8) {
++            utf.assign(si.buf->ptr.c + si.it, si.end - si.it);   // 已是 UTF-8 byte
++        } else {    // UR_ENC_LATIN1:每 byte 即 codepoint(0–255)
++            const uint8_t* s = si.buf->ptr.b;
++            for (UIndex i = si.it; i < si.end; ++i)
++                chtAppendUtf8(utf, s[i]);
++        }
++        screenMessage("%s", utf.c_str());   // "%s":避免文字內 % 被當 printf 格式
+     }
+     else if (ur_is(a1, UT_CHAR)) {
+         screenMessage("%c", (int) ur_char(a1));
