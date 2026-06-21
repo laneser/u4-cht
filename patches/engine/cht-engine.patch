@@ -1607,7 +1607,7 @@ index dce16b5..42e5504 100644
                   const uint8_t* it, unsigned int len);
  float txf_emWidth(const TxfHeader*, const uint8_t* it, unsigned int len);
 diff --git a/src/textview.cpp b/src/textview.cpp
-index eb6fcc0..b5e0191 100644
+index eb6fcc0..fa60a2a 100644
 --- a/src/textview.cpp
 +++ b/src/textview.cpp
 @@ -3,6 +3,7 @@
@@ -1627,7 +1627,7 @@ index eb6fcc0..b5e0191 100644
  
  using std::string;
  
-@@ -161,6 +164,53 @@ string TextView::highlightKey(const string& input, unsigned int keyIndex) {
+@@ -161,6 +164,61 @@ string TextView::highlightKey(const string& input, unsigned int keyIndex) {
  }
  
  void TextView::textAt(int x, int y, const char *text) {
@@ -1675,13 +1675,21 @@ index eb6fcc0..b5e0191 100644
 +                col += 1;
 +            }
 +        }
++        /* U4 繁中化:CJK 路徑也要跟新游標到文字結尾,否則游標卡在舊位置、疊在中文字上
++           (如 intro 敘事的 @ 游標蓋住首字)。對齊下方 ASCII 路徑的 cursorFollowsText。 */
++        if (cursorFollowsText) {
++            _cursorX = x + col;
++            _cursorY = y;
++            if (cursorVisible)
++                syncCursorPos();
++        }
 +        return;
 +    }
 +
      int ch;
      while ((ch = *text++)) {
          switch (ch) {
-@@ -192,6 +242,11 @@ void TextView::textAtFmt(int x, int y, const char *fmt, ...) {
+@@ -192,6 +250,11 @@ void TextView::textAtFmt(int x, int y, const char *fmt, ...) {
      char buffer[512];
      va_list args;
  
@@ -1693,7 +1701,7 @@ index eb6fcc0..b5e0191 100644
      va_start(args, fmt);
      vsnprintf(buffer, sizeof(buffer), fmt, args);
      va_end(args);
-@@ -203,6 +258,9 @@ void TextView::textAtFmt(int x, int y, const char *fmt, ...) {
+@@ -203,6 +266,9 @@ void TextView::textAtFmt(int x, int y, const char *fmt, ...) {
   * Draw text with a single character highlighted.
   */
  void TextView::textAtKey(int x, int y, const char *text, int keyIndex) {
