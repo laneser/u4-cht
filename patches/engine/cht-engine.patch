@@ -936,7 +936,7 @@ index c21ef937..f0c1c6a6 100644
      };
  
 diff --git a/src/names.cpp b/src/names.cpp
-index 8807b88b..2d4c9407 100644
+index 8807b88b..484d7e3d 100644
 --- a/src/names.cpp
 +++ b/src/names.cpp
 @@ -2,26 +2,35 @@
@@ -1000,15 +1000,20 @@ index 8807b88b..2d4c9407 100644
  const char *getVirtueName(Virtue virtue) {
      static const char * const virtueNames[] = {
          "Honesty", "Compassion", "Valor",
-@@ -53,14 +66,28 @@ const char *getVirtueName(Virtue virtue) {
+@@ -53,14 +66,33 @@ const char *getVirtueName(Virtue virtue) {
          return "???";
  }
  
 +/* U4 繁中化:顯示用美德名「中文(英文)」,如「正義(Justice)」。用於需要玩家
 + * 知道對應英文以利輸入的情境(聖壇名等)。無譯時退回純英文。 */
 +const char *getDisplayVirtueName(Virtue virtue) {
-+    static std::string buf;
++    /* 每個 virtue 一個穩定 buffer:避免同一 full-expression 內呼叫兩次(如一個
++     * printf 放兩個 getDisplayVirtueName)時,後者覆寫前者的 static 暫存。 */
++    static std::string bufs[8];
 +    const char* en = getVirtueName(virtue);
++    if (virtue >= 8)
++        return en;                          // "???"(無對應 buffer)
++    std::string& buf = bufs[virtue - VIRT_HONESTY];
 +    const char* zh = chtLookup(en, (int) strlen(en));
 +    if (! zh || zh == en) {
 +        buf = en;
@@ -1036,7 +1041,7 @@ index 8807b88b..2d4c9407 100644
      else return "???";
  }
  
-@@ -91,7 +118,7 @@ const char *getVirtueAdjective(Virtue virtue) {
+@@ -91,7 +123,7 @@ const char *getVirtueAdjective(Virtue virtue) {
      };
  
      if (virtue < 8)
@@ -1045,7 +1050,7 @@ index 8807b88b..2d4c9407 100644
      else
          return "???";
  }
-@@ -104,7 +131,7 @@ const char *getStoneName(Virtue virtue) {
+@@ -104,7 +136,7 @@ const char *getStoneName(Virtue virtue) {
      };
  
      if (virtue < VIRT_MAX)
@@ -1054,7 +1059,7 @@ index 8807b88b..2d4c9407 100644
      else
          return "???";
  }
-@@ -112,23 +139,23 @@ const char *getStoneName(Virtue virtue) {
+@@ -112,23 +144,23 @@ const char *getStoneName(Virtue virtue) {
  const char *getItemName(Item item) {
      switch (item) {
      case ITEM_SKULL:
@@ -1087,7 +1092,7 @@ index 8807b88b..2d4c9407 100644
      default:
          return "???";
      }
-@@ -140,8 +167,7 @@ const char *getDirectionName(Direction dir) {
+@@ -140,8 +172,7 @@ const char *getDirectionName(Direction dir) {
      };
  
      if (dir >= DIR_WEST && dir <= DIR_SOUTH)
@@ -1138,7 +1143,7 @@ index 119aca38..8c22e700 100644
                  }
                  break;
 diff --git a/src/screen.cpp b/src/screen.cpp
-index 46d51bdb..5db88e0f 100644
+index 46d51bdb..945fdc1b 100644
 --- a/src/screen.cpp
 +++ b/src/screen.cpp
 @@ -25,6 +25,7 @@
@@ -1296,7 +1301,7 @@ index 46d51bdb..5db88e0f 100644
      va_list args;
      va_start(args, fmt);
      buflen = vsnprintf(buffer, MsgBufferSize, fmt, args);
-@@ -417,36 +485,156 @@ void screenMessage(const char *fmt, ...) {
+@@ -417,36 +485,157 @@ void screenMessage(const char *fmt, ...) {
   * Center first line of text in message area.
   */
  void screenMessageCenter(const char* text, int newlines) {
@@ -1333,11 +1338,12 @@ index 46d51bdb..5db88e0f 100644
 -            endOfLine = cp;
 -        *cp++ = ch;
 +    char* cp = buffer;
-+    for (int i = 0; i < indent; ++i)
++    char* lim = buffer + MsgBufferSize;     // 界限:勿寫爆 msgBuffer
++    for (int i = 0; i < indent && cp < lim; ++i)
 +        *cp++ = ' ';
-+    for (const char* s = text; *s; )
++    for (const char* s = text; *s && cp < lim; )
 +        *cp++ = *s++;
-+    while (newlines-- > 0)
++    while (newlines-- > 0 && cp < lim)
 +        *cp++ = '\n';
 +
 +    screenMessageN(buffer, (int) (cp - buffer));
@@ -1474,7 +1480,7 @@ index 46d51bdb..5db88e0f 100644
      bool colorize = xu4.settings->enhancements &&
                      xu4.settings->enhancementsOptions.textColorization;
      const int colCount = TEXT_AREA_W;
-@@ -850,7 +1038,44 @@ static void screenUploadCursor(Screen* sp, uint32_t stex) {
+@@ -850,7 +1039,44 @@ static void screenUploadCursor(Screen* sp, uint32_t stex) {
                      &cimg);
  }
  
