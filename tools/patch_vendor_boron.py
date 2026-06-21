@@ -129,8 +129,7 @@ def main():
     # ── 中文化的結構性副作用修正(與翻譯內容無關,但 CJK 才會現形)──
     # (1) 去掉每行(^/ 之後)前導縮排空白:原 {{ }} 模板的原始碼縮排,在 CJK 全形
     #     (CHAR_WIDTH=24、文字區僅 16 欄)下會把整段嚴重右移。
-    indent = len(re.findall(r"\^/[ \t]+", text))
-    text = re.sub(r"\^/[ \t]+", "^/", text)
+    text, indent = re.subn(r"\^/[ \t]+", "^/", text)
 
     # (2) build-items 的 inventory:`inventory: ""` 是空 Latin1 字串,append CJK 物品名
     #     會被 Boron 有損降轉成 0xBF(顯示為缺字灰框)。種 1 個全形空白使 buffer 為

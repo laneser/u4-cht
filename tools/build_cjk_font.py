@@ -27,7 +27,8 @@ from PIL import Image, ImageFont, ImageDraw
 JSON_FILES = ["talk_bilingual", "stringtable_bilingual",
               "hardcoded_strings", "vendor_bilingual",
               "castle_bilingual", "ui_bilingual", "config_bilingual",
-              "names_bilingual", "creature_bilingual", "system_bilingual"]
+              "names_bilingual", "creature_bilingual", "system_bilingual",
+              "maps_bilingual"]
 
 
 def collect_codepoints():
@@ -47,7 +48,10 @@ def collect_codepoints():
                     walk(v)
             elif isinstance(o, str):
                 for ch in o:
-                    if ord(ch) >= 0x3000:   # CJK + 全形標點
+                    # 引擎 screenMessageCJK 對「所有 codepoint ≥ 0x80」都走 cjkBlit
+                    # (查 atlas),故凡 ≥0x80 的字都須收 —— 不只 CJK(≥0x3000),也含
+                    # 一般標點如 …(U+2026)、—(U+2014)、·(U+00B7),否則顯示灰框。
+                    if ord(ch) >= 0x80:
                         cps.add(ch)
         walk(d)
     return sorted(cps, key=ord)
