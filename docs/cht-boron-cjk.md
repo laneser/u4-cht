@@ -102,45 +102,107 @@ bash tools/run_boron_cjk_test.sh     # 於 u4cht/xu4-allegro image 內編譯+執
 
 ---
 
-## 翻譯涵蓋缺口(待補譯)
+## 原則:輸入比對只能用英文,顯示才在地化
 
-四大來源(對話 256 / stringtable 114 / 硬編 318 / vendor 278,約 859 entry)已全譯,但
-`extract_hardcoded.py` **只抓 `screenMessage*()` 呼叫點**的字面,漏掉了:
+**玩家無法在遊戲中輸入中文**(沒有 IME)。因此凡是會被拿去**跟玩家輸入比對**的字串,
+其 canonical 值**必須維持英文**;翻譯只能用於「顯示」。
 
-### (a) `text = "..."` 變數賦值式硬編字串
+### 為何重要(實際踩到的 bug)
 
-這些檔多已有 `chtLookup` hook,只差字串沒進翻譯表:
+`getVirtueName()` 原本被 `CHT()` 包成中文。但它同時用於:
+- **輸入比對**:聖壇冥想 `shrine.cpp` `strncasecmp(input, getVirtueName(virtue), 6)`、
+  codex `codex.cpp`、城堡 `discourse_castle.cpp` `inputEq(...)`、`item.cpp`。
+  → 玩家打 `justice`,卻和中文「正義」比對,**永遠失敗**(功能性 bug,不只顯示)。
+- **位元組操作**:stats 面板 `stats.cpp` 取 `getVirtueName(...)[0]` 當縮寫首字母。
+  → 中文 UTF-8 的 `[0]` 是半個位元組 → 亂碼。
 
-| 檔案 | 內容 | 約數 |
+### 解法(範式)
+
+把「canonical 名」與「顯示名」分開:
+
+| 函式 | 回傳 | 用途 |
 |---|---|---|
-| `discourse_castle.cpp` | Lord British 對白 / `help` 漸進指引 | 9+ |
-| `codex.cpp` | 深淵(Abyss)結局問答 | ~11 |
-| `death.cpp` | 死亡 / 復活 | ~2 |
-| `shrine.cpp` | 聖壇 | ~1 |
-| `item.cpp` | 部分物品使用訊息 | 數條 |
+| `getVirtueName(v)` | **英文** canonical(`"Justice"`) | 輸入比對、`[0]` 首字母、`strlen` |
+| `getDisplayVirtueName(v)` | **中文(英文)**(`"正義(Justice)"`) | 顯示;讓玩家知道要輸入的英文 |
 
-例:王城問 Lord British `help` → `discourse_castle.cpp:208`
-`"Travel not the open lands alone..."` 維持英文。
+- 比對端用 `getVirtueName`(英文)→ 自動正確。
+- 顯示端用 `getDisplayVirtueName` → 玩家看到「正義(Justice)」,知道聖壇要打 `Justice`。
+  (括號用 **ASCII `()`**:`<0x80` 走 ASCII 字模,免進 atlas。)
+- **fail-safe**:canonical 維持英文,將來新程式忘了在地化只會「顯示英文」,
+  不會默默壞掉比對邏輯(比反過來安全)。
 
-### (b) NPC 名稱(`DS_NAME`)未查表
+> **同類檢查結果**:`getClassName()`(職業名,也被 `CHT()` 包成中文)經查**只用於顯示**
+> (`stats.cpp` 面板、`game.cpp`「A %s may NOT use…」),無輸入比對 / `[0]` / `strlen`,
+> 故維持中文**安全**,不需拆分。talk 關鍵字本就維持英文、`(可問 %s)` 提示也是英文 → OK。
 
-`discourse_tlk.cpp:413` `case DS_NAME: return USTR(name);` **沒有 `chtLookup`**
+## 翻譯涵蓋缺口
+
+四大來源(對話 256 / stringtable 114 / 硬編 318 / vendor 278,約 859 entry)已全譯。
+但 `extract_hardcoded.py` **只抓 `screenMessage*()` 呼叫點**的字面,漏掉了兩類,
+已於本輪補上:
+
+### (a) 變數賦值 / 陣列初始化的硬編字串 ✅ 已補
+
+這些檔皆透過 `screenMessage`(→ `screenMessageN` 自動 `chtLookup`)或自帶 hook 顯示,
+只差字串沒進翻譯表:
+
+| 檔案 | 內容 | 數 | 處置 |
+|---|---|---|---|
+| `discourse_castle.cpp` | Lord British 對白 / `help` 漸進指引 | 9 | 譯入 `castle_bilingual.json` |
+| `death.cpp` | 死亡 / 復活(`deathMsgs[]` 陣列) | 7 | 譯入 `hardcoded_strings.json` |
+| `shrine.cpp` | 聖壇靈視 | 1 | 譯入 `hardcoded_strings.json` |
+| `codex.cpp` | 深淵(Abyss)結局問答 | — | **本來就已譯**(先前廣掃的 `\n` 比對誤報) |
+| `item.cpp` / `intro.cpp` | — | — | **本來就已譯**(同上誤報) |
+
+> 註:`discourse_castle.cpp` 的 Lord British 指引是 C 多行字面**串接成一整串**後
+> 才 `chtLookup(text, …)`,故翻譯表的 key 必須是**完整串接後**的英文(非個別片段)。
+
+例:王城問 Lord British `help` → `"Travel not the open lands alone..."` 現已中文。
+
+### (b) NPC 名稱(`DS_NAME`)未查表 ✅ 已修
+
+`discourse_tlk.cpp` 原 `case DS_NAME: return USTR(name);` **沒有 `chtLookup`**
 (對比同檔 `DS_LOOK` 有 hook、`DS_PRONOUN` 有 He/She/It→他/她/它)。
 故問 NPC 名字時:`message("%s says: I am %s\n", pronoun, name)` 的格式雖譯成
-「我是 %s」,但 `name`(如 `a guard`)原樣輸出 → **「我是 a guard」**。
+「我是 %s」,`name`(如 `a guard`)卻原樣輸出 → **「我是 a guard」**。
 
-修法:給 `DS_NAME` 加 `chtLookup` hook,並把 NPC 名稱抽取進表。NPC 名稱對應表(節錄):
+**譯名其實早已備妥**:`talk_bilingual.json` 的 `name` 欄已含 zh(`a guard`→`衛兵`、
+`Iolo`→`尤洛`…),且 `build_lookup.py` 已把 name 欄收進 `u4_cht.tab`。缺的只是
+`DS_NAME` 沒查表。修法:給 `DS_NAME` 加 `chtLookup` hook(同 `DS_LOOK`)即可,免新譯。
+(格式為「我是 %s」會留一個半形空格 →「我是 衛兵」,可接受。)
 
-| en | zh |
-|---|---|
-| `a guard` | 衛兵 |
-| `a fighter` | 鬥士 |
-| `a merchant` | 商人 |
-| `a beggar` | 乞丐 |
-| `a jester` | 弄臣 |
+### (c) 顯示路徑未接 chtLookup ✅ 已修
 
-> 註:格式字串若為「我是 %s」會留一個半形空格(「我是 衛兵」)。要「我是衛兵」需同時把
-> 格式改為「我是%s」(去空格),或將 zh 設為含前綴(如「一位衛兵」)。實作時擇一即可。
+譯文**早已存在**(在 talk/maps 表),但特定顯示路徑沒查表:
+
+| 症狀 | 根因 | 修法 |
+|---|---|---|
+| 問 NPC 名「我是 a guard」 | `discourse_tlk.cpp` `DS_NAME` 回傳原字串(它在「我是 %s」中是 %s 引數,不被 screenMessageN 查表) | `DS_NAME` 加 chtLookup |
+| NPC yes/no 提問顯示英文(如 EMPATH「Hast thou solved the altars?」、LCB「Art thou the most valiant warrior?」) | 同上,`DS_QUESTION` 是「\n%s\n\nYou say: 」的 %s 引數,未查表 | `DS_QUESTION` 加 chtLookup(譯文在 talk_bilingual 的 question 欄) |
+| 戰鬥中怪物名英文(Flees!/Divides!/Killed! 等) | `creature.cpp` 這幾處用 `CSTR(name)` 繞過已有 hook 的 `getName()` | 改用 `getName()` |
+| 進城地名英文且偏移(Empath Abbey…) | `portal.cpp` `screenMessageCenter(city->getName())`:地名非獨立 key + 置中先補前導空白破壞查表 + 以 byte 長置中(CJK 偏移) | `screenMessageCenter` 先 chtLookup、再依「顯示格數」(CJK 算 1 格)置中;地名建表(見下) |
+
+### (d) maps.b module 資料 ✅ 已補
+
+`vendors.b` 以外的 module 字串(`maps.b` 的樓層/地城 portal 訊息 + 城市/地城名)未處理。
+這些經 `screenMessage`→`screenMessageN`→`chtLookup`(或置中路徑)顯示,故**進表即可**,
+不必 patch maps.b。新增 `dumps/maps_bilingual.json`(11 訊息 + 24 地名),接進
+`build_lookup.py` 與 `build_cjk_font.py`。地名譯名依 `docs/glossary-u4.md`
+(Britain→不列顛城、Jhelom→哲倫、Yew→紫衫城、Empath Abbey→共感修道院、Lycaeum→學院…)。
+
+> 殘留小缺口:`portal.cpp` SHRINE 分支 `"Enter the %s!"` 以美德名當 %s 引數,未查表
+> (聖壇進入,玩家較少觸發;美德名已在 names 表,待補 hook)。
+
+### 字型 atlas
+
+各輪新譯文(castle 5 字 + maps 3 字…)會引入新 CJK 字,須重建 3 套 atlas
+(`tools/build_cjk_font.py`,字源 json 已含 castle/hardcoded/maps)。**新增字後須刪 `.bin` 重建**。
+
+**收字門檻 bug(已修)**:`build_cjk_font.py` 原本只收 `codepoint ≥ 0x3000` 的字,
+但引擎 `screenMessageCJK` 對**所有 ≥ 0x80** 的 codepoint 都走 `cjkBlit`(查 atlas)。
+於是 0x80–0x2FFF 範圍的標點只要被用到就顯示灰框 —— 主要是 `…`(U+2026,**用了 152 次**,
+如 Yew 德魯依對 `beh` 的回應「貝……貝……」)、`—`(U+2014)、`·`(U+00B7)、`‧`(U+2027)。
+已把門檻改為 `≥ 0x80`(對齊引擎 `chtHasCJK`)。目前 2023 glyph。
 
 ### 非玩家面(不需譯)
 
