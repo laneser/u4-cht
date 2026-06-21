@@ -3,52 +3,96 @@
 
   上游 faun(codeberg.org/wickedsmoke/faun v0.2.3)只內建 Android(AAudio)、
   Linux(PulseAudio)、Windows(WASAPI)三個音訊後端,沒有 macOS。本檔為 Ultima IV
-  繁中版補上 macOS 音訊輸出,沿用 faun 既有的 sysaudio_* 介面與 blocking-push 語意:
-  faun 的 mixer 執行緒反覆呼叫 sysaudio_write() 推送已混音 PCM,backend 負責節流
-  (裝置吃不下就阻塞)。對應 PulseAudio 版的 pa_stream_writable_size 等待,這裡用
-  AudioQueue 的 buffer pool + dispatch 號誌:空閒 buffer 用完即阻塞,callback 播完
-  一塊就歸還並喚醒寫入端。
+  繁中版補上 macOS 音訊輸出。
 
-  faun 系統 voice 固定 FAUN_F32 / 立體聲 / 44100(faun.c 的 faun_startup),格式映射
-  仍寫全(U8/S16/S24/F32)以防未來改動。此檔由 faun.c 在 defined(__APPLE__) 時 #include
-  進來,故 FaunVoice / FAUN_* / faun_channelCount 等型別在此可見。
+  設計(callback 拉取式,robust):
+    - AudioQueue 的 callback(ca_callback)是唯一的「消費者」:每次播完一塊,就從內部
+      PCM ring buffer 拉資料填滿、立即 re-enqueue。佇列因此「永不枯竭」→ 不會 underrun
+      停掉、不會卡死。ring 沒料時補靜音(短暫無聲)而非停止。
+    - faun 的 mixer 執行緒呼叫 sysaudio_write(),只把混音 PCM 推進 ring(非阻塞,滿了丟最舊)
+      → 永不阻塞 → 不會回堵 faun 指令佇列 → 遊戲端不卡死。
+    這取代了原本的「push + 空閒 buffer 號誌阻塞」模型:該模型在新版 macOS 會因 3 塊小 buffer
+    一旦被生產端的瞬間延遲(場景切換等)掏空,硬體即停止回呼且不再恢復 → 表現為「開頭播一下
+    就全靜音」或(無逾時保護時)整機卡死。callback 自我延續的拉取式可徹底避免。
+
+  faun 系統 voice 固定 FAUN_F32 / 立體聲 / 44100;此檔由 faun.c 在 defined(__APPLE__) 時
+  #include 進來,FaunVoice / FAUN_* / faun_channelCount 等型別在此可見。
 */
 
 #include <AudioToolbox/AudioToolbox.h>
-#include <dispatch/dispatch.h>
 #include <pthread.h>
+#include <stdlib.h>
 #include <string.h>
 
-#define CA_NUM_BUFFERS  3
+#define CA_NUM_BUFFERS  4       // callback 自我延續,4 塊已足夠平順
 
 typedef struct {
     AudioQueueRef        queue;
-    AudioQueueBufferRef  bufPool[CA_NUM_BUFFERS];   // 全部 buffer(釋放用)
-    AudioQueueBufferRef  freeRing[CA_NUM_BUFFERS];  // 空閒 buffer 環
-    int                  ringHead;                  // 寫入端取出位置
-    int                  ringTail;                  // callback 歸還位置
-    dispatch_semaphore_t freeSem;                   // 空閒 buffer 計數
-    pthread_mutex_t      ringLock;                  // 保護 ringTail
+    AudioQueueBufferRef  bufPool[CA_NUM_BUFFERS];
+    UInt32               bufBytes;       // 每塊大小
+    unsigned char*       ring;           // 內部 PCM ring(bytes)
+    size_t               ringCap;        // ring 容量(bytes)
+    size_t               rHead;          // 消費(callback)讀位置
+    size_t               rTail;          // 生產(write)寫位置
+    size_t               rUsed;          // 目前累積位元組
+    pthread_mutex_t      lock;
 }
 CoreAudioSession;
 
 static CoreAudioSession caSession;
 
-// AudioQueue 播完一塊 → 歸還空閒環、號誌 +1,喚醒可能在等的 sysaudio_write。
+// 從 ring 拉 n bytes 到 dst;不足部分補靜音(underrun → 無聲而非停機)。
+static void ring_pull(CoreAudioSession* s, unsigned char* dst, size_t n)
+{
+    size_t take, first;
+    pthread_mutex_lock(&s->lock);
+    take = (s->rUsed < n) ? s->rUsed : n;
+    first = s->ringCap - s->rHead;
+    if (first > take) first = take;
+    memcpy(dst, s->ring + s->rHead, first);
+    if (take > first)
+        memcpy(dst + first, s->ring, take - first);
+    s->rHead = (s->rHead + take) % s->ringCap;
+    s->rUsed -= take;
+    pthread_mutex_unlock(&s->lock);
+    if (take < n)
+        memset(dst + take, 0, n - take);    // 補靜音
+}
+
+// 把 n bytes 推進 ring;空間不足就丟最舊(advance head),確保 write 永不阻塞。
+static void ring_push(CoreAudioSession* s, const unsigned char* src, size_t n)
+{
+    size_t freeSpace, first;
+    pthread_mutex_lock(&s->lock);
+    if (n > s->ringCap) { src += n - s->ringCap; n = s->ringCap; }
+    freeSpace = s->ringCap - s->rUsed;
+    if (n > freeSpace) {                     // 丟最舊以騰出空間
+        size_t drop = n - freeSpace;
+        s->rHead = (s->rHead + drop) % s->ringCap;
+        s->rUsed -= drop;
+    }
+    first = s->ringCap - s->rTail;
+    if (first > n) first = n;
+    memcpy(s->ring + s->rTail, src, first);
+    if (n > first)
+        memcpy(s->ring, src + first, n - first);
+    s->rTail = (s->rTail + n) % s->ringCap;
+    s->rUsed += n;
+    pthread_mutex_unlock(&s->lock);
+}
+
+// AudioQueue 播完一塊 → 從 ring 拉資料填滿並「立即 re-enqueue」,佇列永不枯竭。
 static void ca_callback(void* userData, AudioQueueRef aq, AudioQueueBufferRef buf)
 {
     CoreAudioSession* s = (CoreAudioSession*) userData;
-    (void) aq;
-    pthread_mutex_lock(&s->ringLock);
-    s->freeRing[s->ringTail] = buf;
-    s->ringTail = (s->ringTail + 1) % CA_NUM_BUFFERS;
-    pthread_mutex_unlock(&s->ringLock);
-    dispatch_semaphore_signal(s->freeSem);
+    ring_pull(s, (unsigned char*) buf->mAudioData, s->bufBytes);
+    buf->mAudioDataByteSize = s->bufBytes;
+    AudioQueueEnqueueBuffer(aq, buf, 0, NULL);
 }
 
-static void sysaudio_close()
+static void sysaudio_close(void)
 {
-    // CoreAudio 無全域 context(狀態綁在 voice/queue),no-op。
+    // CoreAudio 無全域 context,no-op。
 }
 
 static const char* sysaudio_open(const char* appName)
@@ -63,7 +107,6 @@ static const char* sysaudio_allocVoice(FaunVoice* voice, int updateHz,
     CoreAudioSession* s = &caSession;
     OSStatus err;
     int chan, bytesPerSample, i;
-    UInt32 bufBytes;
     AudioStreamBasicDescription fmt;
 
     (void) updateHz;
@@ -103,23 +146,29 @@ static const char* sysaudio_allocVoice(FaunVoice* voice, int updateHz,
     if (err)
         return "AudioQueueNewOutput failed";
 
-    // 每塊容納一次完整 mix 寫入(mix.avail frames);下限保險。
-    bufBytes = voice->mix.avail * fmt.mBytesPerFrame;
-    if (bufBytes < 4096)
-        bufBytes = 4096;
+    s->bufBytes = voice->mix.avail * fmt.mBytesPerFrame;
+    if (s->bufBytes < 4096)
+        s->bufBytes = 4096;
 
-    pthread_mutex_init(&s->ringLock, NULL);
-    s->freeSem  = dispatch_semaphore_create(0);
-    s->ringHead = s->ringTail = 0;
+    // 內部 ring:給足緩衝吸收生產端抖動(約 16 塊 ≈ 0.3s)。
+    s->ringCap = (size_t) s->bufBytes * 16;
+    s->ring = (unsigned char*) malloc(s->ringCap);
+    if (! s->ring)
+        return "CoreAudio ring alloc failed";
+    s->rHead = s->rTail = s->rUsed = 0;
+    pthread_mutex_init(&s->lock, NULL);
 
+    // 預充靜音並 enqueue 全部 buffer,再啟動。之後由 ca_callback 自我延續。
     for (i = 0; i < CA_NUM_BUFFERS; ++i) {
-        err = AudioQueueAllocateBuffer(s->queue, bufBytes, &s->bufPool[i]);
+        err = AudioQueueAllocateBuffer(s->queue, s->bufBytes, &s->bufPool[i]);
         if (err)
             return "AudioQueueAllocateBuffer failed";
-        s->freeRing[s->ringTail] = s->bufPool[i];
-        s->ringTail = (s->ringTail + 1) % CA_NUM_BUFFERS;
-        dispatch_semaphore_signal(s->freeSem);
+        memset(s->bufPool[i]->mAudioData, 0, s->bufBytes);
+        s->bufPool[i]->mAudioDataByteSize = s->bufBytes;
+        AudioQueueEnqueueBuffer(s->queue, s->bufPool[i], 0, NULL);
     }
+    AudioQueueSetParameter(s->queue, kAudioQueueParam_Volume, 1.0f);
+    AudioQueueStart(s->queue, NULL);
 
     voice->backend = s;
     return NULL;
@@ -134,34 +183,18 @@ static void sysaudio_freeVoice(FaunVoice* voice)
         AudioQueueStop(s->queue, true);
         AudioQueueDispose(s->queue, true);
         s->queue = NULL;
-        if (s->freeSem)
-            dispatch_release(s->freeSem);
-        pthread_mutex_destroy(&s->ringLock);
+        if (s->ring) { free(s->ring); s->ring = NULL; }
+        pthread_mutex_destroy(&s->lock);
         voice->backend = NULL;
     }
 }
 
+// 非阻塞:把混音 PCM 推進 ring。faun mixer 執行緒永不在此卡住。
 static const char* sysaudio_write(FaunVoice* voice, const void* data,
                                   uint32_t len)
 {
     CoreAudioSession* s = CAS;
-    AudioQueueBufferRef buf;
-    OSStatus err;
-
-    // 等一塊空閒 buffer(對應 PulseAudio 的 writable_size 節流)。
-    dispatch_semaphore_wait(s->freeSem, DISPATCH_TIME_FOREVER);
-
-    buf = s->freeRing[s->ringHead];
-    s->ringHead = (s->ringHead + 1) % CA_NUM_BUFFERS;
-
-    if (len > buf->mAudioDataBytesCapacity)
-        len = buf->mAudioDataBytesCapacity;
-    memcpy(buf->mAudioData, data, len);
-    buf->mAudioDataByteSize = len;
-
-    err = AudioQueueEnqueueBuffer(s->queue, buf, 0, NULL);
-    if (err)
-        return "AudioQueueEnqueueBuffer failed";
+    ring_push(s, (const unsigned char*) data, len);
     return NULL;
 }
 
@@ -175,6 +208,6 @@ static int sysaudio_startVoice(FaunVoice* voice)
 static int sysaudio_stopVoice(FaunVoice* voice)
 {
     CoreAudioSession* s = CAS;
-    AudioQueuePause(s->queue);   // 對應 cork:暫停但保留已排入的資料
+    AudioQueuePause(s->queue);
     return 1;
 }
