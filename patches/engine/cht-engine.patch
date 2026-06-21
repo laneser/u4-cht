@@ -382,7 +382,7 @@ index 897ba2c..9b3e1bc 100644
                  }
              } else
 diff --git a/src/event.cpp b/src/event.cpp
-index 0bef0c9..f919e16 100644
+index 0bef0c9..eba5d66 100644
 --- a/src/event.cpp
 +++ b/src/event.cpp
 @@ -10,7 +10,9 @@
@@ -406,10 +406,17 @@ index 0bef0c9..f919e16 100644
          return EventHandler::defaultKeyHandler(key);
      }
      return true;
-@@ -822,6 +826,12 @@ bool EventHandler::globalKeyHandler(int key) {
+@@ -822,6 +826,19 @@ bool EventHandler::globalKeyHandler(int key) {
          xu4.eventHandler->quitGame();
          return true;
  
++    case U4_FKEY:       /* F1:按鍵說明 */
++        if (c && c->location) {     // 僅遊玩中(intro 無 context)
++            gameShowKeyHelp();
++            return true;
++        }
++        return false;
++
 +    case U4_FKEY + 1:   /* F2:遊玩中即時切換 EGA/VGA tileset */
 +        return gameToggleGraphics();
 +
@@ -445,7 +452,7 @@ index 8f3dce0..5b8bddc 100644
          case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
              expose();
 diff --git a/src/game.cpp b/src/game.cpp
-index 5c359b0..c1c6b48 100644
+index 5c359b0..2e7479e 100644
 --- a/src/game.cpp
 +++ b/src/game.cpp
 @@ -4,8 +4,10 @@
@@ -459,7 +466,7 @@ index 5c359b0..c1c6b48 100644
  #include "city.h"
  #include "config.h"
  #include "debug.h"
-@@ -418,6 +420,92 @@ void gameUpdateScreen() {
+@@ -418,6 +420,122 @@ void gameUpdateScreen() {
      }
  }
  
@@ -549,10 +556,40 @@ index 5c359b0..c1c6b48 100644
 +    return true;
 +}
 +
++/*
++ * U4 繁中化:F1 按鍵說明。分兩頁印到訊息區(screenMessage 全遊戲共用、CJK 穩定),
++ * 每頁按任意鍵續;結束後下一個動作會 gameUpdateScreen 還原。鍵位沿用 U4 單字母助記。
++ */
++void gameShowKeyHelp() {
++    screenMessage("\n操作說明 1/2\n");
++    screenMessage("方向鍵 移動\n");
++    screenMessage("A攻擊 B登乘\n");
++    screenMessage("C施法 E進入\n");
++    screenMessage("F開火 G取得\n");
++    screenMessage("H紮營 J撬鎖\n");
++    screenMessage("K攀爬 L定位\n");
++    screenMessage("空白鍵 通過\n");
++    screenMessage("\n按任意鍵續\n");
++    EventHandler::waitAnyKey();
++
++    screenMessage("\n操作說明 2/2\n");
++    screenMessage("M調藥 O開啟\n");
++    screenMessage("P凝視 Q存退\n");
++    screenMessage("R裝備 S搜尋\n");
++    screenMessage("T交談 U使用\n");
++    screenMessage("W穿戴 X離開\n");
++    screenMessage("Y呼喊 Z狀態\n");
++    screenMessage("F1說明 F2主題\n");
++    screenMessage("F3縮放\n");
++    screenMessage("\n按任意鍵\n");
++    EventHandler::waitAnyKey();
++    screenPrompt();
++}
++
  void GameController::setMap(Map *map, bool saveLocation, const Portal *portal, TurnController *turnCompleter) {
      int viewMode;
      LocationContext context;
-@@ -1183,8 +1271,10 @@ bool GameController::keyPressed(int key) {
+@@ -1183,8 +1301,10 @@ bool GameController::keyPressed(int key) {
                      if (*item->isItemInInventory != NULL && (*item->isItemInInventory)(item->data))
                          screenMessage("%cNothing Here!%c\n", FG_GREY, FG_WHITE);
                      else {
@@ -565,7 +602,7 @@ index 5c359b0..c1c6b48 100644
                          (*item->putItemInInventory)(item->data);
                      }
                  } else
-@@ -3452,7 +3542,7 @@ showMixturesSuper(int page = 0) {
+@@ -3452,7 +3572,7 @@ showMixturesSuper(int page = 0) {
  
      const Spell *s = getSpell(i + 13 * page);
      int line = i + 8;
@@ -575,14 +612,15 @@ index 5c359b0..c1c6b48 100644
      screenTextAt(6, line, "%3u", c->saveGame->mixtures[i + 13 * page]);
  
 diff --git a/src/game.h b/src/game.h
-index 69ca236..9c1a8d2 100644
+index 69ca236..97657e2 100644
 --- a/src/game.h
 +++ b/src/game.h
-@@ -111,6 +111,7 @@ private:
+@@ -111,6 +111,8 @@ private:
  /* map and screen functions */
  void gameSetViewMode(ViewMode newMode);
  void gameUpdateScreen();
 +bool gameToggleGraphics();      /* U4 繁中化:F2 遊玩中即時切換 EGA/VGA tileset */
++void gameShowKeyHelp();         /* U4 繁中化:F1 顯示按鍵說明 */
  
  /* spell functions */
  void castSpell(int player = -1);
