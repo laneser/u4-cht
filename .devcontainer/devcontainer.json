@@ -1,0 +1,33 @@
+{
+  // Ultima IV 繁中版 開發環境
+  // 一鍵進容器即可:Linux build / headless 截圖測試 / Windows 交叉編譯打包。
+  "name": "Ultima IV 繁中版 開發環境",
+
+  // 自建 image(對齊 docker/Dockerfile.zh 的原生建置相依 + python3 工具鏈)
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+
+  // 三條建置管線本身都是 docker build,容器內必須能跑 docker。
+  // docker-in-docker feature 在容器內提供獨立 docker daemon,
+  // 讓 docker build -f docker/Dockerfile.zh / .test / dist/win/Dockerfile 都能跑。
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-python.python",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+
+  // workspace 掛載點(對應 ${containerWorkspaceFolder})
+  "workspaceFolder": "/workspaces/u4-cht",
+
+  // 建立容器後:clone pinned xu4 + 套繁中化,並印出後續可用指令
+  "postCreateCommand": "bash .devcontainer/post-create.sh"
+}
