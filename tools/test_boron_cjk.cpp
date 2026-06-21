@@ -81,9 +81,12 @@ static void check(UThread* ut, const char* desc, const char* src,
     if (! ok)
         ++failures;
 
-    /* 含 CJK 的來源必為 UCS2 —— 證明舊的「直接讀 ptr.c」路徑會壞,本測試才有意義。 */
+    /* 含 CJK 的來源必為 UCS2 —— 證明舊的「直接讀 ptr.c」路徑會壞,本測試才有意義。
+     * 若 Boron 改變編碼策略使其非 UCS2,本測試雖可能仍 PASS 卻失去覆蓋舊 bug 觸發條件
+     * 的意義 → 視為失敗,逼 CI 正視。 */
     if (! ucs2) {
-        printf("WARN  %-22s 來源非 UCS2,無法驗證舊 bug 觸發條件\n", desc);
+        printf("FAIL  %-22s 來源非 UCS2 → 失去舊 bug 觸發條件覆蓋\n", desc);
+        ++failures;
     }
 }
 
