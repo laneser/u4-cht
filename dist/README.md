@@ -15,7 +15,8 @@ U4CHT_FONT=firefly ./run.sh -s 2 --filter xBRZ
 `libfaun.so.0` 已隨包(自建,非 apt);`liballegro5.2` 等由系統提供。
 
 ## Windows
-xu4 內建 `dist/Dockerfile.mingw` + `tools/cbuild` 可跨編(需下載 mingw SDK);本專案尚未產出 Windows 包。
+本專案以 **mingw64 交叉編譯**在 Linux / WSL 上直接產出 Windows 包,**免原生 Windows**(GLFW 後端)。
+流程見下方「## Windows zip」段:`docker build -f dist/win/Dockerfile` + `bash dist/win/make-zip.sh`。
 
 ## AppImage(Linux,全自包含含遊戲資料)
 於 **Ubuntu 22.04** 建置(老 glibc 提升相容性),bundle 所有 .so + modules + 3 字型 + 遊戲資料:
