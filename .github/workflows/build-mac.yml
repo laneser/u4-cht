@@ -21,9 +21,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: macos-14   # Apple Silicon
+          - os: macos-14         # Apple Silicon
             arch: arm64
-          - os: macos-13   # Intel
+          - os: macos-15-intel   # Intel(原 macos-13 已於 2025-12-04 退役 → 用新 Intel 標籤)
             arch: x86_64
     steps:
       - name: 取出 cht repo(patches / tools / dumps / assets / dist)
